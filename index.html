@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dungeon Crusher: Mini Soul Hunters</title>
+<style>
+  :root {
+    --bg: #12131a;
+    --panel: #1e202b;
+    --panel-alt: #272a38;
+    --accent: #f39c12;
+    --soul-blue: #3498db;
+    --soul-gray: #7f8c8d;
+    --emerald: #2ecc71;
+    --danger: #e74c3c;
+    --text: #ecf0f1;
+  }
+  * { box-sizing: border-box; user-select: none; font-family: 'Segoe UI', Tahoma, sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  
+  /* Верхняя панель валют */
+  header {
+    background: #0d0e14; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #2c3e50; flex-wrap: wrap; gap: 10px;
+  }
+  .currencies { display: flex; gap: 18px; flex-wrap: wrap; font-weight: bold; font-size: 14px; }
+  .curr { display: flex; align-items: center; gap: 6px; background: var(--panel); padding: 5px 12px; border-radius: 6px; }
+  .c-gold { color: #f1c40f; }
+  .c-blue { color: var(--soul-blue); }
+  .c-gray { color: #95a5a6; }
+  .c-bottle { color: #9b59b6; }
+
+  /* Основная сетка */
+  main { display: grid; grid-template-columns: 380px 1fr; flex: 1; overflow: hidden; }
+
+  /* Левая колонка: Сцена боя */
+  .battle-zone {
+    background: radial-gradient(circle at center, #252838 0%, #12131a 100%);
+    padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 2px solid #2c3e50; position: relative;
+  }
+  .stage-header { text-align: center; }
+  .stage-title { font-size: 20px; font-weight: bold; color: var(--accent); }
+  .stage-sub { font-size: 13px; color: #95a5a6; margin-top: 4px; }
+  
+  .monster-box {
+    text-align: center; margin: auto 0; cursor: pointer; position: relative;
+    transition: transform 0.06s; padding: 20px;
+  }
+  .monster-box:active { transform: scale(0.93); }
+  .monster-avatar {
+    font-size: 92px; line-height: 1; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));
+  }
+  .specter-badge {
+    display: inline-block; background: rgba(52, 152, 219, 0.2); border: 1px solid var(--soul-blue);
+    color: var(--soul-blue); padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-top: 6px;
+  }
+  .hp-bar-bg {
+    width: 100%; height: 22px; background: #0d0e14; border-radius: 11px; overflow: hidden;
+    margin-top: 12px; border: 1px solid #444; position: relative;
+  }
+  .hp-bar-fill { height: 100%; background: linear-gradient(90deg, #c0392b, #e74c3c); width: 100%; transition: width 0.1s; }
+  .hp-text { position: absolute; top: 0; left: 0; right: 0; bottom: 0; font-size: 12px; line-height: 20px; font-weight: bold; text-align: center; }
+  .boss-timer { color: var(--danger); font-weight: bold; font-size: 14px; margin-top: 6px; height: 20px; }
+
+  .skills-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .skill-btn {
+    background: var(--panel-alt); border: 1px solid #444; color: white; padding: 8px;
+    border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; text-align: center;
+  }
+  .skill-btn:hover:not(:disabled) { border-color: var(--accent); }
+  .skill-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .skill-active { border-color: var(--emerald) !important; box-shadow: 0 0 8px var(--emerald); }
+
+  /* Правая колонка: Вкладки и Контент */
+  .content-zone { display: flex; flex-direction: column; overflow: hidden; }
+  .tabs { display: flex; background: #161822; border-bottom: 2px solid #2c3e50; }
+  .tab-btn {
+    flex: 1; padding: 14px; background: none; border: none; color: #95a5a6;
+    font-weight: bold; cursor: pointer; font-size: 14px; border-bottom: 3px solid transparent;
+  }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); background: var(--panel); }
+
+  .tab-panel { display: none; flex: 1; overflow-y: auto; padding: 16px; }
+  .tab-panel.active { display: block; }
+
+  /* Панель множителя покупки */
+  .Controls-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--panel); padding: 10px 14px; border-radius: 8px; margin-bottom: 12px;
+  }
+  .mult-group button {
+    background: var(--panel-alt); border: 1px solid #444; color: var(--text);
+    padding: 6px 12px; cursor: pointer; font-weight: bold; border-radius: 4px; margin-left: 4px;
+  }
+  .mult-group button.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  /* Карточки героев */
+  .hero-list { display: flex; flex-direction: column; gap: 10px; }
+  .hero-card {
+    background: var(--panel); border: 1px solid #2c3e50; border-radius: 8px; padding: 12px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .hero-info { flex: 1; }
+  .hero-name-row { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 15px; }
+  .rarity-badge { font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+  .r-0 { background: #7f8c8d; color: #fff; } /* Common */
+  .r-1 { background: #27ae60; color: #fff; } /* Uncommon */
+  .r-2 { background: #2980b9; color: #fff; } /* Rare */
+  .r-3 { background: #8e44ad; color: #fff; } /* Epic */
+  .r-4 { background: #f39c12; color: #000; } /* Legendary */
+  .r-5 { background: #e74c3c; color: #fff; } /* Mythic */
+
+  .stars { font-size: 13px; letter-spacing: 1px; }
+  .star-yellow { color: #f1c40f; }
+  .star-blue { color: #00d2ff; }
+  .hero-sub { font-size: 12px; color: #95a5a6; margin-top: 4px; }
+  .hero-actions { display: flex; gap: 8px; align-items: center; }
+
+  .btn {
+    background: #27ae60; color: white; border: none; padding: 8px 14px;
+    border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px;
+  }
+  .btn:disabled { background: #3a3f50; color: #7f8c8d; cursor: not-allowed; }
+  .btn-blue { background: #2980b9; }
+  .btn-purple { background: #8e44ad; }
+  .btn-orange { background: #d35400; }
+
+  /* Карточки в других вкладках */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .info-card { background: var(--panel); border: 1px solid #2c3e50; border-radius: 8px; padding: 14px; }
+  .info-card h3 { margin: 0 0 8px 0; font-size: 16px; color: var(--accent); }
+  .info-card p { font-size: 13px; color: #bdc3c7; margin: 6px 0 12px 0; line-height: 1.4; }
+
+  /* Модальное окно выбора награды Босса */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none;
+    justify-content: center; align-items: center; z-index: 100;
+  }
+  .modal {
+    background: var(--panel); border: 2px solid var(--accent); border-radius: 10px;
+    padding: 20px; width: 480px; max-width: 92%; text-align: center;
+  }
+  .reward-choices { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div style="font-weight:900; font-size:18px; color:var(--accent);">⚔️ DUNGEON CRUSHER: JS</div>
+  <div class="currencies">
+    <div class="curr c-gold" title="Золото для найма героев">🪙 Золото: <span id="ui-gold">0</span></div>
+    <div class="curr c-gray" title="Станут синими после Тёмного Ритуала">👻 Серые души: <span id="ui-gray-souls">0</span></div>
+    <div class="curr c-blue" title="Каждая даёт +10% к DPS или тратится на Артефакты">💠 Синие души: <span id="ui-blue-souls">0</span></div>
+    <div class="curr c-bottle" title="Магические бутылки (выпадают в шахтах и с боссов)">🧪 Бутылки: <span id="ui-bottles">50</span></div>
+  </div>
+</header>
+
+<main>
+  <!-- ЛЕВАЯ ЗОНА: БОЙ -->
+  <section class="battle-zone">
+    <div class="stage-header">
+      <div class="stage-title" id="ui-stage">Этаж 1 (Волна 1/10)</div>
+      <div class="stage-sub">DPS отряда: <b id="ui-dps" style="color:#2ecc71">0</b> | Урон клика: <b id="ui-click" style="color:#f1c40f">1</b></div>
+    </div>
+
+    <div class="monster-box" id="monster-click-area">
+      <div class="monster-avatar" id="ui-monster-icon">👾</div>
+      <div id="ui-monster-name" style="font-weight:bold; margin-top:8px;">Гоблин-разведчик</div>
+      <div id="ui-specter-tag" class="specter-badge" style="display:none;">👻 Спектр (+Серые Души)</div>
+      <div class="hp-bar-bg">
+        <div class="hp-bar-fill" id="ui-hp-fill"></div>
+        <div class="hp-text" id="ui-hp-text">10 / 10 HP</div>
+      </div>
+      <div class="boss-timer" id="ui-boss-timer"></div>
+    </div>
+
+    <div>
+      <div style="font-size:12px; color:#95a5a6; margin-bottom:6px; text-align:center;">Активные боевые умения (баффают урон и Daily Boss):</div>
+      <div class="skills-bar">
+        <button class="skill-btn" id="skill-blood" onclick="activateSkill('blood')">🩸 Кровь Суккуба<br><small>x2 DPS (15с)</small></button>
+        <button class="skill-btn" id="skill-arrows" onclick="activateSkill('arrows')">🏹 Ливень Стрел<br><small>x3 Клик (15с)</small></button>
+        <button class="skill-btn" id="skill-ritual" onclick="openTab('ritual')" disabled>🔮 Тёмный Ритуал<br><small>Нужен Brath Ур.50</small></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРАВАЯ ЗОНА: МЕНЮ -->
+  <section class="content-zone">
+    <nav class="tabs">
+      <button class="tab-btn active" onclick="openTab('heroes')">🛡️ Герои</button>
+      <button class="tab-btn" onclick="openTab('artifacts')">🏺 Артефакты</button>
+      <button class="tab-btn" onclick="openTab('boss')">🐉 Ежедневный Босс</button>
+      <button class="tab-btn" onclick="openTab('mines')">⛏️ Шахты & Ритуал</button>
+    </nav>
+
+    <!-- ВКЛАДКА 1: ГЕРОИ -->
+    <div class="tab-panel active" id="tab-heroes">
+      <div class="Controls-bar">
+        <div style="font-size:13px;">💡 <b>Совет из гайдов:</b> Всегда ставьте <b>MAX</b> и качайте редкость одного керри (например, <i>Feralheart</i>).</div>
+        <div class="mult-group">
+          <button onclick="setBuyMult(1)" id="mult-1">1x</button>
+          <button onclick="setBuyMult(10)" id="mult-10">10x</button>
+          <button onclick="setBuyMult(25)" id="mult-25">25x</button>
+          <button onclick="setBuyMult('MAX')" id="mult-MAX" class="active">MAX</button>
+        </div>
+      </div>
+      <div class="hero-list" id="hero-list-container"></div>
+    </div>
+
+    <!-- ВКЛАДКА 2: АРТЕФАКТЫ -->
+    <div class="tab-panel" id="tab-artifacts">
+      <div class="Controls-bar">
+        <div>Синие души дают <b>+10% к базовому DPS</b> за каждую душу, либо могут быть вложены в вечные Артефакты:</div>
+      </div>
+      <div class="card-grid" id="artifact-list-container"></div>
+    </div>
+
+    <!-- ВКЛАДКА 3: ЕЖЕДНЕВНЫЙ БОСС -->
+    <div class="tab-panel" id="tab-boss">
+      <div class="info-card" style="max-width:650px; margin:0 auto;">
+        <h3>🐉 Логово Ежедневного Босса (Daily Boss)</h3>
+        <p>
+          Победа над Ежедневным Боссом даёт <b>бесплатное повышение Редкости (+1 Tier)</b> для одного из 3 ваших самых слабых <b>нанятых</b> героев.<br><br>
+          🎯 <b>Секретная механика («Трюк 3 героев»):</b> Если вы проведёте <i>Тёмный Ритуал</i> и наймёте за золото <b>только 1–3 нужных героев</b> перед боем с боссом, игра гарантированно предложит улучшить редкость именно им!
+        </p>
+        <div style="background:var(--panel-alt); padding:12px; border-radius:6px; margin-bottom:14px;">
+          <div>Текущее число нанятых героев (не в шахте): <b id="boss-hired-count">0</b></div>
+          <div style="margin-top:6px;">Шанс победы (зависит от DPS и активных скиллов): <b id="boss-win-chance" style="font-size:16px;">0%</b></div>
+          <div style="font-size:12px; color:#e74c3c; margin-top:4px;">⚠️ Если шанс ниже 99%, при поражении один случайный герой погибнет до следующего Тёмного Ритуала!</div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn" id="btn-fight-daily" onclick="fightDailyBoss()">⚔️ Атаковать Босса (Бесплатно)</button>
+          <button class="btn btn-purple" onclick="resetDailyBoss()">🧪 Сбросить таймер Босса (50 Бутылок)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА 4: ШАХТЫ И ТЁМНЫЙ РИТУАЛ -->
+    <div class="tab-panel" id="tab-mines">
+      <div class="card-grid">
+        <div class="info-card">
+          <h3>🔮 Тёмный Ритуал (Dark Ritual)</h3>
+          <p>
+            Требуется <b>Brath 50-го уровня</b> (и он не должен находиться в шахте).<br>
+            Сбрасывает текущий этаж, золото и уровни героев, но <b>сохраняет Редкость, Звёзды экипировки и Артефакты</b>. Все собранные Серые души превращаются в активные Синие души!
+          </p>
+          <div style="margin-bottom:12px; font-weight:bold; color:var(--soul-blue);">
+            Вы получите при сбросе: +<span id="ritual-gain-preview">0</span> 💠 Синих душ
+          </div>
+          <button class="btn btn-blue" id="btn-do-ritual" onclick="performDarkRitual()" disabled>Провести Тёмный Ритуал</button>
+        </div>
+
+        <div class="info-card">
+          <h3>⛏️ Изумрудные Шахты (Mines)</h3>
+          <p>
+            Нанятых героев можно отправить в шахту. Пока герой в шахте, он не наносит DPS и не может использовать умения (<b>не отправляйте туда Brath!</b>), но каждые 10 секунд приносит золото и с шансом — 🧪 Бутылки.
+          </p>
+          <div style="margin-bottom:10px;">Героев в шахте: <b id="mine-workers-count">0</b></div>
+          <button class="btn btn-orange" onclick="timeTravel()">⚡ Time Travel (+1 час ресурсов за 30 🧪)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- МОДАЛЬНОЕ ОКНО НАГРАДЫ БОССА -->
+<div class="modal-backdrop" id="boss-modal">
+  <div class="modal">
+    <h3 style="color:var(--accent); margin-top:0;">🏆 Ежедневный Босс повержен!</h3>
+    <p style="font-size:13px; color:#bdc3c7;">Выберите 1 из ваших самых слабых нанятых героев для повышения его <b>Редкости</b> (+100 к макс. уровню и x2.5 к урону):</p>
+    <div class="reward-choices" id="boss-reward-list"></div>
+  </div>
+</div>
+
+<script>
+// === ДАННЫЕ И СОСТОЯНИЕ ИГРЫ ===
+const RARITIES = [
+  { name: "Common", cap: 100, mult: 1 },
+  { name: "Uncommon", cap: 200, mult: 2.5 },
+  { name: "Rare", cap: 350, mult: 6 },
+  { name: "Epic", cap: 500, mult: 16 },
+  { name: "Legendary", cap: 750, mult: 45 },
+  { name: "Mythic", cap: 1200, mult: 130 }
+];
+
+const state = {
+  gold: 15,
+  graySouls: 0,
+  blueSouls: 0,
+  bottles: 50,
+  stage: 1,
+  wave: 1,
+  buyMult: 'MAX',
+  dailyBossFought: false,
+  skills: { blood: 0, arrows: 0 },
+  heroes: [
+    { id: 'ena', name: 'Ena (Кликер-Следопыт)', baseCost: 10, baseDps: 2, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, role: 'Усиливает урон клика и даёт ранний старт' },
+    { id: 'brath', name: 'Brath (Хранитель Ритуала)', baseCost: 60, baseDps: 9, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, role: 'На 50 ур. открывает Тёмный Ритуал (НЕ отправлять в шахту!)' },
+    { id: 'feral', name: 'Feralheart (Главный DPS-Керри)', baseCost: 320, baseDps: 45, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, role: 'Лучшая цель для прокачки Редкости через Daily Boss' },
+    { id: 'tikola', name: 'Tikola Nesla (Алхимик)', baseCost: 1800, baseDps: 210, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, role: 'Удваивает добычу в Изумрудных Шахтах' },
+    { id: 'sunzi', name: 'Sun Zi (Древний Дракон)', baseCost: 12000, baseDps: 1400, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, role: 'Колоссальный лейт-гейм урон по боссам' }
+  ],
+  artifacts: [
+    { id: 'reaper', name: 'Soul Reaper', level: 0, baseCost: 3, desc: '+25% к получаемым Серым Душам со Спектров за уровень' },
+    { id: 'axe', name: 'Runestone Axe', level: 0, baseCost: 2, desc: '+40% к общему DPS всех героев за уровень' },
+    { id: 'pot', name: 'Pot of Gold', level: 0, baseCost: 2, desc: '+35% к золоту с монстров за уровень' },
+    { id: 'portal', name: 'Spatial Portal', level: 0, baseCost: 5, desc: '+2 к стартовому этажу после Тёмного Ритуала' }
+  ]
+};
+
+let monster = { hp: 10, maxHp: 10, isBoss: false, isSpecter: false, timer: 0 };
+
+// === ФОРМУЛЫ И РАСЧЁТЫ ===
+function formatNum(n) {
+  if (n < 1000) return Math.floor(n).toString();
+  const suffixes = ["", "K", "M", "B", "T", "Qa", "Qi"];
+  const tier = Math.floor(Math.log10(Math.abs(n)) / 3);
+  if (tier >= suffixes.length) return n.toExponential(2);
+  return (n / Math.pow(10, tier * 3)).toFixed(2) + suffixes[tier];
+}
+
+function getHeroCost(h, count = 1) {
+  let total = 0;
+  for (let i = 0; i < count; i++) {
+    total += Math.floor(h.baseCost * Math.pow(1.09, h.level + i));
+  }
+  return total;
+}
+
+function getMaxAffordable(h) {
+  const cap = RARITIES[h.rarity].cap;
+  let count = 0;
+  let tempGold = state.gold;
+  while (h.level + count < cap) {
+    let nextCost = Math.floor(h.baseCost * Math.pow(1.09, h.level + count));
+    if (tempGold >= nextCost) {
+      tempGold -= nextCost;
+      count++;
+    } else break;
+  }
+  return Math.max(1, count);
+}
+
+function getHeroDps(h) {
+  if (h.level === 0 || h.inMine || h.dead) return 0;
+  const rarityMult = RARITIES[h.rarity].mult;
+  const starMult = Math.pow(1.6, h.stars);
+  const milestoneMult = Math.pow(2, Math.floor(h.level / 25));
+  return h.baseDps * h.level * rarityMult * starMult * milestoneMult;
+}
+
+function getTotalDps() {
+  let base = state.heroes.reduce((sum, h) => sum + getHeroDps(h), 0);
+  const soulBonus = 1 + (state.blueSouls * 0.10);
+  const axeLvl = state.artifacts.find(a => a.id === 'axe').level;
+  const artBonus = 1 + (axeLvl * 0.40);
+  const skillBonus = state.skills.blood > 0 ? 2 : 1;
+  return base * soulBonus * artBonus * skillBonus;
+}
+
+function getClickDamage() {
+  const ena = state.heroes[0];
+  const baseClick = 1 + (ena.level * 2 * RARITIES[ena.rarity].mult) + (getTotalDps() * 0.05);
+  return baseClick * (state.skills.arrows > 0 ? 3 : 1);
+}
+
+function canUseDarkRitual() {
+  const brath = state.heroes.find(h => h.id === 'brath');
+  return brath && brath.level >= 50 && !brath.inMine && !brath.dead;
+}
+
+// === ГЕНЕРАЦИЯ МОНСТРОВ И БОЙ ===
+function spawnMonster() {
+  const isBoss = state.wave === 10;
+  const isSpecter = !isBoss && state.stage >= 5 && Math.random() < 0.25;
+  const baseHp = Math.floor(10 * Math.pow(1.32, state.stage - 1) * (isBoss ? 6 : 1));
+
+  monster = {
+    hp: baseHp,
+    maxHp: baseHp,
+    isBoss,
+    isSpecter,
+    timer: isBoss ? 30 : 0
+  };
+
+  const icons = ["👾", "👹", "🕷️", "🦇", "💀", "🧟"];
+  document.getElementById('ui-monster-icon').textContent = isBoss ? "🐲" : (isSpecter ? "👻" : icons[state.stage % icons.length]);
+  document.getElementById('ui-monster-name').textContent = isBoss
+    ? `Босс Подземелья (Этаж ${state.stage})`
+    : (isSpecter ? `Спектр Душ` : `Страж подземелья`);
+  document.getElementById('ui-specter-tag').style.display = isSpecter ? 'inline-block' : 'none';
+  updateMonsterUI();
+}
+
+function damageMonster(dmg) {
+  monster.hp -= dmg;
+  if (monster.hp <= 0) {
+    killMonster();
+  } else {
+    updateMonsterUI();
+  }
+}
+
+function killMonster() {
+  const potLvl = state.artifacts.find(a => a.id === 'pot').level;
+  const goldDrop = Math.ceil(monster.maxHp * 0.25 * (1 + potLvl * 0.35));
+  state.gold += goldDrop;
+
+  if (monster.isSpecter || (monster.isBoss && state.stage >= 5)) {
+    const reaperLvl = state.artifacts.find(a => a.id === 'reaper').level;
+    const soulDrop = Math.max(1, Math.floor((state.stage / 3) * (1 + reaperLvl * 0.25)));
+    state.graySouls += soulDrop;
+  }
+
+  if (state.wave < 10) {
+    state.wave++;
+  } else {
+    state.wave = 1;
+    state.stage++;
+  }
+  spawnMonster();
+  updateHeaderUI();
+}
+
+document.getElementById('monster-click-area').addEventListener('click', () => {
+  damageMonster(getClickDamage());
+});
+
+// === УПРАВЛЕНИЕ ГЕРОЯМИ ===
+function setBuyMult(m) {
+  state.buyMult = m;
+  ['1', '10', '25', 'MAX'].forEach(k => {
+    document.getElementById('mult-' + k).classList.toggle('active', k === String(m));
+  });
+  renderHeroes();
+}
+
+function buyHero(idx) {
+  const h = state.heroes[idx];
+  const cap = RARITIES[h.rarity].cap;
+  if (h.level >= cap || h.dead) return;
+
+    let qty = state.buyMult === 'MAX' ? getMaxAffordable(h) : state.buyMult;
+  qty = Math.min(qty, cap - h.level);
+  const cost = getHeroCost(h, qty);
+
+  if (state.gold >= cost && qty > 0) {
+    state.gold -= cost;
+    h.level += qty;
+    renderHeroes();
+    updateHeaderUI();
+  }
+}
+
+function craftStar(idx) {
+  const h = state.heroes[idx];
+  if (h.stars >= 8) return;
+  const bottleCost = (h.stars + 1) * 15;
+  if (state.bottles >= bottleCost) {
+    state.bottles -= bottleCost;
+    h.stars++;
+    renderHeroes();
+    updateHeaderUI();
+  }
+}
+
+function toggleMine(idx) {
+  const h = state.heroes[idx];
+  if (h.level === 0 || h.dead) return;
+  h.inMine = !h.inMine;
+  renderHeroes();
+  updateHeaderUI();
+}
+
+function formatStars(count) {
+  if (count === 0) return '<span style="color:#555">☆☆☆☆</span>';
+  if (count <= 4) return `<span class="star-yellow">${'★'.repeat(count)}${'☆'.repeat(4 - count)}</span>`;
+  const blue = count - 4;
+  return `<span class="star-blue">${'★'.repeat(blue)}</span><span class="star-yellow">${'★'.repeat(4 - blue)}</span>`;
+}
+
+function renderHeroes() {
+  const container = document.getElementById('hero-list-container');
+  container.innerHTML = '';
+
+  state.heroes.forEach((h, idx) => {
+    const rInfo = RARITIES[h.rarity];
+    const qty = state.buyMult === 'MAX' ? getMaxAffordable(h) : Math.min(state.buyMult, Math.max(1, rInfo.cap - h.level));
+    const cost = getHeroCost(h, qty);
+    const canBuy = state.gold >= cost && h.level < rInfo.cap && !h.dead;
+    const starCost = (h.stars + 1) * 15;
+
+    const card = document.createElement('div');
+    card.className = 'hero-card';
+    card.innerHTML = `
+      <div class="hero-info">
+        <div class="hero-name-row">
+          <span>${h.name}</span>
+          <span class="rarity-badge r-${h.rarity}">${rInfo.name}</span>
+          <span class="stars" title="Жёлтые (1-4) и Синие (5-8) звёзды экипировки">${formatStars(h.stars)}</span>
+          ${h.inMine ? '<span class="rarity-badge" style="background:#d35400">⛏️ В шахте</span>' : ''}
+          ${h.dead ? '<span class="rarity-badge" style="background:#c0392b">💀 Погиб</span>' : ''}
+        </div>
+        <div class="hero-sub">
+          Уровень: <b>${h.level} / ${rInfo.cap}</b> | DPS: <b style="color:#2ecc71">${formatNum(getHeroDps(h))}</b><br>
+          <span>${h.role}</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn" onclick="buyHero(${idx})" ${!canBuy ? 'disabled' : ''}>
+          ${h.level >= rInfo.cap ? 'МАКС. УР' : `Улучшить +${qty}<br><small>🪙 ${formatNum(cost)}</small>`}
+        </button>
+        <button class="btn btn-purple" onclick="craftStar(${idx})" ${h.stars >= 8 || state.bottles < starCost ? 'disabled' : ''} title="Выковать экипировку (Повышает Звёзды)">
+          ⭐ Ковка<br><small>🧪 ${starCost}</small>
+        </button>
+        <button class="btn btn-orange" onclick="toggleMine(${idx})" ${h.level === 0 || h.dead ? 'disabled' : ''}>
+          ${h.inMine ? 'Вернуть' : 'В шахту'}
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// === АРТЕФАКТЫ ===
+function buyArtifact(idx) {
+  const a = state.artifacts[idx];
+  const cost = a.baseCost * (a.level + 1);
+  if (state.blueSouls >= cost) {
+    state.blueSouls -= cost;
+    a.level++;
+    renderArtifacts();
+    updateHeaderUI();
+  }
+}
+
+function renderArtifacts() {
+  const container = document.getElementById('artifact-list-container');
+  container.innerHTML = '';
+  state.artifacts.forEach((a, idx) => {
+    const cost = a.baseCost * (a.level + 1);
+    const div = document.createElement('div');
+    div.className = 'info-card';
+    div.innerHTML = `
+      <h3>${a.name} (Ур. ${a.level})</h3>
+      <p>${a.desc}</p>
+      <button class="btn btn-blue" onclick="buyArtifact(${idx})" ${state.blueSouls < cost ? 'disabled' : ''}>
+        Улучшить за ${cost} 💠 Синих душ
+      </button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// === ЕЖЕДНЕВНЫЙ БОСС (DAILY BOSS) И ТРЮК 3 ГЕРОЕВ ===
+function getBossWinChance() {
+  const activeHeroes = state.heroes.filter(h => h.level > 0 && !h.inMine && !h.dead);
+  if (activeHeroes.length === 0) return 0;
+  const skillBoost = (state.skills.blood > 0 ? 15 : 0) + (state.skills.arrows > 0 ? 15 : 0);
+  const powerRatio = (getTotalDps() / Math.max(10, monster.maxHp * 0.15)) * 50 + skillBoost;
+  return Math.min(99.9, Math.max(5, powerRatio));
+}
+
+function fightDailyBoss() {
+  const hired = state.heroes.filter(h => h.level > 0 && !h.inMine && !h.dead);
+  if (hired.length === 0) {
+    alert("Сначала наймите хотя бы одного героя за золото!");
+    return;
+  }
+  if (state.dailyBossFought) return;
+
+  const chance = getBossWinChance();
+  state.dailyBossFought = true;
+
+  if (Math.random() * 100 <= chance) {
+    const weakestThree = [...hired].sort((a, b) => getHeroDps(a) - getHeroDps(b)).slice(0, 3);
+    showBossRewardModal(weakestThree);
+  } else {
+    const victim = hired[Math.floor(Math.random() * hired.length)];
+    victim.dead = true;
+    alert(`Поражение! Босс оказался сильнее. Герой ${victim.name} погиб до следующего Тёмного Ритуала.`);
+  }
+  updateHeaderUI();
+  renderHeroes();
+}
+
+function showBossRewardModal(candidates) {
+  const list = document.getElementById('boss-reward-list');
+  list.innerHTML = '';
+  candidates.forEach(h => {
+    const nextRarity = Math.min(RARITIES.length - 1, h.rarity + 1);
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.style.padding = '12px';
+    btn.innerHTML = `${h.name}: <b>${RARITIES[h.rarity].name} ➔ ${RARITIES[nextRarity].name}</b> (Новый макс. ур: ${RARITIES[nextRarity].cap})`;
+    btn.onclick = () => {
+      if (h.rarity < RARITIES.length - 1) h.rarity++;
+      document.getElementById('boss-modal').style.display = 'none';
+      renderHeroes();
+      updateHeaderUI();
+    };
+    list.appendChild(btn);
+  });
+  document.getElementById('boss-modal').style.display = 'flex';
+}
+
+function resetDailyBoss() {
+  if (state.bottles >= 50 && state.dailyBossFought) {
+    state.bottles -= 50;
+    state.dailyBossFought = false;
+    updateHeaderUI();
+  }
+}
+
+// === ТЁМНЫЙ РИТУАЛ И ШАХТЫ ===
+function performDarkRitual() {
+  if (!canUseDarkRitual()) return;
+  const portalLvl = state.artifacts.find(a => a.id === 'portal').level;
+
+  state.blueSouls += state.graySouls;
+  state.graySouls = 0;
+  state.gold = 15;
+  state.stage = 1 + (portalLvl * 2);
+  state.wave = 1;
+
+  state.heroes.forEach(h => {
+    h.level = 0;
+    h.inMine = false;
+    h.dead = false;
+  });
+
+  spawnMonster();
+  renderHeroes();
+  renderArtifacts();
+  updateHeaderUI();
+  openTab('heroes');
+}
+
+function timeTravel() {
+  const miners = state.heroes.filter(h => h.inMine).length;
+  if (miners === 0) {
+    alert("Отправьте хотя бы одного героя в шахту перед использованием Time Travel!");
+    return;
+  }
+  if (state.bottles >= 30) {
+    state.bottles -= 30;
+    const tikola = state.heroes.find(h => h.id === 'tikola');
+    const mult = (tikola && tikola.level > 0) ? 2 : 1;
+    const goldGain = Math.floor(monster.maxHp * 12 * miners * mult);
+    const bottleGain = Math.floor(15 + miners * 8 * mult);
+    state.gold += goldGain;
+    state.bottles += bottleGain;
+    alert(`⚡ Time Travel завершён!\nДобыто в шахтах: +${formatNum(goldGain)} 🪙 Золота и +${bottleGain} 🧪 Бутылок!`);
+    updateHeaderUI();
+    renderHeroes();
+  }
+}
+
+// === АКТИВНЫЕ БОЕВЫЕ СКИЛЛЫ ===
+function activateSkill(type) {
+  if (state.skills[type] > 0) return;
+  state.skills[type] = 15;
+  updateHeaderUI();
+}
+
+// === UI И НАВИГАЦИЯ ===
+function openTab(tabName) {
+  if (tabName === 'ritual') tabName = 'mines';
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+  document.getElementById('tab-' + tabName).classList.add('active');
+  const mapIdx = { heroes: 0, artifacts: 1, boss: 2, mines: 3 }[tabName];
+  document.querySelectorAll('.tab-btn')[mapIdx].classList.add('active');
+  updateHeaderUI();
+}
+
+function updateMonsterUI() {
+  const pct = Math.max(0, (monster.hp / monster.maxHp) * 100);
+  document.getElementById('ui-hp-fill').style.width = pct + '%';
+  document.getElementById('ui-hp-text').textContent = `${formatNum(Math.ceil(monster.hp))} / ${formatNum(monster.maxHp)} HP`;
+  document.getElementById('ui-boss-timer').textContent = monster.isBoss ? `⏳ Время на убийство Босса: ${monster.timer.toFixed(1)} сек` : '';
+}
+
+function updateHeaderUI() {
+  document.getElementById('ui-gold').textContent = formatNum(state.gold);
+  document.getElementById('ui-gray-souls').textContent = formatNum(state.graySouls);
+  document.getElementById('ui-blue-souls').textContent = formatNum(state.blueSouls);
+  document.getElementById('ui-bottles').textContent = formatNum(state.bottles);
+
+  document.getElementById('ui-stage').textContent = `Этаж ${state.stage} (Волна ${state.wave}/10)`;
+  document.getElementById('ui-dps').textContent = formatNum(getTotalDps());
+  document.getElementById('ui-click').textContent = formatNum(getClickDamage());
+
+  const btnBlood = document.getElementById('skill-blood');
+  btnBlood.classList.toggle('skill-active', state.skills.blood > 0);
+  btnBlood.innerHTML = state.skills.blood > 0 ? `🩸 Активно (${state.skills.blood}с)` : `🩸 Кровь Суккуба<br><small>x2 DPS (15с)</small>`;
+
+  const btnArrows = document.getElementById('skill-arrows');
+  btnArrows.classList.toggle('skill-active', state.skills.arrows > 0);
+  btnArrows.innerHTML = state.skills.arrows > 0 ? `🏹 Активно (${state.skills.arrows}с)` : `🏹 Ливень Стрел<br><small>x3 Клик (15с)</small>`;
+
+  const ritualReady = canUseDarkRitual();
+  const btnRitual = document.getElementById('skill-ritual');
+  btnRitual.disabled = !ritualReady;
+  btnRitual.innerHTML = ritualReady
+    ? `🔮 Тёмный Ритуал<br><small style="color:#3498db">+${state.graySouls} Душ!</small>`
+    : `🔮 Тёмный Ритуал<br><small>Нужен Brath Ур.50</small>`;
+
+  document.getElementById('ritual-gain-preview').textContent = formatNum(state.graySouls);
+  document.getElementById('btn-do-ritual').disabled = !ritualReady;
+
+  const hiredCount = state.heroes.filter(h => h.level > 0 && !h.inMine && !h.dead).length;
+  document.getElementById('boss-hired-count').textContent = hiredCount;
+  const chance = getBossWinChance();
+  const chanceEl = document.getElementById('boss-win-chance');
+  chanceEl.textContent = chance.toFixed(1) + '%';
+  chanceEl.style.color = chance >= 99 ? '#2ecc71' : '#e74c3c';
+
+  const btnBoss = document.getElementById('btn-fight-daily');
+  btnBoss.disabled = state.dailyBossFought;
+  btnBoss.textContent = state.dailyBossFought ? 'Босс уже побеждён сегодня' : '⚔️ Атаковать Босса (Бесплатно)';
+
+  document.getElementById('mine-workers-count').textContent = state.heroes.filter(h => h.inMine).length;
+}
+
+// === ИГРОВОЙ ЦИКЛ ===
+setInterval(() => {
+  const dps = getTotalDps();
+  if (dps > 0) damageMonster(dps / 10);
+
+  if (monster.isBoss) {
+    monster.timer -= 0.1;
+    if (monster.timer <= 0) {
+      state.wave = 1;
+      spawnMonster();
+    }
+    updateMonsterUI();
+  }
+}, 100);
+
+let mineTick = 0;
+setInterval(() => {
+  if (state.skills.blood > 0) state.skills.blood--;
+  if (state.skills.arrows > 0) state.skills.arrows--;
+
+  mineTick++;
+  if (mineTick >= 10) {
+    mineTick = 0;
+    const miners = state.heroes.filter(h => h.inMine).length;
+    if (miners > 0) {
+      state.gold += Math.ceil(monster.maxHp * 0.4 * miners);
+      if (Math.random() < 0.35 * miners) state.bottles += 2;
+    }
+  }
+  updateHeaderUI();
+}, 1000);
+
+spawnMonster();
+renderHeroes();
+renderArtifacts();
+updateHeaderUI();
+</script>
+</body>
+</html>
