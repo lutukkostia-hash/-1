@@ -1,0 +1,18 @@
+# Каждое изменение в main копируется в ветку gh-pages,
+# а GitHub Pages публикует её по адресу https://lutukkostia-hash.github.io/-1/
+name: Обновить GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: main → gh-pages
+        run: git push --force origin HEAD:refs/heads/gh-pages
