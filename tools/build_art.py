@@ -8,8 +8,10 @@ root = pathlib.Path(__file__).resolve().parent.parent
 page = root / 'index.html'
 html = page.read_text(encoding='utf-8')
 parts = []
-for name in ['bg.js', 'enemies.js', 'heroes.js', 'icons.js']:
-    parts.append(f'/* ---- art/{name} ---- */\n' + (root / 'art' / name).read_text(encoding='utf-8').strip())
+for name in ['bg.js', 'enemies.js', 'heroes.js', 'icons.js', 'icons_extra.js']:
+    f = root / 'art' / name
+    if f.exists():
+        parts.append(f'/* ---- art/{name} ---- */\n' + f.read_text(encoding='utf-8').strip())
 block = '/*__ART_BEGIN__*/\n' + '\n'.join(parts) + '\n/*__ART_END__*/'
 assert '</script>' not in block, 'в арте не должно быть </script>'
 if '/*__ART__*/' in html:

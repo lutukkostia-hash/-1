@@ -290,6 +290,192 @@
   @keyframes toastIn { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: none; } }
   @keyframes toastOut { to { opacity: 0; transform: translateY(-12px); } }
 
+  /* ===== Навыки этажей в карточке героя ===== */
+  .tap { cursor: pointer; }
+  .portrait .pinfo { position: absolute; right: 2px; bottom: 2px; width: 16px; height: 16px; border-radius: 50%; background: #2a6fd6; color: #fff;
+    font: bold 11px/15px Georgia, serif; text-align: center; border: 1px solid #cfe3ff; box-shadow: 0 1px 2px #000; }
+  .portrait.locked .pinfo { display: none; }
+  .sk-row { display: flex; gap: 3px; margin-top: 4px; cursor: pointer; }
+  .sk-ic { width: 21px; height: 21px; font-size: 13px; border-radius: 5px; background-color: rgba(0,0,0,.5); background-size: 84%;
+    border: 1px solid rgba(255,255,255,.12); filter: grayscale(1) brightness(.5); opacity: .75; }
+  .sk-ic.on { filter: none; opacity: 1; border-color: rgba(255,210,122,.65); box-shadow: 0 0 5px rgba(255,190,80,.35); }
+  .side-btn .side-lock { position: absolute; top: 0; left: 50%; width: 22px; height: 22px; margin-left: -11px; display: none; }
+  .side-btn.locked .side-lock { display: block; }
+  .side-btn.locked > .ic:first-child { filter: grayscale(1) brightness(.55) drop-shadow(0 3px 3px rgba(0,0,0,.75)); }
+
+  /* ===== Карточка героя (две ветки) ===== */
+  .sheet.stack { z-index: 46; height: 88%; }
+  .portrait.big, .portrait.sm { grid-area: auto; flex-shrink: 0; }
+  .portrait.big { width: 92px; height: 92px; }
+  .portrait.big .pimg::before { font-size: 54px; }
+  .hd-top { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .hd-id { min-width: 0; }
+  .hd-chips { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .cls-chip { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px 2px 3px; border-radius: 11px; font-size: 12px; font-weight: bold;
+    color: #fff; background: rgba(0,0,0,.45); border: 1px solid var(--cc); text-shadow: 0 1px 1px #000; white-space: nowrap; }
+  .cls-chip .ic { width: 18px; height: 18px; font-size: 12px; }
+  .race-chip { padding: 2px 8px; border-radius: 11px; font-size: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); white-space: nowrap; }
+  .hd-lore { font-size: 12.5px; color: #d8c6a8; font-style: italic; margin-top: 6px; line-height: 1.4; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 4px 0 10px; }
+  .seg button { height: 42px; border-radius: 9px; border: 1px solid rgba(226,171,94,.45); background: rgba(0,0,0,.35); color: #e6d8c2; font-weight: bold; font-size: 13px; cursor: pointer; }
+  .seg button.on { background: linear-gradient(#ffd27a, #e09a1e); color: #2a1205; border-color: #ffe6a8; }
+  .seg .ic { width: 22px; height: 22px; }
+  .hd-pane { display: none; }
+  .hd-pane.on { display: block; }
+  .sec { margin: 12px 2px 6px; font-family: Georgia, 'Times New Roman', serif; font-size: 15px; color: #ffd27a; text-shadow: 0 1px 2px #000; }
+  .skl, .sskl { display: flex; align-items: center; gap: 10px; padding: 7px 10px 7px 7px; margin-bottom: 6px; border-radius: 10px; color: #3a2410;
+    background: linear-gradient(#ecd8ae, #d6b77e); border: 2px solid #8a5a2a; box-shadow: inset 0 1px 0 rgba(255,255,255,.5); opacity: .58; filter: grayscale(.7); }
+  .skl.on, .sskl.on { opacity: 1; filter: none; }
+  .skl > .ic, .sskl > .ic { width: 42px; height: 42px; flex-shrink: 0; font-size: 26px; border-radius: 8px; background-color: #2a1c14; background-size: 82%; border: 2px solid #5a3a1a; }
+  .skl-t { flex: 1; min-width: 0; line-height: 1.25; }
+  .skl-t b { font-family: Georgia, 'Times New Roman', serif; font-size: 14px; }
+  .skl-t small { display: block; font-size: 12px; color: #5a3a1a; margin-top: 2px; }
+  .skl-lv { font-size: 11px; font-weight: bold; white-space: nowrap; color: #6a3a10; }
+  .skl.on .skl-lv, .sskl.on .skl-lv { color: #1f7a37; font-size: 17px; }
+  .sig { font-size: 10px; font-weight: bold; color: #fff; background: #b5651d; padding: 1px 5px; border-radius: 4px; vertical-align: 2px; }
+  .trig { font-size: 11.5px; color: #6a3a10; margin-top: 2px; }
+  .trig span { font-weight: bold; color: #8a1a10; }
+  .team { padding: 8px 10px; margin-bottom: 6px; border-radius: 10px; background: rgba(0,0,0,.3); border: 1px solid rgba(226,171,94,.3); font-size: 13px; opacity: .8; }
+  .team.on { opacity: 1; border-color: #5dff8c; box-shadow: 0 0 8px rgba(93,255,140,.3); }
+  .team-m { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+  .team-m span { font-size: 11px; padding: 2px 7px; border-radius: 9px; background: rgba(255,255,255,.08); color: #b9a78c; }
+  .team-m span.on { background: rgba(93,255,140,.18); color: #b6ffd2; }
+  .hd-rank { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 14px; margin-bottom: 8px; }
+  .hd-rank .ic { width: 22px; height: 22px; }
+  .hd-rank .row { gap: 6px; }
+  .hd-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+  .hst { display: flex; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 9px; background: rgba(0,0,0,.35); border: 1px solid rgba(226,171,94,.25); }
+  .hst > .ic { width: 28px; height: 28px; flex-shrink: 0; }
+  .hst small { display: block; font-size: 10.5px; color: #b9a78c; }
+  .hst b { font-size: 16px; color: #ffe2a8; }
+  .hst em { font-style: normal; font-size: 11px; color: #5dff8c; margin-left: 5px; }
+  .ally-box { padding: 9px 10px; border-radius: 10px; background: rgba(0,0,0,.3); border: 1px solid rgba(226,171,94,.3); font-size: 13px; line-height: 1.5; }
+  .ally-box .ic { width: 22px; height: 22px; }
+  .muted { color: #b9a78c; }
+  .small { font-size: 11.5px; }
+
+  /* ===== Осады ===== */
+  .sg-res { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .sg-chip { display: flex; align-items: center; gap: 5px; height: 34px; padding: 0 10px 0 4px; border-radius: 17px; background: rgba(0,0,0,.45);
+    border: 1px solid rgba(226,171,94,.35); font-size: 15px; white-space: nowrap; }
+  .sg-chip .ic { width: 26px; height: 26px; }
+  .sg-chip b { color: var(--gold); }
+  .sg-chip small { font-size: 11px; color: #c9b89c; }
+  .sg-refill { margin-left: auto; min-height: 34px; }
+  .sg-stage { position: relative; overflow: hidden; background-size: cover; background-position: center 70%; }
+  .sg-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sg-nav h3 { margin: 0; text-shadow: var(--ol); }
+  .sg-nav h3 small { font-size: 12px; color: #e6d8c2; }
+  .sg-nav .round-mini:disabled { opacity: .35; }
+  .sg-foes { display: flex; justify-content: center; align-items: flex-end; gap: 4px; height: 128px; margin: 6px 0 2px; }
+  .sg-foe { display: flex; flex-direction: column; align-items: center; width: 86px; }
+  .sg-foe img, .sg-foe .emo { width: 76px; height: 76px; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.6)); }
+  .sg-foe.boss { width: 116px; }
+  .sg-foe.boss img, .sg-foe.boss .emo { width: 108px; height: 108px; }
+  .sg-foe .emo { font-size: 52px; display: flex; align-items: flex-end; justify-content: center; }
+  .sg-foe span { font-size: 11px; font-weight: bold; text-shadow: var(--ol); text-align: center; line-height: 1.1; }
+  .sg-bossinfo, .sg-reward, .sg-chance { font-size: 12.5px; line-height: 1.5; margin-top: 6px; text-shadow: 0 1px 2px #000; }
+  .sg-bossinfo .ic, .sg-reward .ic { width: 18px; height: 18px; }
+  .sg-go { width: 100%; margin-top: 10px; min-height: 48px; font-size: 17px; }
+  .sg-go small { font-size: 11px; }
+  .sg-squad { display: flex; gap: 6px; justify-content: center; margin: 4px 0 8px; }
+  .sg-slot { position: relative; width: 58px; height: 58px; flex-shrink: 0; border-radius: 11px; border: 3px solid var(--rc, rgba(226,171,94,.4)); background: rgba(0,0,0,.4); overflow: hidden; }
+  .sg-slot .pimg::before { font-size: 30px; }
+  .sg-slot.empty { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.3); font-size: 26px; border-style: dashed; }
+  .sg-slot .x { position: absolute; top: 1px; right: 3px; font-style: normal; font-size: 11px; color: #fff; text-shadow: var(--ol); }
+  .sg-alliances { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .ally { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; padding: 2px 8px 2px 3px; border-radius: 11px; border: 1px solid rgba(255,255,255,.18); color: #c9b89c; }
+  .ally.on { border-color: var(--cc); color: #fff; box-shadow: 0 0 6px var(--cc); }
+  .ally .ic { width: 18px; height: 18px; }
+  .sec-title { margin: 14px 2px 8px; font-family: Georgia, 'Times New Roman', serif; font-size: 17px; color: #ffd27a; text-shadow: 0 1px 2px #000; }
+  .sg-hero { display: grid; grid-template-columns: 56px 1fr auto; gap: 8px; align-items: center; padding: 8px; margin-bottom: 7px; border-radius: 12px;
+    background: linear-gradient(rgba(0,0,0,.26), rgba(0,0,0,.4)); border: 1px solid rgba(226,171,94,.32); }
+  .sg-hero.insquad { border-color: #5dff8c; box-shadow: 0 0 8px rgba(93,255,140,.25); }
+  .sg-hero.lockedcard .sg-act { display: none; }
+  .portrait.sm { width: 56px; height: 56px; }
+  .portrait.sm .pimg::before { font-size: 30px; }
+  .sg-hmain { min-width: 0; }
+  .sg-hname { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .sg-hname .hero-name { font-size: 14.5px; }
+  .sg-stats { display: flex; flex-wrap: wrap; gap: 2px 6px; margin-top: 3px; font-size: 12px; }
+  .sg-stats .st { display: inline-flex; align-items: center; gap: 2px; }
+  .sg-stats .ic { width: 15px; height: 15px; }
+  .sg-sub { font-size: 11.5px; color: #c9b89c; margin-top: 2px; }
+  .sg-act { display: flex; flex-direction: column; gap: 5px; }
+  .btn-sm { min-height: 32px; padding: 5px 8px; font-size: 11.5px; min-width: 78px; }
+
+  /* ===== Экран боя в осаде ===== */
+  .sb { position: absolute; inset: 0; z-index: 90; display: none; flex-direction: column; background: #0c0810; overflow: hidden; }
+  .sb.on { display: flex; }
+  .sb-bg { position: absolute; inset: 0; background-size: cover; background-position: center bottom; filter: brightness(.5) saturate(1.1); }
+  .sb-top, .sb-foes, .sb-mid, .sb-heroes, .sb-log { position: relative; z-index: 1; }
+  .sb-top { display: flex; align-items: center; gap: 6px; padding: calc(var(--safe-t) + 8px) 10px 8px; background: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,0)); }
+  .sb-title { flex: 1; min-width: 0; font-family: Georgia, 'Times New Roman', serif; font-weight: bold; font-size: 17px; color: #ffd27a; text-shadow: var(--ol);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-round { font-size: 12px; font-weight: bold; padding: 3px 10px; border-radius: 10px; background: rgba(0,0,0,.6); border: 1px solid rgba(255,214,150,.3); white-space: nowrap; }
+  .sb-btn { width: 36px; height: 36px; font-size: 13px; font-weight: bold; }
+  .sb-foes { flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 2px; padding: 0 4px; min-height: 0; }
+  .sb-mid { height: 48px; display: flex; align-items: center; justify-content: center; padding: 0 10px; }
+  .sb-banner { max-width: 100%; display: flex; align-items: center; gap: 6px; padding: 5px 14px 5px 8px; border-radius: 20px; font-size: 14px; white-space: nowrap; overflow: hidden;
+    background: linear-gradient(rgba(60,30,14,.95), rgba(26,12,6,.95)); border: 2px solid var(--bronze); box-shadow: 0 4px 12px rgba(0,0,0,.6);
+    opacity: 0; transform: scale(.85); transition: opacity .15s, transform .15s; }
+  .sb-banner.show { opacity: 1; transform: none; }
+  .sb-banner.foe { border-color: #ff6b5a; }
+  .sb-banner .ic { width: 28px; height: 28px; flex-shrink: 0; }
+  .sb-banner span { overflow: hidden; text-overflow: ellipsis; }
+  .sb-banner b { color: #ffd27a; }
+  .sb-heroes { display: flex; justify-content: center; gap: 4px; padding: 0 4px 6px; }
+  .sb-log { height: 62px; margin: 4px 10px calc(var(--safe-b) + 10px); padding: 6px 10px; border-radius: 10px; background: rgba(8,5,10,.82);
+    border: 1px solid rgba(255,214,150,.2); font-size: 12px; line-height: 1.35; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+  .sb-log div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: slideIn .25s ease-out; }
+  .sb-log .hn { color: #6cc8ff; font-weight: bold; }
+  .sbu { position: relative; display: flex; flex-direction: column; align-items: center; transition: transform .14s ease-out, filter .3s, opacity .3s; }
+  .sbu.foe { width: min(110px, 25vw); }
+  .sbu.foe.boss { width: min(180px, 44vw); }
+  .sbu-fig { width: 100%; height: min(110px, 25vw); }
+  .sbu.boss .sbu-fig { height: min(180px, 44vw); }
+  .sbu-fig img, .sbu-fig .emo { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 6px 6px rgba(0,0,0,.6)); }
+  .sbu-fig .emo { display: flex; align-items: flex-end; justify-content: center; font-size: 60px; }
+  .sbu.boss .sbu-fig img { filter: drop-shadow(0 0 14px rgba(255,70,50,.6)); }
+  .sbu-name { font-size: 11px; font-weight: bold; text-shadow: var(--ol); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+  .sbu-hp { position: relative; width: 92%; height: 12px; margin-top: 3px; border-radius: 6px; background: rgba(0,0,0,.75); border: 1px solid #000; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.6); }
+  .sbu-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(#ff7262, #c41a22); transition: width .25s; }
+  .sbu.hero .sbu-fill { background: linear-gradient(#7dff8c, #1f9a3a); }
+  .sbu-sh { position: absolute; left: 0; top: 0; height: 4px; width: 0; background: #8fe3ff; box-shadow: 0 0 4px #8fe3ff; transition: width .25s; }
+  .sbu-hp span { position: absolute; inset: 0; font-size: 9.5px; line-height: 11px; font-weight: bold; text-align: center; text-shadow: var(--ol); }
+  .sbu-st { display: flex; gap: 1px; height: 18px; align-items: center; justify-content: center; }
+  .sbu-st .ic { width: 17px; height: 17px; font-size: 12px; filter: drop-shadow(0 1px 1px #000); }
+  .sbu.hero { width: min(68px, 18vw); }
+  .sbu-pt { width: 100%; height: min(68px, 18vw); position: relative; border-radius: 10px; overflow: hidden; border: 3px solid var(--cc);
+    box-shadow: 0 0 0 2px #1a0e08, 0 4px 8px rgba(0,0,0,.6); background: #24161c; }
+  .sbu-pt .pimg::before { font-size: 32px; }
+  .sbu.hero.acting { transform: translateY(-14px) scale(1.07); }
+  .sbu.foe.acting { transform: translateY(12px) scale(1.05); }
+  .sbu.hurt .sbu-fig, .sbu.hurt .sbu-pt { animation: sbHurt .3s; }
+  @keyframes sbHurt { 25% { transform: translateX(-5px); filter: brightness(2.2) saturate(.4); } 60% { transform: translateX(4px); } }
+  .sbu.dead { filter: grayscale(1) brightness(.45); opacity: .6; }
+  .sb-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+  .sb-num { position: absolute; transform: translate(-50%, 0); font-weight: 900; font-size: 18px; color: #fff; white-space: nowrap;
+    text-shadow: var(--ol), 0 2px 4px rgba(0,0,0,.7); animation: floatUp .9s ease-out forwards; }
+  .sb-num.crit { color: #ffb23a; font-size: 23px; }
+  .sb-num.heal { color: #7dff8c; }
+  .sb-num.shv { color: #8fe3ff; }
+  .sb-num.dot { color: #c6ff6a; font-size: 15px; }
+  .sb-num.miss { color: #e6e0ee; font-size: 13px; }
+  .dmg-table { margin: 10px 0 4px; text-align: left; }
+  .dmg-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .dmg-pt { position: relative; width: 34px; height: 34px; flex-shrink: 0; border-radius: 7px; overflow: hidden; border: 2px solid var(--bronze); }
+  .dmg-pt .pimg::before { font-size: 20px; }
+  .dmg-bars { flex: 1; min-width: 0; }
+  .dmg-name { font-size: 12px; font-weight: bold; }
+  .dmg-bar { height: 7px; border-radius: 4px; background: rgba(0,0,0,.45); overflow: hidden; margin-top: 2px; }
+  .dmg-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ffb23a, #e8401e); }
+  .dmg-bar.heal i { background: linear-gradient(90deg, #7dff8c, #1f9a3a); }
+  .dmg-v { font-size: 12px; font-weight: bold; text-align: right; min-width: 52px; }
+  .dmg-v .hv { color: #7dff8c; }
+  .rw { margin: 8px 0; font-weight: bold; color: #ffe2a8; }
+  .rw .ic { width: 20px; height: 20px; }
+
   /* ===== Небольшие экраны ===== */
   @media (max-height: 700px) {
     :root { --top: calc(var(--safe-t) + 70px); }
@@ -359,6 +545,7 @@
   <button class="big-btn br" data-sheet="map" title="Карта, статистика и настройки"><i class="ic ic-map"></i><span class="cap">Карта</span></button>
 
   <div class="side-col left">
+    <button class="side-btn" id="btn-siege" data-sheet="siege"><i class="ic ic-siege"></i><span class="lbl">Осады</span><span class="badge" id="badge-siege">!</span><i class="ic ic-lock side-lock"></i></button>
     <button class="side-btn" data-sheet="quests"><i class="ic ic-quests"></i><span class="lbl">Задания</span><span class="badge" id="badge-quests">!</span></button>
     <button class="side-btn" data-sheet="daily"><i class="ic ic-daily"></i><span class="lbl">Босс дня</span><span class="badge" id="badge-daily">!</span></button>
     <button class="side-btn" data-sheet="mines"><i class="ic ic-mines"></i><span class="lbl">Шахты</span></button>
@@ -394,7 +581,7 @@
           <button onclick="setBuyMult('MAX')" id="mult-MAX">MAX</button>
         </div>
       </div>
-      <div class="hint">Каждые 25 уровней урон героя ×2. Новые герои открываются на новых этажах. Ковка звёзд: ×1.6 урона за звезду.</div>
+      <div class="hint">Каждые 25 уровней урон героя ×2. Иконки под именем: <b>навыки этажей</b>, загораются на 1, 25, 75, 150, 300 и 600 уровне. Нажми на портрет: все навыки, союзы и боевые статы для осад.</div>
       <div id="hero-list"></div>
     </div>
   </div>
@@ -501,6 +688,55 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="sheet" id="sheet-siege">
+    <div class="sheet-head"><i class="ic ic-siege"></i><h2>Осады</h2><button class="close-btn" data-close>✕</button></div>
+    <div class="sheet-body">
+      <div class="sg-res">
+        <div class="sg-chip" title="Факелы: тратятся только при победе, восстанавливаются сами"><i class="ic ic-torch"></i><b id="sg-torches">5/5</b><small id="sg-torch-timer"></small></div>
+        <div class="sg-chip" title="Медали: повышают ранг героев"><i class="ic ic-medal"></i><b id="sg-medals">0</b></div>
+        <button class="btn btn-teal sg-refill" id="sg-refill" onclick="refillTorches()">Пополнить · 10 <i class="ic ic-gem"></i></button>
+      </div>
+      <div class="hint">Осады — отдельная боевая ветка. В бою работают <b>ранг</b>, <b>статы</b> (HP, ATK, DEF, WIS, AGI) и <b>навыки осады</b> героев. Уровни и ДПС с этажей здесь не участвуют, а Тёмный Ритуал не сбрасывает ранги.</div>
+      <div class="card sg-stage" id="sg-stagecard">
+        <div class="sg-nav"><button class="round-mini" id="sg-prev" onclick="siegeNav(-1)">‹</button><h3 id="sg-title">Осада 1</h3><button class="round-mini" id="sg-next" onclick="siegeNav(1)">›</button></div>
+        <div class="sg-foes" id="sg-foes"></div>
+        <div class="sg-bossinfo" id="sg-bossinfo"></div>
+        <div class="sg-reward" id="sg-reward"></div>
+        <div class="sg-chance" id="sg-chance"></div>
+        <button class="btn btn-red sg-go" id="sg-go" onclick="startSiege()">⚔️ В бой</button>
+      </div>
+      <div class="card">
+        <h3>Отряд</h3>
+        <div class="sg-squad" id="sg-squad"></div>
+        <div class="sg-alliances" id="sg-alliances"></div>
+        <div class="row"><button class="btn btn-blue" onclick="autoSquad()">Авто: сильнейшие</button><button class="btn btn-gray" onclick="clearSquad()">Очистить</button></div>
+      </div>
+      <h3 class="sec-title">Герои осады</h3>
+      <div id="sg-roster"></div>
+    </div>
+  </div>
+
+  <div class="sheet stack" id="sheet-hero">
+    <div class="sheet-head"><i class="ic ic-heroes"></i><h2 id="hd-title">Герой</h2><button class="close-btn" data-close-hero>✕</button></div>
+    <div class="sheet-body" id="hd-body"></div>
+  </div>
+
+  <!-- Экран боя в осаде -->
+  <div class="sb" id="sb">
+    <div class="sb-bg" id="sb-bg"></div>
+    <div class="sb-top">
+      <div class="sb-title" id="sb-title"></div>
+      <div class="sb-round" id="sb-round"></div>
+      <button class="round-mini sb-btn" id="sb-speed" onclick="cycleSpeed()" title="Скорость боя">x2</button>
+      <button class="round-mini sb-btn" onclick="skipBattle()" title="Пропустить анимацию">⏭</button>
+    </div>
+    <div class="sb-foes" id="sb-foes"></div>
+    <div class="sb-mid"><div class="sb-banner" id="sb-banner"></div></div>
+    <div class="sb-heroes" id="sb-heroes"></div>
+    <div class="sb-log" id="sb-log"></div>
+    <div class="sb-fx" id="sb-fx"></div>
   </div>
 
   <div class="modal-backdrop" id="modal">
@@ -3122,7 +3358,15 @@ const QUEST_DEFS = [
   { id: 'daily1', text: 'Победить Ежедневного Босса', goal: 1,    val: () => state.stats.dailyWins, reward: { gems: 5 } },
   { id: 'daily5', text: 'Победить Ежедневного Босса 5 раз', goal: 5, val: () => state.stats.dailyWins, reward: { gems: 20 } },
   { id: 'stars5', text: 'Выковать 5 звёзд',           goal: 5,    val: () => state.heroes.reduce((s, h) => s + h.stars, 0), reward: { bottles: 30 } },
-  { id: 'art10',  text: 'Улучшить артефакты 10 раз',  goal: 10,   val: () => Object.values(state.artifacts).reduce((s, v) => s + v, 0), reward: { gems: 10 } }
+  { id: 'art10',  text: 'Улучшить артефакты 10 раз',  goal: 10,   val: () => Object.values(state.artifacts).reduce((s, v) => s + v, 0), reward: { gems: 10 } },
+  { id: 'dsk20',  text: 'Открыть 20 навыков этажей',  goal: 20,   val: () => state.heroes.reduce((s, h) => s + DPS_SKILLS[h.id].filter(sk => h.level >= sk.lv).length, 0), reward: { gems: 10 } },
+  { id: 'team1',  text: 'Собрать союз из трёх героев', goal: 1,   val: () => TEAMUPS.filter(teamupActive).length, reward: { gems: 10 } },
+  { id: 'sg1',    text: 'Пройти первую осаду',         goal: 1,   val: () => state.siege.best, reward: { gems: 5, medals: 20 } },
+  { id: 'sg5',    text: 'Пройти 5 осад',               goal: 5,   val: () => state.siege.best, reward: { gems: 10, medals: 50 } },
+  { id: 'sg10',   text: 'Пройти 10 осад',              goal: 10,  val: () => state.siege.best, reward: { gems: 20, medals: 120 } },
+  { id: 'sg20',   text: 'Пройти 20 осад',              goal: 20,  val: () => state.siege.best, reward: { gems: 40, medals: 300 } },
+  { id: 'rk5',    text: 'Поднять ранг героя до 5',     goal: 5,   val: () => Math.max(...Object.values(state.siege.ranks)), reward: { bottles: 20, medals: 20 } },
+  { id: 'rk15',   text: 'Поднять ранг героя до 15',    goal: 15,  val: () => Math.max(...Object.values(state.siege.ranks)), reward: { gems: 15, medals: 80 } }
 ];
 
 const SKILL_DEFS = {
@@ -3163,7 +3407,13 @@ const ENEMY_EMOJI = {
 const ICON_EMOJI = {
   heroes: '⛑️', artifacts: '🎁', quests: '📜', daily: '🐉', mines: '⛏️', shop: '💰', ritual: '📖', map: '🧭',
   dps: '🗡️', click: '👊', gold: '🪙', soulGray: '👻', soulBlue: '💠', bottle: '🧪', gem: '💎',
-  skillBlood: '🩸', skillArrows: '🏹', settings: '⚙️', lock: '🔒', stage: '⚔️'
+  skillBlood: '🩸', skillArrows: '🏹', settings: '⚙️', lock: '🔒', stage: '⚔️',
+  siege: '🏰', medal: '🎖️', torch: '🔥', rank: '🎗️',
+  hp: '❤️', atk: '🪓', def: '🛡️', wis: '🔮', agi: '🪶',
+  clsWarrior: '⚔️', clsMage: '🧙', clsRanger: '🏹', clsGuardian: '🛡️',
+  skStrike: '💥', skAoe: '🌋', skHeal: '💚', skShield: '🫧', skBuff: '⏫', skDebuff: '⏬', skStun: '💫',
+  skPoison: '☠️', skBurn: '🔥', skFreeze: '❄️', skRevive: '🪶', skLifesteal: '🦷',
+  dpsTeam: '🚩', dpsTime: '⏳', dpsCrit: '🎯'
 };
 
 const BG_FALLBACK = {
@@ -3178,6 +3428,468 @@ const BG_FALLBACK = {
 };
 
 // ============================================================
+//  ДВЕ ВЕТКИ ГЕРОЯ
+//  1) Этажи (ДПС): уровень, редкость, звёзды, навыки этажей (DPS_SKILLS) и союзы (TEAMUPS).
+//  2) Осады (бой): класс, раса, статы HP/ATK/DEF/WIS/AGI, ранг и навыки осады (SIEGE_SKILLS).
+//  Ветки не влияют друг на друга. Тёмный Ритуал сбрасывает уровни, но не ранги.
+// ============================================================
+/*SIEGE_SIM_BEGIN*/
+const fmtPct = m => Math.round(m * 100) + '%';
+const fmtN = v => formatNum(Math.round(v));
+
+// ----- Ветка этажей: навыки ДПС (открываются по уровню героя) -----
+const DPS_KIND = {
+  self:     { icon: 'dps',      d: v => `Урон этого героя +${fmtPct(v)}` },
+  selfBoss: { icon: 'daily',    d: v => `Урон этого героя по боссам ×${1 + v}` },
+  team:     { icon: 'dpsTeam',  d: v => `Урон всех героев +${fmtPct(v)}` },
+  boss:     { icon: 'daily',    d: v => `Урон отряда по боссам +${fmtPct(v)}` },
+  click:    { icon: 'click',    d: v => `Урон по тапу +${fmtPct(v)}` },
+  gold:     { icon: 'gold',     d: v => `Золото с монстров +${fmtPct(v)}` },
+  souls:    { icon: 'soulGray', d: v => `Серые души +${fmtPct(v)}` },
+  time:     { icon: 'dpsTime',  d: v => `+${v} сек к таймеру босса` },
+  crit:     { icon: 'dpsCrit',  d: v => `Шанс крита по тапу +${fmtPct(v)}` },
+  specter:  { icon: 'soulBlue', d: v => `Шанс появления Спектра +${fmtPct(v)}` },
+  mine:     { icon: 'mines',    d: v => `Пока герой в шахте: добыча всех шахтёров +${fmtPct(v)}` }
+};
+const DPS_SKILLS = {
+  ena: [
+    { lv: 1,   n: 'Меткая рука', ic: 'click', sig: 1, d: 'Урон по тапу растёт вместе с уровнем Лиры' },
+    { lv: 25,  n: 'Охотничий азарт', k: 'click', v: 0.5 },
+    { lv: 75,  n: 'Тренировка лучницы', k: 'self', v: 1 },
+    { lv: 150, n: 'Глаз орла', k: 'crit', v: 0.05 },
+    { lv: 300, n: 'Стрела удачи', k: 'gold', v: 0.2 },
+    { lv: 600, n: 'Легенда леса', k: 'click', v: 1 }
+  ],
+  brath: [
+    { lv: 25,  n: 'Сборщик душ', k: 'souls', v: 0.1 },
+    { lv: 50,  n: 'Тёмный ритуал', ic: 'ritual', sig: 1, d: 'Открывает Тёмный Ритуал: перерождение за синие души' },
+    { lv: 75,  n: 'Тайное знание', k: 'self', v: 1 },
+    { lv: 150, n: 'Шёпот бездны', k: 'specter', v: 0.05 },
+    { lv: 300, n: 'Хранитель душ', k: 'souls', v: 0.2 },
+    { lv: 600, n: 'Архимаг', k: 'self', v: 2 }
+  ],
+  feral: [
+    { lv: 1,   n: 'Вожак стаи', k: 'self', v: 0.5, sig: 1 },
+    { lv: 25,  n: 'Острые клыки', k: 'self', v: 1 },
+    { lv: 75,  n: 'Зов стаи', k: 'team', v: 0.05 },
+    { lv: 150, n: 'Кровавый след', k: 'boss', v: 0.15 },
+    { lv: 300, n: 'Альфа', k: 'self', v: 2 },
+    { lv: 600, n: 'Полная луна', k: 'team', v: 0.15 }
+  ],
+  rage: [
+    { lv: 1,   n: 'Гнев берсерка', k: 'selfBoss', v: 2, sig: 1 },
+    { lv: 25,  n: 'Закалка', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Кузнец войны', k: 'self', v: 1 },
+    { lv: 150, n: 'Крушитель', k: 'boss', v: 0.15 },
+    { lv: 300, n: 'Боевой клич', k: 'team', v: 0.1 },
+    { lv: 600, n: 'Ярость предков', k: 'self', v: 2 }
+  ],
+  tikola: [
+    { lv: 1,   n: 'Алхимия шахт', ic: 'mines', sig: 1, d: 'Пока Феликс в шахте, добыча всех шахтёров ×2' },
+    { lv: 25,  n: 'Философский камень', k: 'gold', v: 0.1 },
+    { lv: 75,  n: 'Эликсир силы', k: 'self', v: 1 },
+    { lv: 150, n: 'Богатая жила', k: 'mine', v: 0.5 },
+    { lv: 300, n: 'Золотая реакция', k: 'gold', v: 0.2 },
+    { lv: 600, n: 'Великое делание', k: 'team', v: 0.1 }
+  ],
+  lilith: [
+    { lv: 1,   n: 'Кровь Суккуба', ic: 'skillBlood', sig: 1, d: 'Умение «Кровь» даёт ×3 урона вместо ×2' },
+    { lv: 25,  n: 'Тёмный шёпот', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Жатва', k: 'souls', v: 0.1 },
+    { lv: 150, n: 'Кровавая луна', k: 'self', v: 1 },
+    { lv: 300, n: 'Пакт крови', k: 'team', v: 0.1 },
+    { lv: 600, n: 'Королева ночи', k: 'souls', v: 0.25 }
+  ],
+  frost: [
+    { lv: 1,   n: 'Ледяное время', k: 'time', v: 5, sig: 1 },
+    { lv: 25,  n: 'Иней', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Замедление', k: 'time', v: 2 },
+    { lv: 150, n: 'Северное сияние', k: 'self', v: 1 },
+    { lv: 300, n: 'Вечная мерзлота', k: 'boss', v: 0.2 },
+    { lv: 600, n: 'Ледяная корона', k: 'self', v: 2 }
+  ],
+  sunzi: [
+    { lv: 1,   n: 'Древняя мощь', k: 'self', v: 0.5, sig: 1 },
+    { lv: 25,  n: 'Золотая чешуя', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Сокровищница', k: 'gold', v: 0.15 },
+    { lv: 150, n: 'Пламя предков', k: 'boss', v: 0.2 },
+    { lv: 300, n: 'Древний рёв', k: 'team', v: 0.15 },
+    { lv: 600, n: 'Повелитель неба', k: 'self', v: 2 }
+  ],
+  paladin: [
+    { lv: 1,   n: 'Аура света', ic: 'dpsTeam', sig: 1, d: 'Урон всех героев +10% за каждую ступень редкости Гаррета' },
+    { lv: 25,  n: 'Клятва', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Благословение', k: 'team', v: 0.05 },
+    { lv: 150, n: 'Терпение', k: 'time', v: 2 },
+    { lv: 300, n: 'Рыцарский долг', k: 'self', v: 1 },
+    { lv: 600, n: 'Сияние', k: 'team', v: 0.15 }
+  ],
+  dk: [
+    { lv: 1,   n: 'Жнец', k: 'souls', v: 0.5, sig: 1 },
+    { lv: 25,  n: 'Холод могилы', k: 'self', v: 0.5 },
+    { lv: 75,  n: 'Смертельный удар', k: 'boss', v: 0.1 },
+    { lv: 150, n: 'Армия тьмы', k: 'self', v: 1 },
+    { lv: 300, n: 'Ледяная душа', k: 'specter', v: 0.05 },
+    { lv: 600, n: 'Владыка смерти', k: 'souls', v: 0.3 }
+  ]
+};
+// Союзы (ветка этажей): бонус, если в текущем забеге наняты все трое
+const TEAMUPS = [
+  { n: 'Лесной дозор',   ids: ['ena', 'feral', 'frost'],   k: 'gold',  v: 0.15 },
+  { n: 'Тёмный круг',    ids: ['brath', 'lilith', 'dk'],   k: 'souls', v: 0.2 },
+  { n: 'Пламя и сталь',  ids: ['rage', 'tikola', 'sunzi'], k: 'team',  v: 0.25 },
+  { n: 'Орден рассвета', ids: ['paladin', 'ena', 'rage'],  k: 'boss',  v: 0.25 }
+];
+function dpsSkillIcon(sk) { return sk.ic || DPS_KIND[sk.k].icon; }
+function dpsSkillText(sk) { return sk.d || DPS_KIND[sk.k].d(sk.v); }
+
+// ----- Ветка осад: классы, статы, навыки -----
+const STAT_KEYS = ['hp', 'atk', 'def', 'wis', 'agi'];
+const STAT_INFO = {
+  hp:  { n: 'Здоровье', s: 'HP',  d: 'Сколько урона герой выдержит' },
+  atk: { n: 'Атака',    s: 'ATK', d: 'Физический урон' },
+  def: { n: 'Защита',   s: 'DEF', d: 'Снижает получаемый урон' },
+  wis: { n: 'Мудрость', s: 'WIS', d: 'Сила магии, лечения и щитов' },
+  agi: { n: 'Ловкость', s: 'AGI', d: 'Порядок хода, криты и уклонение' }
+};
+const CLASS_DEFS = {
+  warrior:  { name: 'Воины',     one: 'Воин',     icon: 'clsWarrior',  color: '#e0453f', st: ['atk'],        p: [0.15, 0.30], trait: 'Обычная атака: физический удар (ATK)' },
+  mage:     { name: 'Маги',      one: 'Маг',      icon: 'clsMage',     color: '#b45cff', st: ['wis'],        p: [0.15, 0.30], trait: 'Обычная атака магическая (WIS): половина DEF врага не защищает' },
+  ranger:   { name: 'Стрелки',   one: 'Стрелок',  icon: 'clsRanger',   color: '#43d17a', st: ['agi', 'atk'], p: [0.12, 0.25], trait: 'Обычная атака: выстрел (ATK)' },
+  guardian: { name: 'Защитники', one: 'Защитник', icon: 'clsGuardian', color: '#3d9dff', st: ['hp', 'def'],  p: [0.15, 0.30], trait: 'Провокация: враги атакуют защитников в 3 раза чаще' }
+};
+const HERO_INFO = {
+  ena:     { cls: 'ranger',   race: 'Эльф',      lore: 'Лучница лесного дозора. Не промахивается даже в темноте.',
+             st: { hp: 420, atk: 87, def: 27, wis: 33, agi: 62 } },
+  brath:   { cls: 'mage',     race: 'Человек',   lore: 'Старый ритуалист. Умеет говорить с душами павших.',
+             st: { hp: 380, atk: 30, def: 27, wis: 96, agi: 34 } },
+  feral:   { cls: 'warrior',  race: 'Оборотень', lore: 'Одинокий волк, который всё-таки нашёл свою стаю.',
+             st: { hp: 560, atk: 84, def: 42, wis: 21, agi: 46 } },
+  rage:    { cls: 'warrior',  race: 'Дварф',     lore: 'Берсерк из горных кланов. Чем сильнее враг, тем громче он смеётся.',
+             st: { hp: 640, atk: 93, def: 51, wis: 15, agi: 26 } },
+  tikola:  { cls: 'ranger',   race: 'Гном',      lore: 'Алхимик-изобретатель. Его колбы лечат… или взрываются.',
+             st: { hp: 440, atk: 63, def: 33, wis: 75, agi: 50 } },
+  lilith:  { cls: 'mage',     race: 'Демон',     lore: 'Колдунья крови из древнего рода. Платит за силу своей кровью.',
+             st: { hp: 420, atk: 39, def: 30, wis: 93, agi: 42 } },
+  frost:   { cls: 'mage',     race: 'Эльф',      lore: 'Ледяная ведьма с северных перевалов.',
+             st: { hp: 400, atk: 27, def: 36, wis: 90, agi: 48 } },
+  sunzi:   { cls: 'warrior',  race: 'Дракон',    lore: 'Древний золотой дракон, проснувшийся ради великой битвы.',
+             st: { hp: 760, atk: 102, def: 57, wis: 60, agi: 30 } },
+  paladin: { cls: 'guardian', race: 'Человек',   lore: 'Рыцарь, поклявшийся защищать слабых.',
+             st: { hp: 820, atk: 57, def: 81, wis: 63, agi: 22 } },
+  dk:      { cls: 'guardian', race: 'Нежить',    lore: 'Павший рыцарь, вернувшийся из-за грани смерти.',
+             st: { hp: 760, atk: 75, def: 72, wis: 45, agi: 24 } }
+};
+const TRIG_TEXT = { start: 'Начало боя', chance: 'Атака', death: 'После смерти', hit: 'При получении урона', low: 'Здоровье ниже 40%', passive: 'Пассивный' };
+function trigText(sk) { return sk.trig === 'every' ? `Каждый ${sk.ev}-й ход` : TRIG_TEXT[sk.trig]; }
+function trigChance(sk) { return (sk.trig === 'chance' || sk.trig === 'hit' || sk.trig === 'death' || sk.trig === 'start') ? (sk.p == null ? 1 : sk.p) : 1; }
+
+// Навык: trig — когда срабатывает, eff — что делает (см. siegeCast), d(stats) — описание
+const SIEGE_SKILLS = {
+  ena: [
+    { n: 'Двойной выстрел', icon: 'skStrike', trig: 'chance', p: 0.4, eff: [{ do: 'dmg', tgt: 'rand2', kind: 'phys', m: 1.3 }],
+      d: s => `Стреляет в двух случайных врагов: по ${fmtPct(1.3)} ATK (≈${fmtN(1.3 * s.atk)}) каждому` },
+    { n: 'Глаз орла', icon: 'dpsCrit', rank: 5, trig: 'passive', pas: { crit: 0.15 },
+      d: () => 'Шанс критического удара +15%' }
+  ],
+  brath: [
+    { n: 'Тёмная печать', icon: 'skDebuff', trig: 'every', ev: 3,
+      eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 0.9 }, { do: 'debuff', tgt: 'all', st: ['def'], p: 0.25, t: 2 }],
+      d: s => `Бьёт всех врагов тьмой: ${fmtPct(0.9)} WIS (≈${fmtN(0.9 * s.wis)}) и −25% DEF на 2 хода` },
+    { n: 'Проклятие слабости', icon: 'skDebuff', rank: 5, trig: 'start', p: 1,
+      eff: [{ do: 'debuff', tgt: 'all', st: ['atk', 'wis'], p: 0.15, t: 3 }],
+      d: () => 'Снижает ATK и WIS всех врагов на 15% на 3 хода' }
+  ],
+  feral: [
+    { n: 'Разрывающий укус', icon: 'skStrike', trig: 'chance', p: 0.35,
+      eff: [{ do: 'dmg', tgt: 'one', kind: 'phys', m: 1.8 }, { do: 'dot', tgt: 'last', kind: 'bleed', base: 'atk', m: 0.3, t: 3 }],
+      d: s => `Кусает врага на ${fmtPct(1.8)} ATK (≈${fmtN(1.8 * s.atk)}) и вызывает кровотечение: ${fmtPct(0.3)} ATK за ход, 3 хода` },
+    { n: 'Жажда крови', icon: 'skLifesteal', rank: 5, trig: 'passive', pas: { ls: 0.2 },
+      d: () => 'Вампиризм: лечится на 20% от нанесённого урона' }
+  ],
+  rage: [
+    { n: 'Вихрь топоров', icon: 'skAoe', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 1.1 }],
+      d: s => `Раскручивает топоры: ${fmtPct(1.1)} ATK (≈${fmtN(1.1 * s.atk)}) всем врагам` },
+    { n: 'Ярость берсерка', icon: 'skBuff', rank: 5, trig: 'low', eff: [{ do: 'buff', tgt: 'self', st: ['atk', 'agi'], p: 0.5, t: 99 }],
+      d: () => 'ATK и AGI +50% до конца боя' }
+  ],
+  tikola: [
+    { n: 'Целебная колба', icon: 'skHeal', trig: 'every', ev: 2, eff: [{ do: 'heal', tgt: 'allyLow', m: 1.6 }],
+      d: s => `Лечит самого раненого союзника на ${fmtPct(1.6)} WIS (≈${fmtN(1.6 * s.wis)})` },
+    { n: 'Последний эксперимент', icon: 'skAoe', rank: 5, trig: 'death', p: 1, eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 2.2 }],
+      d: s => `Взрывается: ${fmtPct(2.2)} WIS (≈${fmtN(2.2 * s.wis)}) магического урона всем врагам` }
+  ],
+  lilith: [
+    { n: 'Кровавая жатва', icon: 'skLifesteal', trig: 'chance', p: 0.35, eff: [{ do: 'dmg', tgt: 'rand2', kind: 'magic', m: 1.2, ls: 0.5 }],
+      d: s => `Бьёт двух врагов магией крови: по ${fmtPct(1.2)} WIS (≈${fmtN(1.2 * s.wis)}) и лечится на половину урона` },
+    { n: 'Кровавый пакт', icon: 'skBuff', rank: 5, trig: 'start', p: 1, eff: [{ do: 'buff', tgt: 'allies', st: ['atk', 'wis'], p: 0.2, t: 3 }],
+      d: () => 'Все союзники получают +20% ATK и WIS на 3 хода' }
+  ],
+  frost: [
+    { n: 'Ледяная буря', icon: 'skFreeze', trig: 'every', ev: 3,
+      eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 0.8 }, { do: 'stun', tgt: 'all', ch: 0.3, t: 1 }],
+      d: s => `${fmtPct(0.8)} WIS (≈${fmtN(0.8 * s.wis)}) всем врагам и шанс 30% заморозить каждого на 1 ход` },
+    { n: 'Ледяной доспех', icon: 'skShield', rank: 5, trig: 'start', p: 1, eff: [{ do: 'shield', tgt: 'allies', m: 1.2 }],
+      d: s => `Щит всем союзникам на ${fmtPct(1.2)} WIS (≈${fmtN(1.2 * s.wis)})` }
+  ],
+  sunzi: [
+    { n: 'Драконье пламя', icon: 'skBurn', trig: 'every', ev: 3,
+      eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 1.2 }, { do: 'dot', tgt: 'all', kind: 'burn', base: 'atk', m: 0.25, t: 2 }],
+      d: s => `Огонь по всем врагам: ${fmtPct(1.2)} ATK (≈${fmtN(1.2 * s.atk)}) и ожог ${fmtPct(0.25)} ATK за ход, 2 хода` },
+    { n: 'Чешуя древних', icon: 'def', rank: 5, trig: 'passive', pas: { dr: 0.2 },
+      d: () => 'Получаемый урон −20%' }
+  ],
+  paladin: [
+    { n: 'Свет исцеления', icon: 'skHeal', trig: 'every', ev: 3, eff: [{ do: 'heal', tgt: 'allies', m: 0.8 }],
+      d: s => `Лечит всех союзников на ${fmtPct(0.8)} WIS (≈${fmtN(0.8 * s.wis)})` },
+    { n: 'Стойкость', icon: 'skShield', rank: 5, trig: 'hit', p: 0.25, eff: [{ do: 'buff', tgt: 'allies', st: ['def'], p: 0.3, t: 2 }],
+      d: () => 'Все союзники получают +30% DEF на 2 хода (не чаще раза за ход)' }
+  ],
+  dk: [
+    { n: 'Хватка смерти', icon: 'skStun', trig: 'chance', p: 0.3,
+      eff: [{ do: 'dmg', tgt: 'one', kind: 'phys', m: 1.5 }, { do: 'stun', tgt: 'last', ch: 1, t: 1 }],
+      d: s => `Бьёт врага на ${fmtPct(1.5)} ATK (≈${fmtN(1.5 * s.atk)}) и оглушает его на 1 ход` },
+    { n: 'Восставший', icon: 'skRevive', rank: 5, trig: 'death', p: 1, eff: [{ do: 'revive', p: 0.4 }],
+      d: () => 'Один раз за бой воскресает с 40% здоровья' }
+  ]
+};
+
+// Боссы осад: по одному на локацию, статы растут с номером осады
+const SIEGE_BOSS = {
+  forest:  { mul: { hp: 1.15, def: 1.25, agi: 0.8 }, sk: [
+    { n: 'Землетрясение', icon: 'skAoe', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 0.7 }, { do: 'stun', tgt: 'all', ch: 0.15, t: 1 }], d: () => '70% ATK всем героям, шанс 15% оглушить' },
+    { n: 'Каменная кожа', icon: 'def', trig: 'low', eff: [{ do: 'buff', tgt: 'self', st: ['def'], p: 0.6, t: 3 }], d: () => 'Ниже 40% здоровья: +60% DEF на 3 хода' } ] },
+  desert:  { mul: { wis: 1.2 }, magic: true, sk: [
+    { n: 'Проклятие песков', icon: 'skDebuff', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 0.6 }, { do: 'debuff', tgt: 'all', st: ['atk'], p: 0.2, t: 2 }], d: () => '60% WIS всем героям и −20% ATK на 2 хода' },
+    { n: 'Золотой саркофаг', icon: 'skShield', trig: 'start', eff: [{ do: 'shield', tgt: 'self', m: 3 }], d: () => 'В начале боя: щит на 300% WIS' } ] },
+  crypt:   { mul: { hp: 0.85, wis: 1.35, def: 0.8 }, magic: true, sk: [
+    { n: 'Похищение жизни', icon: 'skLifesteal', trig: 'every', ev: 2, eff: [{ do: 'dmg', tgt: 'one', kind: 'magic', m: 1.5, ls: 0.5 }], d: () => '150% WIS одному герою, лечится на половину урона' },
+    { n: 'Костяной доспех', icon: 'skShield', trig: 'low', eff: [{ do: 'shield', tgt: 'self', m: 4 }], d: () => 'Ниже 40% здоровья: щит на 400% WIS' } ] },
+  swamp:   { mul: { agi: 1.15 }, sk: [
+    { n: 'Ядовитое дыхание', icon: 'skPoison', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 0.4 }, { do: 'dot', tgt: 'all', kind: 'poison', base: 'atk', m: 0.25, t: 3 }], d: () => '40% ATK всем героям и яд 25% ATK на 3 хода' },
+    { n: 'Регенерация', icon: 'skHeal', trig: 'low', eff: [{ do: 'heal', tgt: 'self', m: 4 }], d: () => 'Ниже 40% здоровья: лечится на 400% WIS' } ] },
+  ice:     { mul: { wis: 1.15, def: 1.1 }, magic: true, sk: [
+    { n: 'Ледяное дыхание', icon: 'skFreeze', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 0.7 }, { do: 'stun', tgt: 'all', ch: 0.25, t: 1 }], d: () => '70% WIS всем героям, шанс 25% заморозить' },
+    { n: 'Ледяной панцирь', icon: 'skShield', trig: 'start', eff: [{ do: 'shield', tgt: 'self', m: 2 }], d: () => 'В начале боя: щит на 200% WIS' } ] },
+  volcano: { mul: { atk: 1.15 }, sk: [
+    { n: 'Огненный шторм', icon: 'skBurn', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 0.8 }, { do: 'dot', tgt: 'all', kind: 'burn', base: 'atk', m: 0.2, t: 2 }], d: () => '80% ATK всем героям и ожог 20% ATK на 2 хода' },
+    { n: 'Раскалённая чешуя', icon: 'def', trig: 'passive', pas: { dr: 0.15 }, d: () => 'Получаемый урон −15%' } ] },
+  castle:  { mul: { atk: 1.2, hp: 1.05 }, sk: [
+    { n: 'Пылающий клинок', icon: 'skStrike', trig: 'every', ev: 2, eff: [{ do: 'dmg', tgt: 'weak', kind: 'phys', m: 2 }], d: () => '200% ATK по самому раненому герою' },
+    { n: 'Ярость демона', icon: 'skBuff', trig: 'low', eff: [{ do: 'buff', tgt: 'self', st: ['atk'], p: 0.5, t: 99 }], d: () => 'Ниже 40% здоровья: +50% ATK до конца боя' } ] },
+  abyss:   { mul: { wis: 1.25, hp: 1.1 }, magic: true, sk: [
+    { n: 'Разлом бездны', icon: 'skDebuff', trig: 'every', ev: 3, eff: [{ do: 'dmg', tgt: 'all', kind: 'magic', m: 0.9 }, { do: 'debuff', tgt: 'all', st: ['def'], p: 0.25, t: 2 }], d: () => '90% WIS всем героям и −25% DEF на 2 хода' },
+    { n: 'Покров тьмы', icon: 'skDebuff', trig: 'start', eff: [{ do: 'debuff', tgt: 'all', st: ['atk', 'wis'], p: 0.15, t: 3 }], d: () => 'В начале боя: −15% ATK и WIS всех героев на 3 хода' } ] }
+};
+
+const SIEGE_UNLOCK_FLOOR = 5;
+const SIEGE_MAX_ROUNDS = 20;
+const SIEGE_SQUAD_MAX = 5;
+const SIEGE_GROWTH = 1.15;   // враги сильнее на каждой следующей осаде
+const RANK_GROWTH = 1.07;    // статы героя за каждый ранг
+const TORCH_MAX = 5, TORCH_MS = 12 * 60 * 1000, TORCH_REFILL_GEMS = 10;
+const BOSS_BASE = { hp: 1300, atk: 78, def: 36, wis: 72, agi: 30 };
+const MINION_BASE = { hp: 280, atk: 54, def: 21, wis: 33, agi: 40 };
+
+function rankCost(r) { return Math.ceil(10 * Math.pow(1.1, r - 1)); }
+function heroSiegeStats(id, rank) {
+  const b = HERO_INFO[id].st, m = Math.pow(RANK_GROWTH, rank - 1), o = {};
+  for (const k of STAT_KEYS) o[k] = Math.round(b[k] * m);
+  return o;
+}
+function statPower(s) { return Math.round(s.hp / 8 + s.atk * 2.2 + s.def * 1.6 + s.wis * 2 + s.agi * 1.4); }
+function heroSiegeSkills(id, rank) { return SIEGE_SKILLS[id].filter(sk => !sk.rank || rank >= sk.rank); }
+function allianceBonus(cls, n) { const c = CLASS_DEFS[cls]; return n >= 3 ? c.p[1] : n >= 2 ? c.p[0] : 0; }
+
+// Участники боя для симуляции
+function squadUnits(ids, ranks) {
+  return ids.map(id => {
+    const info = HERO_INFO[id], c = CLASS_DEFS[info.cls], rank = ranks[id] || 1;
+    const st = heroSiegeStats(id, rank);
+    const b = allianceBonus(info.cls, ids.filter(x => HERO_INFO[x].cls === info.cls).length);
+    if (b) for (const k of c.st) st[k] = Math.round(st[k] * (1 + b));
+    return { name: DEF[id].name, key: id, cls: info.cls, st, skills: heroSiegeSkills(id, rank), magic: info.cls === 'mage', taunt: info.cls === 'guardian' ? 3 : 1 };
+  });
+}
+function siegeStageDef(s) {
+  const L = LOCATIONS[(s - 1) % LOCATIONS.length], B = SIEGE_BOSS[L.id], g = Math.pow(SIEGE_GROWTH, s - 1);
+  const sc = (base, mul) => { const o = {}; for (const k of STAT_KEYS) o[k] = Math.round(base[k] * g * ((mul && mul[k]) || 1)); return o; };
+  const boss = { name: ENEMY_NAMES[L.boss], key: L.boss, boss: true, st: sc(BOSS_BASE, B.mul), skills: B.sk, magic: !!B.magic };
+  const mins = [];
+  for (let k = 0; k < (s <= 2 ? 1 : 2); k++) { const key = L.enemies[(s + k) % 3]; mins.push({ name: ENEMY_NAMES[key], key, st: sc(MINION_BASE), skills: [] }); }
+  return { s, loc: L, loop: Math.floor((s - 1) / LOCATIONS.length) + 1, foes: mins.length === 2 ? [mins[0], boss, mins[1]] : [boss, mins[0]] };
+}
+function unitsPower(list) { return list.reduce((t, u) => t + statPower(u.st), 0); }
+
+function mulberry32(a) {
+  return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+
+// Пошаговый автобой. Возвращает результат и шаги для анимации (lite = без записи шагов)
+function simulateBattle(heroDefs, foeDefs, seed, lite) {
+  const rng = mulberry32(seed);
+  const units = [];
+  const mk = (side, o) => ({ side, i: units.length, name: o.name, key: o.key, cls: o.cls || '', boss: !!o.boss, base: o.st,
+    maxHp: o.st.hp, hp: o.st.hp, sh: 0, alive: true, magic: !!o.magic, taunt: o.taunt || 1, skills: o.skills || [],
+    pas: { crit: 0, ls: 0, dr: 0 }, mods: [], dots: [], stun: 0, turns: 0, lowUsed: false, revived: false, hitRound: -1,
+    dealt: 0, healed: 0, taken: 0 });
+  heroDefs.forEach(o => units.push(mk(0, o)));
+  foeDefs.forEach(o => units.push(mk(1, o)));
+  for (const u of units) for (const sk of u.skills) if (sk.trig === 'passive' && sk.pas) for (const k in sk.pas) u.pas[k] += sk.pas[k];
+
+  const steps = [];
+  let cur = null, round = 0;
+  const flags = units.map(() => '');
+  const step = actor => { cur = { a: actor ? actor.i : -1, ev: [] }; if (!lite) steps.push(cur); };
+  const ev = e => { if (!lite) cur.ev.push(e); };
+  const alive = side => units.filter(u => u.side === side && u.alive);
+  const stat = (u, k) => { let v = u.base[k]; for (const m of u.mods) if (m.st === k) v *= m.mult; return Math.max(v, u.base[k] * 0.1); };
+  const flagsOf = u => {
+    if (!u.alive) return '';
+    const f = [];
+    if (u.stun > 0) f.push('stun');
+    for (const k of ['poison', 'burn', 'bleed']) if (u.dots.some(d => d.kind === k)) f.push(k);
+    if (u.mods.some(m => m.mult > 1)) f.push('up');
+    if (u.mods.some(m => m.mult < 1)) f.push('down');
+    if (u.sh > 0) f.push('sh');
+    return f.join(' ');
+  };
+  const snap = () => { if (lite) return; for (const u of units) { const f = flagsOf(u); if (f !== flags[u.i]) { flags[u.i] = f; ev({ t: 'f', d: u.i, f }); } } };
+  const pickW = list => { let tot = 0; for (const u of list) tot += u.taunt; let r = rng() * tot; for (const u of list) { r -= u.taunt; if (r <= 0) return u; } return list[list.length - 1]; };
+  const pickN = (list, n) => { const pool = list.slice(), out = []; while (pool.length && out.length < n) out.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]); return out; };
+  const targets = (u, tgt, ctx) => {
+    const foes = alive(1 - u.side), allies = alive(u.side);
+    switch (tgt) {
+      case 'one': return foes.length ? [pickW(foes)] : [];
+      case 'rand2': return pickN(foes, 2);
+      case 'rand3': return pickN(foes, 3);
+      case 'all': return foes;
+      case 'weak': return foes.length ? [foes.reduce((a, b) => b.hp < a.hp ? b : a)] : [];
+      case 'self': return u.alive ? [u] : [];
+      case 'allyLow': return allies.length ? [allies.reduce((a, b) => b.hp / b.maxHp < a.hp / a.maxHp ? b : a)] : [];
+      case 'allies': return allies;
+      case 'last': return (ctx.last || []).filter(x => x.alive);
+    }
+    return [];
+  };
+  const addMod = (t, st, mult, turns, src) => {
+    const old = t.mods.find(m => m.st === st && m.src === src);
+    if (old) { old.mult = mult; old.t = Math.max(old.t, turns); } else t.mods.push({ st, mult, t: turns, src });
+  };
+  const heal = (src, t, amount) => {
+    if (!t.alive) return;
+    const v = Math.min(t.maxHp - t.hp, Math.round(amount));
+    if (v <= 0) return;
+    t.hp += v; src.healed += v;
+    ev({ t: 'heal', d: t.i, v, hp: Math.round(t.hp) });
+  };
+  let die, afterHit;
+  const applyDamage = (a, t, dmg, kind) => {
+    let left = dmg;
+    if (t.sh > 0) { const ab = Math.min(t.sh, left); t.sh -= ab; left -= ab; }
+    t.hp = Math.max(0, t.hp - left);
+    if (a) a.dealt += dmg;
+    t.taken += dmg;
+    ev({ t: 'dmg', d: t.i, v: dmg, k: kind, hp: Math.round(t.hp), sh: Math.round(t.sh) });
+    if (t.hp <= 0) die(t); else afterHit(t, a);
+  };
+  const hit = (a, t, kind, m, ls) => {
+    if (!t.alive) return;
+    const aa = stat(a, 'agi'), ta = stat(t, 'agi');
+    const dodge = Math.min(0.25, Math.max(0.02, 0.04 + 0.2 * (ta - aa) / (aa + ta)));
+    if (rng() < dodge) { ev({ t: 'miss', d: t.i }); return; }
+    const atk = kind === 'magic' ? stat(a, 'wis') : stat(a, 'atk');
+    const def = stat(t, 'def') * (kind === 'magic' ? 0.5 : 1);
+    let dmg = m * atk * atk / (atk + def) * (0.9 + rng() * 0.2);
+    const crit = rng() < Math.min(0.6, Math.max(0.03, 0.08 + 0.25 * (aa - ta) / (aa + ta)) + a.pas.crit);
+    if (crit) dmg *= 1.6;
+    dmg = Math.max(1, Math.round(dmg * (1 - t.pas.dr)));
+    applyDamage(a, t, dmg, crit ? 'crit' : kind);
+    const l = (ls || 0) + a.pas.ls;
+    if (l > 0 && a.alive) heal(a, a, dmg * l);
+  };
+  const cast = (u, sk, ctx) => {
+    ev({ t: 'cast', s: u.i, n: sk.n, ic: sk.icon });
+    let last = [];
+    for (const e of sk.eff) {
+      const tg = targets(u, e.tgt, { last, attacker: ctx.attacker });
+      if (e.do === 'dmg') { for (const t of tg) hit(u, t, e.kind, e.m, e.ls); last = tg; }
+      else if (e.do === 'heal') for (const t of tg) heal(u, t, e.m * stat(u, 'wis'));
+      else if (e.do === 'shield') for (const t of tg) { const v = Math.round(e.m * stat(u, 'wis')); t.sh = Math.min(t.maxHp, t.sh + v); ev({ t: 'sh', d: t.i, v, sh: Math.round(t.sh) }); }
+      else if (e.do === 'buff' || e.do === 'debuff') { for (const t of tg) for (const st of e.st) addMod(t, st, e.do === 'buff' ? 1 + e.p : 1 - e.p, e.t, sk.n); }
+      else if (e.do === 'stun') { for (const t of tg) if (t.alive && rng() < e.ch) { t.stun = Math.max(t.stun, e.t); ev({ t: 'stun', d: t.i }); } }
+      else if (e.do === 'dot') { for (const t of tg) if (t.alive) t.dots.push({ kind: e.kind, v: e.m * stat(u, e.base), t: e.t, src: u }); }
+      else if (e.do === 'revive') {
+        if (!u.alive && !u.revived) { u.revived = true; u.alive = true; u.hp = Math.round(u.maxHp * e.p); ev({ t: 'rev', d: u.i, hp: u.hp }); }
+      }
+    }
+    snap();
+  };
+  die = t => {
+    t.alive = false; t.hp = 0; t.sh = 0; t.mods = []; t.dots = []; t.stun = 0;
+    ev({ t: 'die', d: t.i });
+    for (const sk of t.skills) if (sk.trig === 'death' && rng() < trigChance(sk)) cast(t, sk, {});
+  };
+  afterHit = (t, a) => {
+    for (const sk of t.skills) {
+      if (!t.alive) break;
+      if (sk.trig === 'hit' && t.hitRound !== round && rng() < trigChance(sk)) { t.hitRound = round; cast(t, sk, { attacker: a }); }
+      else if (sk.trig === 'low' && !t.lowUsed && t.hp < t.maxHp * 0.4) { t.lowUsed = true; cast(t, sk, {}); }
+    }
+  };
+  const tickMods = u => { for (const m of u.mods) if (m.t < 99) m.t--; u.mods = u.mods.filter(m => m.t > 0); };
+  const takeTurn = u => {
+    step(u);
+    if (u.dots.length) {
+      for (const d of u.dots.slice()) { applyDamage(d.src, u, Math.max(1, Math.round(d.v)), d.kind); if (!u.alive) break; }
+      if (!u.alive) { snap(); return; }
+      u.dots = u.dots.filter(d => --d.t > 0);
+    }
+    if (u.stun > 0) { u.stun--; ev({ t: 'stunned', d: u.i }); tickMods(u); snap(); return; }
+    u.turns++;
+    let sk = u.skills.find(s => s.trig === 'every' && u.turns % s.ev === 0);
+    if (!sk) sk = u.skills.find(s => s.trig === 'chance' && rng() < s.p);
+    if (sk) cast(u, sk, {});
+    else {
+      const foes = alive(1 - u.side);
+      if (foes.length) { const t = pickW(foes); ev({ t: 'atk', s: u.i, d: t.i }); hit(u, t, u.magic ? 'magic' : 'phys', 1, 0); }
+    }
+    tickMods(u);
+    snap();
+  };
+  const byAgi = () => units.filter(u => u.alive).map(u => [u, stat(u, 'agi') * (0.95 + rng() * 0.1)]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+  const ended = () => !alive(1).length ? 'win' : !alive(0).length ? 'lose' : null;
+
+  step(null);
+  for (const u of byAgi()) for (const sk of u.skills) if (sk.trig === 'start' && rng() < trigChance(sk)) cast(u, sk, {});
+  snap();
+  if (!lite && !cur.ev.length) steps.pop();
+  let result = null;
+  for (round = 1; round <= SIEGE_MAX_ROUNDS && !result; round++) {
+    if (!lite) steps.push({ round });
+    for (const u of byAgi()) {
+      if (!u.alive) continue;
+      takeTurn(u);
+      result = ended();
+      if (result) break;
+    }
+  }
+  return {
+    win: result === 'win', reason: result || 'time', rounds: Math.min(round - 1, SIEGE_MAX_ROUNDS), steps,
+    units: units.map(u => ({ i: u.i, side: u.side, name: u.name, key: u.key, cls: u.cls, boss: u.boss, maxHp: u.maxHp,
+      hp: Math.round(u.hp), alive: u.alive, dealt: Math.round(u.dealt), healed: Math.round(u.healed), taken: Math.round(u.taken) }))
+  };
+}
+function siegeWinChance(ids, ranks, s, n) {
+  n = n || 40;
+  const heroes = squadUnits(ids, ranks), foes = siegeStageDef(s).foes;
+  let w = 0;
+  for (let k = 0; k < n; k++) if (simulateBattle(heroes, foes, 1009 + k * 7919, true).win) w++;
+  return w / n;
+}
+/*SIEGE_SIM_END*/
+
+// ============================================================
 //  АРТ (глобальные ART_* встраиваются в <script id="art">)
 // ============================================================
 const _uriCache = {};
@@ -3186,7 +3898,11 @@ function artGroup(group) {
     if (group === 'bg') return typeof ART_BG !== 'undefined' ? ART_BG : null;
     if (group === 'enemy') return typeof ART_ENEMY !== 'undefined' ? ART_ENEMY : null;
     if (group === 'hero') return typeof ART_HERO !== 'undefined' ? ART_HERO : null;
-    if (group === 'icon') return typeof ART_ICON !== 'undefined' ? ART_ICON : null;
+    if (group === 'icon') {
+      const a = typeof ART_ICON !== 'undefined' ? ART_ICON : null;
+      const b = typeof ART_ICON_EXTRA !== 'undefined' ? ART_ICON_EXTRA : null;
+      return a && b ? Object.assign({}, a, b) : (a || b);
+    }
   } catch (e) { /* нет арта */ }
   return null;
 }
@@ -3235,6 +3951,9 @@ function newState() {
     quests: {},
     seenLocs: [],
     stats: { clicks: 0, bosses: 0, rituals: 0, dailyWins: 0, maxStage: 1, playSec: 0 },
+    // Осады: отдельная ветка, ритуал её не трогает
+    siege: { ranks: Object.fromEntries(HERO_DEFS.map(d => [d.id, 1])), best: 0, sel: 1, squad: [],
+             torches: TORCH_MAX, torchTs: Date.now(), medals: 0, wins: 0, battles: 0, speed: 2 },
     lastSave: Date.now()
   };
 }
@@ -3254,6 +3973,14 @@ function applySave(d) {
   if (d.quests) s.quests = d.quests;
   if (Array.isArray(d.seenLocs)) s.seenLocs = d.seenLocs.filter(x => typeof x === 'string');
   if (d.stats) Object.assign(s.stats, d.stats);
+  if (d.siege && typeof d.siege === 'object') {
+    const S = s.siege, D = d.siege;
+    if (D.ranks) for (const id in S.ranks) if (Number.isFinite(D.ranks[id]) && D.ranks[id] >= 1) S.ranks[id] = Math.floor(D.ranks[id]);
+    ['best', 'sel', 'torches', 'torchTs', 'medals', 'wins', 'battles', 'speed'].forEach(k => { if (Number.isFinite(D[k])) S[k] = D[k]; });
+    if (Array.isArray(D.squad)) S.squad = D.squad.filter((id, i, a) => DEF[id] && a.indexOf(id) === i).slice(0, SIEGE_SQUAD_MAX);
+    S.sel = Math.max(1, Math.min(S.sel, S.best + 1));
+    if (![1, 2, 4].includes(S.speed)) S.speed = 2;
+  }
   if (s.wave > 10 || s.wave < 1) s.wave = 1;
   state = s;
 }
@@ -3312,28 +4039,62 @@ function isUnlocked(h) { return state.stats.maxStage >= DEF[h.id].unlock || h.le
 function isActive(h) { return h.level > 0 && !h.inMine && !h.dead && !h.onAltar; }
 function heroActive(id) { const h = H(id); return !!h && isActive(h); }
 
+// Навыки этажей и союзы: собираем все активные бонусы (кэш по уровням и состоянию героев)
+let _aggKey = '', _agg = null;
+function dpsAgg() {
+  let key = '';
+  for (const h of state.heroes) key += h.level + (isActive(h) ? 'a' : h.inMine ? 'm' : 'x') + ',';
+  if (key === _aggKey) return _agg;
+  const g = { team: 1, boss: 1, click: 1, gold: 1, souls: 1, mine: 1, time: 0, crit: 0, specter: 0, self: {}, selfBoss: {} };
+  const ADD = { time: 1, crit: 1, specter: 1 };
+  for (const h of state.heroes) {
+    const act = isActive(h);
+    let self = 1, selfBoss = 1;
+    for (const sk of DPS_SKILLS[h.id]) {
+      if (!sk.k || h.level < sk.lv) continue;
+      if (sk.k === 'mine') { if (h.inMine) g.mine *= 1 + sk.v; continue; }
+      if (!act) continue;
+      if (sk.k === 'self') self *= 1 + sk.v;
+      else if (sk.k === 'selfBoss') selfBoss *= 1 + sk.v;
+      else if (ADD[sk.k]) g[sk.k] += sk.v;
+      else g[sk.k] *= 1 + sk.v;
+    }
+    g.self[h.id] = self; g.selfBoss[h.id] = selfBoss;
+  }
+  for (const T of TEAMUPS) if (teamupActive(T)) { if (ADD[T.k]) g[T.k] += T.v; else g[T.k] *= 1 + T.v; }
+  _aggKey = key; _agg = g;
+  return g;
+}
+function teamupActive(T) { return T.ids.every(id => H(id).level > 0); }
+function dpsSkillOn(h, sk) { return h.level >= sk.lv; }
+
 function getHeroDps(h, vsBoss = false) {
   if (!isActive(h)) return 0;
+  const g = dpsAgg();
   let v = DEF[h.id].baseDps * h.level * RARITIES[h.rarity].mult * Math.pow(1.6, h.stars) * Math.pow(2, Math.floor(h.level / 25));
-  if (vsBoss && h.id === 'rage') v *= 3;
+  v *= g.self[h.id] || 1;
+  if (vsBoss) v *= g.selfBoss[h.id] || 1;
   return v;
 }
 function getTotalDps(vsBoss = false) {
+  const g = dpsAgg();
   const base = state.heroes.reduce((s, h) => s + getHeroDps(h, vsBoss), 0);
   const souls = 1 + state.blueSouls * 0.10;
   const axe = 1 + art('axe') * 0.50;
   const pal = heroActive('paladin') ? 1 + 0.10 * (H('paladin').rarity + 1) : 1;
   const blood = state.skills.blood.active > 0 ? (heroActive('lilith') ? 3 : 2) : 1;
-  return base * souls * axe * pal * blood;
+  return base * souls * axe * pal * blood * g.team * (vsBoss ? g.boss : 1);
 }
 function getClickDamage() {
   const ena = H('ena');
   const enaPart = isActive(ena) ? ena.level * 2 * RARITIES[ena.rarity].mult * Math.pow(2, Math.floor(ena.level / 25)) : 0;
-  return (1 + enaPart + getTotalDps() * 0.05) * (1 + art('gauntlet') * 0.5) * (state.skills.arrows.active > 0 ? 3 : 1);
+  return (1 + enaPart + getTotalDps() * 0.05) * (1 + art('gauntlet') * 0.5) * (state.skills.arrows.active > 0 ? 3 : 1) * dpsAgg().click;
 }
-function goldMult() { return 1 + art('pot') * 0.35; }
-function soulMult() { return (1 + art('reaper') * 0.25) * (heroActive('dk') ? 1.5 : 1); }
-function bossTime() { return 30 + art('hourglass') * 3 + (heroActive('frost') ? 5 : 0); }
+function goldMult() { return (1 + art('pot') * 0.35) * dpsAgg().gold; }
+function soulMult() { return (1 + art('reaper') * 0.25) * dpsAgg().souls; }
+function bossTime() { return 30 + art('hourglass') * 3 + dpsAgg().time; }
+function tapCritChance() { return 0.08 + dpsAgg().crit; }
+function specterChance() { return Math.min(0.6, specterChanceFor(art('mimic')) + dpsAgg().specter); }
 function specterChanceFor(lvl) { return Math.min(0.6, 0.25 + lvl * 0.03); }
 function ritualBonus() { return Math.floor(Math.pow(Math.max(0, state.maxStageRun - 10), 1.3) / 2); }
 function ritualGain() { return state.graySouls + ritualBonus(); }
@@ -3342,7 +4103,7 @@ function canUseDarkRitual() { return heroActive('brath') && H('brath').level >= 
 function minerYieldPer10s(h) {
   const tik = H('tikola');
   const tikMult = tik.inMine && tik.level > 0 ? 2 : 1;
-  return stageHp(state.stage) * 0.4 * (1 + h.level / 100) * tikMult;
+  return stageHp(state.stage) * 0.4 * (1 + h.level / 100) * tikMult * dpsAgg().mine;
 }
 function minesGoldPer10s() { return state.heroes.filter(h => h.inMine && h.level > 0).reduce((s, h) => s + minerYieldPer10s(h), 0); }
 
@@ -3409,7 +4170,7 @@ function showEnemy(key) {
 
 function spawnMonster() {
   const isBoss = state.wave === 10;
-  const isSpecter = !isBoss && state.stage >= 5 && Math.random() < specterChanceFor(art('mimic'));
+  const isSpecter = !isBoss && state.stage >= 5 && Math.random() < specterChance();
   const hp = stageHp(state.stage) * (isBoss ? 6 : 1);
   const loc = locationFor(state.stage);
   const key = isBoss ? loc.boss : isSpecter ? 'specter' : loc.enemies[(state.stage * 7 + state.wave) % 3];
@@ -3490,7 +4251,7 @@ function onMonsterTap(e) {
   e.preventDefault();
   state.stats.clicks++;
   let dmg = getClickDamage();
-  const crit = Math.random() < 0.08;
+  const crit = Math.random() < tapCritChance();
   if (crit) dmg *= 4;
   floatText(crit ? 'КРИТ! ' + formatNum(dmg) : formatNum(dmg), crit ? 'crit' : '');
   const now = performance.now();
@@ -3590,6 +4351,7 @@ function buyHero(id) {
     if (before === 0) toast(`${name} присоединяется к отряду!`);
     else if (Math.floor(h.level / 25) > Math.floor(before / 25)) toast(`${name} достигает ${Math.floor(h.level / 25) * 25} ур.: урон ×2!`);
     if (before < 50 && h.level >= 50 && id === 'brath') toast('🔮 Тёмный Ритуал доступен!', true);
+    for (const sk of DPS_SKILLS[id]) if (sk.lv > 1 && before < sk.lv && h.level >= sk.lv && sk.k) toast(`✨ ${name}: навык «${sk.n}» (${dpsSkillText(sk)})`);
     refreshAll();
   }
 }
@@ -3657,10 +4419,12 @@ function renderHeroes() {
     const card = document.createElement('div');
     card.className = 'hero-card';
     card.innerHTML = `
-      <div class="portrait" data-r="pt"><div class="pimg pt-${id}"></div><i class="ic ic-lock lockov"></i></div>
+      <div class="portrait tap" data-r="pt" onclick="openHero('${id}')"><div class="pimg pt-${id}"></div><i class="ic ic-lock lockov"></i><span class="pinfo">i</span></div>
       <div class="hero-main">
-        <div class="hero-top"><span class="hero-name">${d.name}</span><span data-r="badges"></span></div>
+        <div class="hero-top"><span class="hero-name tap" onclick="openHero('${id}')">${d.name}</span><span data-r="badges"></span></div>
         <div class="hero-sub" data-r="sub"></div>
+        <div class="sk-row" data-r="sk" onclick="openHero('${id}', 'dps')">${DPS_SKILLS[id].map(sk =>
+          `<i class="ic ic-${dpsSkillIcon(sk)} sk-ic" title="${sk.n} (с ${sk.lv} ур.): ${dpsSkillText(sk)}"></i>`).join('')}</div>
         <div class="hero-role">${d.role}</div>
       </div>
       <div class="hero-actions">
@@ -3671,7 +4435,8 @@ function renderHeroes() {
       </div>`;
     list.appendChild(card);
     const q = r => card.querySelector(`[data-r="${r}"]`);
-    heroEls[id] = { card, pt: q('pt'), badges: q('badges'), sub: q('sub'), buy: q('buy'), star: q('star'), mine: q('mine'), altar: q('altar') };
+    heroEls[id] = { card, pt: q('pt'), badges: q('badges'), sub: q('sub'), buy: q('buy'), star: q('star'), mine: q('mine'), altar: q('altar'),
+      sk: Array.from(q('sk').children) };
   }
 }
 
@@ -3687,6 +4452,7 @@ function refreshHeroes() {
     el.pt.classList.toggle('locked', !unlocked);
     const r = RARITIES[h.rarity];
     if (el.pt._rc !== r.color) { el.pt._rc = r.color; el.pt.style.setProperty('--rc', r.color); }
+    DPS_SKILLS[id].forEach((sk, j) => { const on = unlocked && dpsSkillOn(h, sk); if (el.sk[j]._on !== on) { el.sk[j]._on = on; el.sk[j].classList.toggle('on', on); } });
     if (!unlocked) {
       setHTML(el.badges, '');
       setHTML(el.sub, `🔒 Откроется на <b>${d.unlock}</b> этаже`);
@@ -3913,7 +4679,9 @@ function refreshSkills() {
 //  ЗАДАНИЯ
 // ============================================================
 const questEls = {};
-function rewardText(r) { return [r.bottles ? `${r.bottles} ${I('bottle')}` : '', r.gems ? `${r.gems} ${I('gem')}` : ''].filter(Boolean).join(' + '); }
+function rewardText(r) {
+  return [r.medals ? `${r.medals} ${I('medal')}` : '', r.bottles ? `${r.bottles} ${I('bottle')}` : '', r.gems ? `${r.gems} ${I('gem')}` : ''].filter(Boolean).join(' + ');
+}
 function renderQuests() {
   const list = $('quest-list');
   list.innerHTML = '';
@@ -3935,6 +4703,7 @@ function claimQuest(id) {
   state.quests[id] = true;
   state.bottles += q.reward.bottles || 0;
   state.gems += q.reward.gems || 0;
+  state.siege.medals += q.reward.medals || 0;
   toast(`📜 Задание выполнено: ${q.text}`);
   refreshAll();
 }
@@ -3973,6 +4742,430 @@ function refreshMap() {
     el.classList.toggle('cur', i === cur);
     el.classList.toggle('locked', state.stats.maxStage < i * 10 + 1);
   });
+}
+
+// ============================================================
+//  ОСАДЫ: факелы, ранги, отряд
+// ============================================================
+function heroRank(id) { return state.siege.ranks[id] || 1; }
+function siegeUnlocked() { return state.stats.maxStage >= SIEGE_UNLOCK_FLOOR; }
+function siegeHeroIds() { return HERO_DEFS.filter(d => isUnlocked(H(d.id))).map(d => d.id); }
+function siegeReward(s, first) { return first ? { medals: 30 + 15 * s, gems: s % 5 === 0 ? 10 : 2, bottles: 5 + 2 * s } : { medals: 10 + 5 * s }; }
+function plural(n, a, b, c) { n = Math.abs(n) % 100; const d = n % 10; if (n > 10 && n < 20) return c; if (d > 1 && d < 5) return b; if (d === 1) return a; return c; }
+function shortName(id) { return { feral: 'Клык', paladin: 'Гаррет' }[id] || DEF[id].name.split(' ')[0]; }
+
+function regenTorches() {
+  const S = state.siege, now = Date.now();
+  if (S.torches >= TORCH_MAX) { S.torchTs = now; return; }
+  if (S.torchTs > now) S.torchTs = now;
+  const n = Math.floor((now - S.torchTs) / TORCH_MS);
+  if (n > 0) {
+    S.torches = Math.min(TORCH_MAX, S.torches + n);
+    S.torchTs = S.torches >= TORCH_MAX ? now : S.torchTs + n * TORCH_MS;
+  }
+}
+function torchTimerText() {
+  const S = state.siege;
+  if (S.torches >= TORCH_MAX) return 'полный запас';
+  const sec = Math.max(0, Math.ceil((TORCH_MS - (Date.now() - S.torchTs)) / 1000));
+  return `+1 через ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+}
+function refillTorches() {
+  const S = state.siege;
+  if (S.torches >= TORCH_MAX) return toast('Факелов и так полный запас');
+  if (state.gems < TORCH_REFILL_GEMS) return toast(`Нужно ${TORCH_REFILL_GEMS} 💎`);
+  state.gems -= TORCH_REFILL_GEMS;
+  S.torches = TORCH_MAX; S.torchTs = Date.now();
+  toast(`🔥 Факелы пополнены: ${TORCH_MAX}/${TORCH_MAX}`);
+  refreshAll();
+}
+function rankUp(id) {
+  const S = state.siege, r = heroRank(id), cost = rankCost(r);
+  if (!isUnlocked(H(id))) return toast('Герой ещё не открыт');
+  if (S.medals < cost) return toast(`Нужно ${formatNum(cost)} 🎖️ медалей`);
+  S.medals -= cost;
+  S.ranks[id] = r + 1;
+  const sk2 = SIEGE_SKILLS[id].find(sk => sk.rank === r + 1);
+  if (sk2) toast(`🎗️ ${DEF[id].name}: ранг ${r + 1}, открыт навык осады «${sk2.n}»!`, true);
+  else toast(`🎗️ ${DEF[id].name}: ранг ${r + 1}`);
+  refreshAll();
+}
+function toggleSquad(id) {
+  const S = state.siege, i = S.squad.indexOf(id);
+  if (i >= 0) S.squad.splice(i, 1);
+  else {
+    if (!isUnlocked(H(id))) return;
+    if (S.squad.length >= SIEGE_SQUAD_MAX) return toast(`В отряде максимум ${SIEGE_SQUAD_MAX} героев`);
+    S.squad.push(id);
+  }
+  refreshAll();
+}
+function autoSquad() {
+  const pw = id => statPower(heroSiegeStats(id, heroRank(id)));
+  state.siege.squad = siegeHeroIds().sort((a, b) => pw(b) - pw(a)).slice(0, SIEGE_SQUAD_MAX);
+  refreshAll();
+}
+function clearSquad() { state.siege.squad = []; refreshAll(); }
+function siegeNav(d) { const S = state.siege; S.sel = Math.max(1, Math.min(S.best + 1, S.sel + d)); refreshAll(); }
+
+let sgChanceKey = '', sgChance = 0;
+function currentWinChance() {
+  const S = state.siege;
+  const key = S.sel + '|' + S.squad.map(id => id + ':' + heroRank(id)).join(',');
+  if (key !== sgChanceKey) { sgChanceKey = key; sgChance = S.squad.length ? siegeWinChance(S.squad, S.ranks, S.sel, 40) : 0; }
+  return sgChance;
+}
+
+// ----- Окно осад -----
+function clsChip(cls) { const c = CLASS_DEFS[cls]; return `<span class="cls-chip" style="--cc:${c.color}">${I(c.icon)}${c.one}</span>`; }
+function statLine(st) { return STAT_KEYS.map(k => `<span class="st" title="${STAT_INFO[k].n}">${I(k)}${fmtN(st[k])}</span>`).join(''); }
+function enemyImgHTML(key) { const u = artURI('enemy', key); return u ? `<img src="${u}" alt="" draggable="false">` : `<div class="emo">${enemyEmoji(key)}</div>`; }
+function allianceText(ids) {
+  if (!ids.length) return '<span class="muted small">Добавь до 5 героев кнопкой «В отряд». Тап по портрету в слоте убирает героя.</span>';
+  let html = '';
+  for (const cls in CLASS_DEFS) {
+    const n = ids.filter(id => HERO_INFO[id].cls === cls).length;
+    if (!n) continue;
+    const c = CLASS_DEFS[cls], b = allianceBonus(cls, n);
+    html += `<span class="ally${b ? ' on' : ''}" style="--cc:${c.color}">${I(c.icon)}${c.name}: ${n}${b ? ` · +${fmtPct(b)} ${c.st.map(k => STAT_INFO[k].s).join(' и ')}` : ''}</span>`;
+  }
+  return html + '<div class="muted small" style="width:100%">Альянс: 2 героя одного класса дают бонус к статам, 3 — двойной.</div>';
+}
+
+let sgRosterKey = '', sgFoesKey = '', sgSquadKey = '';
+const sgEls = {};
+function renderSiegeRoster() {
+  const box = $('sg-roster');
+  box.innerHTML = '';
+  for (const k in sgEls) delete sgEls[k];
+  for (const d of HERO_DEFS) {
+    const id = d.id, info = HERO_INFO[id], c = CLASS_DEFS[info.cls];
+    const card = document.createElement('div');
+    card.className = 'sg-hero';
+    card.innerHTML = `
+      <div class="portrait sm tap" style="--rc:${c.color}" onclick="openHero('${id}', 'siege')"><div class="pimg pt-${id}"></div><i class="ic ic-lock lockov"></i><span class="pinfo">i</span></div>
+      <div class="sg-hmain">
+        <div class="sg-hname"><span class="hero-name tap" onclick="openHero('${id}', 'siege')">${d.name}</span>${clsChip(info.cls)}</div>
+        <div class="sg-stats" data-r="st"></div>
+        <div class="sg-sub" data-r="sub"></div>
+      </div>
+      <div class="sg-act">
+        <button class="btn btn-sm" data-r="sq" onclick="toggleSquad('${id}')"></button>
+        <button class="btn btn-purple btn-sm" data-r="rk" onclick="rankUp('${id}')"></button>
+      </div>`;
+    box.appendChild(card);
+    const q = r => card.querySelector(`[data-r="${r}"]`);
+    sgEls[id] = { card, st: q('st'), sub: q('sub'), sq: q('sq'), rk: q('rk'), pt: card.querySelector('.portrait') };
+    if (!isUnlocked(H(id))) break;   // показываем одного следующего закрытого героя
+  }
+}
+
+function refreshSiege() {
+  if (openSheetId !== 'siege') return;
+  const S = state.siege;
+  setText($('sg-torches'), `${S.torches}/${TORCH_MAX}`);
+  setText($('sg-torch-timer'), torchTimerText());
+  setText($('sg-medals'), formatNum(S.medals));
+  $('sg-refill').disabled = S.torches >= TORCH_MAX || state.gems < TORCH_REFILL_GEMS;
+
+  const def = siegeStageDef(S.sel), first = S.sel > S.best;
+  setHTML($('sg-title'), `Осада ${S.sel}${def.loop > 1 ? ` <small>· круг ${def.loop}</small>` : ''}`);
+  if (sgFoesKey !== String(S.sel)) {
+    sgFoesKey = String(S.sel);
+    $('sg-stagecard').style.backgroundImage = 'linear-gradient(rgba(10,6,10,.3), rgba(10,6,10,.88) 62%), ' + bgValue(def.loc.id);
+    setHTML($('sg-foes'), def.foes.map(f => `<div class="sg-foe${f.boss ? ' boss' : ''}">${enemyImgHTML(f.key)}<span>${f.name}</span></div>`).join(''));
+    const boss = def.foes.find(f => f.boss);
+    setHTML($('sg-bossinfo'), `${def.loc.name} · босс <b>${boss.name}</b><br>` +
+      boss.skills.map(sk => `${I(sk.icon)} <b>${sk.n}</b> <span class="muted">(${trigText(sk).toLowerCase()})</span>: ${sk.d()}`).join('<br>'));
+  }
+  setHTML($('sg-reward'), `${first ? 'Награда за первую победу' : 'Повторная победа'}: ${rewardText(siegeReward(S.sel, first))}`);
+  const ch = currentWinChance(), cc = ch >= 0.8 ? '#5dff8c' : ch >= 0.45 ? '#ffd23a' : '#ff6b5a';
+  setHTML($('sg-chance'), `Сила отряда <b>${fmtN(unitsPower(squadUnits(S.squad, S.ranks)))}</b> · сила врагов <b>${fmtN(unitsPower(def.foes))}</b><br>` +
+    `Шанс победы: <b style="color:${cc}">${S.squad.length ? Math.round(ch * 100) + '%' : '—'}</b>`);
+  $('sg-go').disabled = !S.squad.length || S.torches <= 0 || !!SB;
+  setHTML($('sg-go'), S.torches > 0 ? `⚔️ В бой <small>(победа: −1 ${I('torch')})</small>` : `Нет факелов ${I('torch')}`);
+  $('sg-prev').disabled = S.sel <= 1;
+  $('sg-next').disabled = S.sel >= S.best + 1;
+
+  const sqKey = S.squad.join(',');
+  if (sqKey !== sgSquadKey) {
+    sgSquadKey = sqKey;
+    let html = '';
+    for (let k = 0; k < SIEGE_SQUAD_MAX; k++) {
+      const id = S.squad[k];
+      html += id ? `<div class="sg-slot tap" style="--rc:${CLASS_DEFS[HERO_INFO[id].cls].color}" onclick="toggleSquad('${id}')" title="Убрать из отряда"><div class="pimg pt-${id}"></div><i class="x">✕</i></div>`
+                 : '<div class="sg-slot empty">+</div>';
+    }
+    setHTML($('sg-squad'), html);
+  }
+  setHTML($('sg-alliances'), allianceText(S.squad));
+
+  const rkey = HERO_DEFS.map(d => isUnlocked(H(d.id)) ? 1 : 0).join('');
+  if (rkey !== sgRosterKey) { sgRosterKey = rkey; renderSiegeRoster(); }
+  for (const id in sgEls) {
+    const el = sgEls[id], unlocked = isUnlocked(H(id)), r = heroRank(id), st = heroSiegeStats(id, r);
+    el.pt.classList.toggle('locked', !unlocked);
+    el.card.classList.toggle('lockedcard', !unlocked);
+    if (!unlocked) { setHTML(el.sub, `🔒 Откроется на <b>${DEF[id].unlock}</b> этаже`); setHTML(el.st, ''); continue; }
+    setHTML(el.st, statLine(st));
+    const sk2 = SIEGE_SKILLS[id].find(sk => sk.rank);
+    setHTML(el.sub, `Ранг <b>${r}</b> · Сила <b>${fmtN(statPower(st))}</b>${sk2 && r < sk2.rank ? ` · 2-й навык с ${sk2.rank} ранга` : ''}`);
+    const inSq = S.squad.includes(id);
+    el.card.classList.toggle('insquad', inSq);
+    el.sq.classList.toggle('btn-gray', inSq);
+    setHTML(el.sq, inSq ? 'Убрать' : 'В отряд');
+    const cost = rankCost(r);
+    el.rk.disabled = S.medals < cost;
+    setHTML(el.rk, `Ранг +1<br><small>${I('medal')} ${fmtN(cost)}</small>`);
+  }
+}
+
+// ----- Бой в осаде: симуляция сразу, анимация — повтор шагов -----
+let SB = null;
+const FLAG_IC = { stun: 'skStun', poison: 'skPoison', burn: 'skBurn', bleed: 'skLifesteal', up: 'skBuff', down: 'skDebuff', sh: 'skShield' };
+function startSiege() {
+  const S = state.siege;
+  if (SB) return;
+  regenTorches();
+  if (!S.squad.length) return toast('Добавь героев в отряд');
+  if (S.torches <= 0) return toast('Нет факелов: подожди или пополни за изумруды');
+  const def = siegeStageDef(S.sel);
+  const seed = (Date.now() ^ Math.imul(S.battles + 1, 2654435761)) >>> 0;
+  const res = simulateBattle(squadUnits(S.squad, S.ranks), def.foes, seed);
+  S.battles++;
+  let reward = null, first = false;
+  if (res.win) {
+    first = S.sel > S.best;
+    reward = siegeReward(S.sel, first);
+    if (S.torches >= TORCH_MAX) S.torchTs = Date.now();
+    S.torches--;
+    S.medals += reward.medals || 0;
+    state.gems += reward.gems || 0;
+    state.bottles += reward.bottles || 0;
+    S.wins++;
+    if (first) S.best = S.sel;
+  }
+  save();   // награда выдана сразу: перезагрузка во время анимации ничего не теряет
+  playBattle(res, def, reward, first);
+}
+function playBattle(res, def, reward, first) {
+  SB = { res, def, reward, first, i: 0, timer: 0, bannerT: 0, done: false, units: [] };
+  $('sb-bg').style.backgroundImage = bgValue(def.loc.id);
+  setText($('sb-title'), `Осада ${def.s}: ${def.foes.find(f => f.boss).name}`);
+  setText($('sb-round'), 'Начало боя');
+  setText($('sb-speed'), 'x' + state.siege.speed);
+  const foes = res.units.filter(u => u.side === 1), heroes = res.units.filter(u => u.side === 0);
+  $('sb-foes').innerHTML = foes.map(u => `<div class="sbu foe${u.boss ? ' boss' : ''}" id="sbu-${u.i}"><div class="sbu-st"></div><div class="sbu-fig">${enemyImgHTML(u.key)}</div>` +
+    `<div class="sbu-name">${u.name}</div><div class="sbu-hp"><div class="sbu-fill"></div><div class="sbu-sh"></div><span></span></div></div>`).join('');
+  $('sb-heroes').innerHTML = heroes.map(u => `<div class="sbu hero" id="sbu-${u.i}" style="--cc:${CLASS_DEFS[u.cls].color}"><div class="sbu-st"></div>` +
+    `<div class="sbu-pt"><div class="pimg pt-${u.key}"></div></div><div class="sbu-hp"><div class="sbu-fill"></div><div class="sbu-sh"></div><span></span></div>` +
+    `<div class="sbu-name">${shortName(u.key)}</div></div>`).join('');
+  for (const u of res.units) {
+    const el = $('sbu-' + u.i);
+    SB.units[u.i] = { i: u.i, side: u.side, name: u.name, el, fill: el.querySelector('.sbu-fill'), sh: el.querySelector('.sbu-sh'),
+      txt: el.querySelector('.sbu-hp span'), st: el.querySelector('.sbu-st'), maxHp: u.maxHp, hp: u.maxHp, shv: 0 };
+    sbHp(SB.units[u.i]);
+  }
+  $('sb-log').innerHTML = '';
+  $('sb-fx').innerHTML = '';
+  $('sb-banner').className = 'sb-banner';
+  $('sb').classList.add('on');
+  sbLog(`Отряд идёт на штурм: ${def.loc.name}`);
+  SB.timer = setTimeout(sbNext, 650);
+}
+function sbHp(u) {
+  u.fill.style.width = Math.max(0, u.hp / u.maxHp * 100).toFixed(1) + '%';
+  u.sh.style.width = Math.min(100, u.shv / u.maxHp * 100).toFixed(1) + '%';
+  u.txt.textContent = fmtN(Math.max(0, u.hp));
+}
+function sbNext() {
+  if (!SB || SB.done) return;
+  const steps = SB.res.steps;
+  while (SB.i < steps.length && steps[SB.i].round) { setText($('sb-round'), `Ход ${steps[SB.i].round}/${SIEGE_MAX_ROUNDS}`); SB.i++; }
+  if (SB.i >= steps.length) { SB.timer = setTimeout(finishBattle, 700 / state.siege.speed); return; }
+  const st = steps[SB.i++], spd = state.siege.speed, tok = SB;
+  const actor = st.a >= 0 ? SB.units[st.a] : null;
+  if (actor) { actor.el.classList.remove('acting'); void actor.el.offsetWidth; actor.el.classList.add('acting'); setTimeout(() => actor.el.classList.remove('acting'), 220 / spd + 80); }
+  setTimeout(() => { if (SB === tok && !tok.done) for (const e of st.ev) sbEvent(e); }, 150 / spd);
+  const cast = st.ev.some(e => e.t === 'cast');
+  SB.timer = setTimeout(sbNext, (cast ? 1000 : 620) / spd);
+}
+function sbEvent(e) {
+  const U = SB.units;
+  switch (e.t) {
+    case 'cast': sbBanner(U[e.s], e.n, e.ic); sbLog(`${U[e.s].name}: ${e.n}`); break;
+    case 'dmg': { const u = U[e.d]; u.hp = e.hp; u.shv = e.sh; sbHp(u); sbHurt(u);
+      sbNum(u, '-' + fmtN(e.v), e.k === 'crit' ? 'crit' : (e.k === 'poison' || e.k === 'burn' || e.k === 'bleed') ? 'dot' : ''); break; }
+    case 'heal': { const u = U[e.d]; u.hp = e.hp; sbHp(u); sbNum(u, '+' + fmtN(e.v), 'heal'); break; }
+    case 'sh': { const u = U[e.d]; u.shv = e.sh; sbHp(u); sbNum(u, '🛡+' + fmtN(e.v), 'shv'); break; }
+    case 'miss': sbNum(U[e.d], 'Промах', 'miss'); break;
+    case 'stun': sbNum(U[e.d], 'Оглушение!', 'miss'); break;
+    case 'stunned': sbNum(U[e.d], 'Пропуск хода', 'miss'); break;
+    case 'die': { const u = U[e.d]; u.hp = 0; u.shv = 0; sbHp(u); u.el.classList.add('dead'); sbLog(`${u.name} ${u.side ? 'повержен' : 'выбывает из боя'}`); break; }
+    case 'rev': { const u = U[e.d]; u.hp = e.hp; sbHp(u); u.el.classList.remove('dead'); sbNum(u, 'Воскрес!', 'heal'); break; }
+    case 'f': U[e.d].st.innerHTML = e.f ? e.f.split(' ').map(k => I(FLAG_IC[k])).join('') : ''; break;
+  }
+}
+function sbHurt(u) { u.el.classList.remove('hurt'); void u.el.offsetWidth; u.el.classList.add('hurt'); }
+function sbNum(u, text, cls) {
+  const fx = $('sb-fx');
+  if (fx.childElementCount > 26) fx.firstChild.remove();
+  const box = $('sb').getBoundingClientRect(), r = u.el.getBoundingClientRect();
+  const el = document.createElement('div');
+  el.className = 'sb-num ' + (cls || '');
+  el.textContent = text;
+  el.style.left = (r.left - box.left + r.width / 2 + (Math.random() * 30 - 15)) + 'px';
+  el.style.top = (r.top - box.top + r.height * (u.side ? 0.32 : 0.12)) + 'px';
+  fx.appendChild(el);
+  setTimeout(() => el.remove(), 950);
+}
+function sbBanner(u, name, ic) {
+  const b = $('sb-banner');
+  b.className = 'sb-banner' + (u.side ? ' foe' : '');
+  b.innerHTML = `${I(ic)}<span>${escHTML(u.name)}:</span> <b>${escHTML(name)}</b>`;
+  void b.offsetWidth;
+  b.classList.add('show');
+  clearTimeout(SB.bannerT);
+  SB.bannerT = setTimeout(() => b.classList.remove('show'), 1000 / state.siege.speed + 250);
+}
+function sbLog(msg) {
+  const box = $('sb-log'), el = document.createElement('div');
+  el.innerHTML = escHTML(msg).replace(HERO_NAME_RE, '<span class="hn">$1</span>');
+  box.appendChild(el);
+  while (box.children.length > 3) box.firstChild.remove();
+}
+function cycleSpeed() { const S = state.siege; S.speed = S.speed === 1 ? 2 : S.speed === 2 ? 4 : 1; setText($('sb-speed'), 'x' + S.speed); }
+function skipBattle() { if (SB && !SB.done) finishBattle(); }
+function finishBattle() {
+  if (!SB || SB.done) return;
+  SB.done = true;
+  clearTimeout(SB.timer);
+  const res = SB.res;
+  setText($('sb-round'), `Ход ${res.rounds}/${SIEGE_MAX_ROUNDS}`);
+  for (const fu of res.units) {
+    const u = SB.units[fu.i];
+    u.hp = fu.hp; if (!fu.alive) u.shv = 0;
+    u.el.classList.toggle('dead', !fu.alive);
+    sbHp(u);
+  }
+  const heroes = res.units.filter(u => u.side === 0);
+  const maxV = Math.max(1, ...heroes.map(u => Math.max(u.dealt, u.healed)));
+  const rows = heroes.map(u => `<div class="dmg-row"><div class="dmg-pt"><div class="pimg pt-${u.key}"></div></div><div class="dmg-bars"><div class="dmg-name">${u.name}${u.alive ? '' : ' †'}</div>` +
+    `<div class="dmg-bar"><i style="width:${(u.dealt / maxV * 100).toFixed(1)}%"></i></div>` +
+    (u.healed ? `<div class="dmg-bar heal"><i style="width:${(u.healed / maxV * 100).toFixed(1)}%"></i></div>` : '') +
+    `</div><div class="dmg-v">${fmtN(u.dealt)}${u.healed ? `<br><span class="hv">+${fmtN(u.healed)}</span>` : ''}</div></div>`).join('');
+  const why = res.win ? `Осада ${SB.def.s} взята за ${res.rounds} ${plural(res.rounds, 'ход', 'хода', 'ходов')}!`
+    : res.reason === 'time' ? `Время вышло: враги продержались ${SIEGE_MAX_ROUNDS} ходов.` : 'Весь отряд выбыл из боя.';
+  const rw = SB.reward ? `<div class="rw">Награда: ${rewardText(SB.reward)}</div>`
+    : '<div class="muted small" style="margin-top:6px">Факел не потрачен. Подними ранги героев за медали, собери альянс или смени отряд.</div>';
+  if (res.win && SB.first) toast(`🏰 Осада ${SB.def.s} взята!`);
+  openModal(res.win ? '🏆 Победа!' : '💀 Поражение', `${why}${rw}<div class="dmg-table">${rows}</div><div class="muted small">Урон (оранжевый) и лечение (зелёный) героев за бой</div>`,
+    [{ label: 'Продолжить', fn: closeBattle }], true);
+}
+function closeBattle() {
+  const S = state.siege;
+  if (SB && SB.first) S.sel = Math.min(S.best + 1, S.sel + 1);
+  SB = null;
+  $('sb').classList.remove('on');
+  refreshAll();
+}
+
+// ----- Карточка героя: две вкладки (этажи / осады) -----
+let HD = null;
+function openHero(id, tab) {
+  HD = { id, tab: tab || (HD && HD.tab) || 'dps' };
+  buildHeroDetail();
+  $('sheet-hero').classList.add('open');
+  $('sheet-backdrop').classList.add('on');
+}
+function closeHero() {
+  if (!HD) return;
+  HD = null;
+  $('sheet-hero').classList.remove('open');
+  if (!openSheetId) $('sheet-backdrop').classList.remove('on');
+}
+function heroTab(t) {
+  if (!HD) return;
+  HD.tab = t;
+  document.querySelectorAll('#hd-body .seg button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  document.querySelectorAll('#hd-body .hd-pane').forEach(p => p.classList.toggle('on', p.dataset.p === t));
+  refreshHeroDetail();
+}
+function buildHeroDetail() {
+  const id = HD.id, d = DEF[id], info = HERO_INFO[id], c = CLASS_DEFS[info.cls];
+  $('hd-title').textContent = d.name;
+  const teams = TEAMUPS.map((T, j) => [T, j]).filter(([T]) => T.ids.includes(id));
+  $('hd-body').innerHTML = `
+    <div class="hd-top">
+      <div class="portrait big" id="hd-pt"><div class="pimg pt-${id}"></div></div>
+      <div class="hd-id">
+        <div class="hd-chips">${clsChip(info.cls)}<span class="race-chip">${info.race}</span><span id="hd-rar"></span></div>
+        <div class="hd-lore">${info.lore}</div>
+      </div>
+    </div>
+    <div class="seg"><button data-t="dps" onclick="heroTab('dps')">${I('dps')} Этажи · ДПС</button><button data-t="siege" onclick="heroTab('siege')">${I('siege')} Осады · бой</button></div>
+    <div class="hd-pane" data-p="dps">
+      <div class="stat-box" id="hd-dpsbox"></div>
+      <h4 class="sec">Навыки этажей</h4>
+      <div id="hd-dsk">${DPS_SKILLS[id].map((sk, j) => `<div class="skl" data-j="${j}">${I(dpsSkillIcon(sk))}<div class="skl-t"><b>${sk.n}</b>${sk.sig ? ' <span class="sig">особый</span>' : ''}<small>${dpsSkillText(sk)}</small></div><span class="skl-lv"></span></div>`).join('')}</div>
+      <h4 class="sec">Союзы</h4>
+      <div id="hd-teams">${teams.map(([T, j]) => `<div class="team" data-team="${j}"><b>${T.n}</b>: ${DPS_KIND[T.k].d(T.v)}<div class="team-m">${T.ids.map(x => `<span data-m="${x}">${DEF[x].name}</span>`).join('')}</div></div>`).join('')}</div>
+      <div class="hint">Ветка этажей: урон по монстрам на этажах. Навыки открываются уровнем героя (уровни сбрасывает ритуал, редкость поднимает лимит уровня). Союз работает, когда в забеге наняты все трое.</div>
+    </div>
+    <div class="hd-pane" data-p="siege">
+      <div class="hd-rank"><div>${I('rank')} Ранг <b id="hd-rank"></b> · Сила <b id="hd-power"></b></div>
+        <div class="row"><button class="btn" id="hd-squad" onclick="toggleSquad('${id}')"></button><button class="btn btn-purple" id="hd-rankup" onclick="rankUp('${id}')"></button></div></div>
+      <div class="hd-stats">${STAT_KEYS.map(k => `<div class="hst" title="${STAT_INFO[k].d}">${I(k)}<div><small>${STAT_INFO[k].n} · ${STAT_INFO[k].s}</small><b data-s="${k}"></b><em data-n="${k}"></em></div></div>`).join('')}</div>
+      <h4 class="sec">Навыки осады</h4>
+      <div id="hd-ssk">${SIEGE_SKILLS[id].map((sk, j) => `<div class="sskl" data-j="${j}">${I(sk.icon)}<div class="skl-t"><b>${sk.n}</b>` +
+        `<div class="trig">Тип: <span>${trigText(sk)}</span> · Вероятность: <span>${Math.round(trigChance(sk) * 100)}%</span></div><small data-d></small></div><span class="skl-lv"></span></div>`).join('')}</div>
+      <h4 class="sec">Альянс</h4>
+      <div class="ally-box">${I(c.icon)} Герой входит в альянс: <b>${c.name}</b><br><span class="small">2 героя этого класса в отряде: +${fmtPct(c.p[0])} ${c.st.map(k => STAT_INFO[k].s).join(' и ')}, 3 героя: +${fmtPct(c.p[1])}. ${c.trait}.</span></div>
+      <div class="hint">Боевая ветка для осад. Ранг поднимается за медали ${I('medal')} из осад и усиливает все статы на 7%. Ранги и навыки осады не влияют на ДПС на этажах, а ритуал их не сбрасывает.</div>
+    </div>`;
+  heroTab(HD.tab);
+}
+function refreshHeroDetail() {
+  if (!HD) return;
+  const id = HD.id, h = H(id), r = RARITIES[h.rarity], unlocked = isUnlocked(h), body = $('hd-body');
+  const pt = $('hd-pt');
+  if (pt._rc !== r.color) { pt._rc = r.color; pt.style.setProperty('--rc', r.color); }
+  setHTML($('hd-rar'), `<span class="rarity-badge r-${h.rarity}">${r.name}</span> <span class="stars">${formatStars(h.stars)}</span>`);
+  if (HD.tab === 'dps') {
+    setHTML($('hd-dpsbox'), unlocked
+      ? `Уровень <b>${h.level} / ${r.cap}</b> · DPS <b style="color:#7dffa0">${formatNum(getHeroDps(h))}</b>${h.inMine ? ' · ⛏️ в шахте' : ''}${h.onAltar ? ' · 🕯️ на алтаре' : ''}${h.dead ? ' · 💀 погиб' : ''}`
+      : `🔒 Герой откроется на <b>${DEF[id].unlock}</b> этаже`);
+    body.querySelectorAll('#hd-dsk .skl').forEach(el => {
+      const sk = DPS_SKILLS[id][+el.dataset.j], on = unlocked && dpsSkillOn(h, sk);
+      el.classList.toggle('on', on);
+      setHTML(el.querySelector('.skl-lv'), on ? '✓' : `${sk.lv} ур.`);
+    });
+    body.querySelectorAll('#hd-teams .team').forEach(el => {
+      el.classList.toggle('on', teamupActive(TEAMUPS[+el.dataset.team]));
+      el.querySelectorAll('[data-m]').forEach(m => m.classList.toggle('on', H(m.dataset.m).level > 0));
+    });
+  } else {
+    const rank = heroRank(id), st = heroSiegeStats(id, rank), nx = heroSiegeStats(id, rank + 1), cost = rankCost(rank);
+    setText($('hd-rank'), String(rank));
+    setText($('hd-power'), fmtN(statPower(st)));
+    const b = $('hd-rankup');
+    b.disabled = !unlocked || state.siege.medals < cost;
+    setHTML(b, `Ранг +1 · ${I('medal')} ${fmtN(cost)}<br><small>есть ${fmtN(state.siege.medals)}</small>`);
+    const sq = $('hd-squad'), inSq = state.siege.squad.includes(id);
+    sq.style.display = unlocked && siegeUnlocked() ? '' : 'none';
+    sq.classList.toggle('btn-gray', inSq);
+    setHTML(sq, inSq ? 'Убрать из отряда' : 'В отряд осады');
+    for (const k of STAT_KEYS) {
+      setText(body.querySelector(`[data-s="${k}"]`), fmtN(st[k]));
+      setText(body.querySelector(`[data-n="${k}"]`), `+${fmtN(nx[k] - st[k])}`);
+    }
+    body.querySelectorAll('#hd-ssk .sskl').forEach(el => {
+      const sk = SIEGE_SKILLS[id][+el.dataset.j], on = !sk.rank || rank >= sk.rank;
+      el.classList.toggle('on', on);
+      setHTML(el.querySelector('.skl-lv'), on ? '✓' : `${sk.rank} ранг`);
+      setText(el.querySelector('[data-d]'), sk.d(st));
+    });
+  }
 }
 
 // ============================================================
@@ -4021,6 +5214,10 @@ function refreshBadges() {
   setBadge('quests', QUEST_DEFS.some(questReady));
   setBadge('daily', dailyAvailable() && fighters().length > 0);
   setBadge('ritual', canUseDarkRitual() && ritualGain() > 0);
+  const su = siegeUnlocked();
+  setBadge('siege', su && state.siege.torches >= TORCH_MAX);
+  const sb = $('btn-siege');
+  if (sb.classList.contains('locked') === su) sb.classList.toggle('locked', !su);
 }
 
 function refreshPanels() {
@@ -4062,22 +5259,32 @@ function refreshAll() {
   refreshPanels();
   refreshMap();
   refreshBadges();
+  refreshSiege();
+  refreshHeroDetail();
 }
 
 // ----- Шторки -----
 let openSheetId = null;
 function openSheet(id) {
+  if (id === 'siege' && !siegeUnlocked()) { toast(`🏰 Осады откроются на ${SIEGE_UNLOCK_FLOOR} этаже`, true); return; }
+  closeHero();
   if (openSheetId === id) { closeSheet(); return; }
   document.querySelectorAll('.sheet').forEach(s => s.classList.toggle('open', s.id === 'sheet-' + id));
   $('sheet-backdrop').classList.add('on');
   openSheetId = id;
+  if (id === 'siege') {
+    regenTorches();
+    if (!state.siege.squad.length) { autoSquad(); return; }
+  }
   refreshAll();
 }
 function closeSheet() {
+  closeHero();
   document.querySelectorAll('.sheet.open').forEach(s => s.classList.remove('open'));
   $('sheet-backdrop').classList.remove('on');
   openSheetId = null;
 }
+function closeTop() { if (HD) closeHero(); else closeSheet(); }
 
 // ----- Модалка, лента, тосты -----
 let modalLocked = false;
@@ -4175,6 +5382,7 @@ function secondTick() {
     if (s.active > 0) s.active--;
     if (s.cd > 0) s.cd--;
   }
+  regenTorches();
   if (++secTick % 10 === 0) mineTick();
   if (secTick % 5 === 0) save();
   refreshAll();
@@ -4214,11 +5422,14 @@ function init() {
   $('battle').addEventListener('pointerdown', onMonsterTap);
   document.querySelectorAll('[data-sheet]').forEach(b => b.addEventListener('click', () => openSheet(b.dataset.sheet)));
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
-  $('sheet-backdrop').addEventListener('click', closeSheet);
+  document.querySelectorAll('[data-close-hero]').forEach(b => b.addEventListener('click', closeHero));
+  $('sheet-backdrop').addEventListener('click', closeTop);
   $('modal').addEventListener('click', e => { if (e.target.id === 'modal' && !modalLocked) closeModal(); });
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (modalOpen()) { if (!modalLocked) closeModal(); } else closeSheet();
+    if (modalOpen()) { if (!modalLocked) closeModal(); }
+    else if (SB && !SB.done) skipBattle();
+    else closeTop();
   });
   setInterval(gameTick, 100);
   setInterval(secondTick, 1000);
