@@ -356,32 +356,93 @@
 
   /* ===== Осады ===== */
   .sg-res { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .sg-chip { display: flex; align-items: center; gap: 5px; height: 34px; padding: 0 10px 0 4px; border-radius: 17px; background: rgba(0,0,0,.45);
-    border: 1px solid rgba(226,171,94,.35); font-size: 15px; white-space: nowrap; }
-  .sg-chip .ic { width: 26px; height: 26px; }
+  .sg-chip { display: flex; align-items: center; gap: 4px; height: 34px; padding: 0 9px 0 3px; border-radius: 17px; background: rgba(0,0,0,.45);
+    border: 1px solid rgba(226,171,94,.35); font-size: 14px; white-space: nowrap; }
+  .sg-chip .ic { width: 24px; height: 24px; }
   .sg-chip b { color: var(--gold); }
-  .sg-chip small { font-size: 11px; color: #c9b89c; }
-  .sg-refill { margin-left: auto; min-height: 34px; }
-  .sg-stage { position: relative; overflow: hidden; background-size: cover; background-position: center 70%; }
-  .sg-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .sg-nav h3 { margin: 0; text-shadow: var(--ol); }
-  .sg-nav h3 small { font-size: 12px; color: #e6d8c2; }
-  .sg-nav .round-mini:disabled { opacity: .35; }
-  .sg-foes { display: flex; justify-content: center; align-items: flex-end; gap: 4px; height: 128px; margin: 6px 0 2px; }
-  .sg-foe { display: flex; flex-direction: column; align-items: center; width: 86px; }
-  .sg-foe img, .sg-foe .emo { width: 76px; height: 76px; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.6)); }
-  .sg-foe.boss { width: 116px; }
-  .sg-foe.boss img, .sg-foe.boss .emo { width: 108px; height: 108px; }
-  .sg-foe .emo { font-size: 52px; display: flex; align-items: flex-end; justify-content: center; }
-  .sg-foe span { font-size: 11px; font-weight: bold; text-shadow: var(--ol); text-align: center; line-height: 1.1; }
-  .sg-bossinfo, .sg-reward, .sg-chance { font-size: 12.5px; line-height: 1.5; margin-top: 6px; text-shadow: 0 1px 2px #000; }
-  .sg-bossinfo .ic, .sg-reward .ic { width: 18px; height: 18px; }
+  .sg-chip small { font-size: 10.5px; color: #c9b89c; }
+  button.sg-chip { color: inherit; font-family: inherit; cursor: pointer; }
+  .sg-chip.dim { opacity: .5; }
+  .sg-week { padding: 10px 12px; margin-bottom: 8px; border-radius: 12px; border: 1px solid rgba(226,171,94,.5); background-size: cover; background-position: center 65%;
+    box-shadow: inset 0 0 20px rgba(0,0,0,.5); }
+  .sgw-t { font-family: Georgia, 'Times New Roman', serif; font-size: 16px; color: #ffd27a; text-shadow: var(--ol); }
+  .sgw-t b { color: #fff; }
+  .sgw-s { font-size: 12px; color: #e6d8c2; margin-top: 2px; text-shadow: 0 1px 2px #000; }
+  .sgw-h { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 7px; font-size: 12.5px; text-shadow: 0 1px 2px #000; }
+  .hw { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px 2px 2px; border-radius: 14px; background: rgba(0,0,0,.55); border: 1px solid rgba(255,210,122,.55); }
+  .hw b { color: #ff9a5a; }
+  .hwp { position: relative; width: 24px; height: 24px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .hwp .pimg::before { font-size: 14px; }
+  .hot { color: #ff9a5a; }
+  b.hot { animation: hotPulse 1.2s ease-in-out infinite; }
+  @keyframes hotPulse { 50% { color: #ffe08a; text-shadow: 0 0 8px rgba(255,140,60,.9); } }
+  .dim { opacity: .5; }
+  .seg.sg-tabs { grid-template-columns: repeat(5, 1fr); gap: 4px; position: sticky; top: -12px; z-index: 2; margin: 0 -2px 10px; padding: 2px; border-radius: 10px; background: rgba(21,16,26,.92); }
+  .sg-tabs button { height: 36px; font-size: 12px; padding: 0 2px; }
+  .sg-pane { display: none; }
+  .sg-pane.on { display: block; }
+  .sg-track .small { margin-top: 8px; line-height: 1.45; color: #d8c6a8; }
+  .sg-track .small b { color: #fff; }
+  .sg-track .sg-go { margin-top: 0; line-height: 1.15; }
+  .sg-track .sg-go small { font-size: 11.5px; font-weight: normal; opacity: .9; }
+  .sgb { --sz: #e2ab5e; display: grid; grid-template-columns: 80px 1fr; gap: 9px; padding: 8px; margin-bottom: 8px; border-radius: 12px;
+    background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.45)); border: 1px solid var(--sz); }
+  .sgb.size-small { --sz: #8fd16a; }
+  .sgb.size-medium { --sz: #ffb23a; }
+  .sgb.size-top { --sz: #ff5a4a; box-shadow: 0 0 10px rgba(255,90,74,.35); }
+  .sgb.size-clan { --sz: #c27bff; box-shadow: 0 0 10px rgba(194,123,255,.35); }
+  .sgb.done { opacity: .72; box-shadow: none; }
+  .sgb-fig { width: 80px; height: 80px; display: flex; align-items: flex-end; justify-content: center; border-radius: 10px;
+    background: radial-gradient(circle at 50% 70%, rgba(255,255,255,.12), rgba(0,0,0,0) 70%); }
+  .sgb-fig img, .sgb-fig .emo { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 4px 4px rgba(0,0,0,.6)); }
+  .sgb-fig .emo { display: flex; align-items: flex-end; justify-content: center; font-size: 46px; }
+  .sgb.done .sgb-fig { filter: grayscale(.8); }
+  .sgb-main { min-width: 0; }
+  .sgb-top { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .sgb-top b { font-size: 14px; color: #ffd27a; text-shadow: 0 1px 2px #000; }
+  .sgb-tag { font-size: 10.5px; font-weight: bold; padding: 1px 7px; border-radius: 9px; background: var(--sz); color: #1a0e08; }
+  .sgb-timer { margin-left: auto; font-size: 12px; font-weight: bold; color: #ffd8a0; white-space: nowrap; }
+  .sgb-hp { position: relative; height: 16px; margin: 5px 0 4px; border-radius: 8px; background: rgba(0,0,0,.65); border: 1px solid #000; overflow: hidden; }
+  .sgb-hp .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(#ff7262, #c41a22); transition: width .3s; }
+  .sgb-hp span { position: absolute; inset: 0; text-align: center; font-size: 10.5px; line-height: 15px; font-weight: bold; text-shadow: var(--ol); }
+  .sgb-info { font-size: 11.5px; line-height: 1.42; color: #d8c6a8; }
+  .sgb-info b { color: #fff; }
+  .sgb-act { display: flex; gap: 5px; margin-top: 6px; }
+  .sgb-act .btn { flex: 1; min-width: 0; min-height: 40px; padding: 4px; line-height: 1.15; }
+  .sgb-act small { font-size: 10px; opacity: .85; font-weight: normal; }
+  .sgb-res { font-size: 12px; margin-top: 4px; color: #e6d8c2; }
+  .sgb-res b { color: #ffd27a; }
+  .sgb-res .ic, .sgt .ic, .sgr .ic, #sg-next .ic, .sg-split .ic, .modal .ic { width: 18px; height: 18px; vertical-align: middle; }
+  .sgt { display: grid; grid-template-columns: 70px 1fr 16px; gap: 6px; align-items: center; padding: 6px 8px; margin-bottom: 4px; border-radius: 9px;
+    background: rgba(0,0,0,.3); border: 1px solid rgba(226,171,94,.18); font-size: 12px; line-height: 1.5; }
+  .sgt b { color: #ffd27a; }
+  .sgt .ok { font-style: normal; color: #5dff8c; font-weight: bold; visibility: hidden; }
+  .sgt.got { opacity: .55; }
+  .sgt.got .ok { visibility: visible; }
+  #sg-pts { font-size: 13px; }
+  #sg-pts b { color: #ffd27a; }
+  #sg-next { font-size: 12px; margin-top: 7px; line-height: 1.5; color: #e6d8c2; }
+  .sgr-list { margin-top: 6px; }
+  .sgr { display: grid; grid-template-columns: 54px 1fr auto; gap: 6px; align-items: center; padding: 5px 8px; margin-bottom: 3px; border-radius: 8px;
+    background: rgba(0,0,0,.28); font-size: 12.5px; border: 1px solid transparent; }
+  .sgr span { color: #c9b89c; font-weight: bold; }
+  .sgr b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sgr b.small { white-space: normal; font-weight: normal; line-height: 1.5; }
+  .sgr .v { font-style: normal; color: #ffd27a; font-weight: bold; }
+  .sgr.me { background: rgba(93,255,140,.14); border-color: rgba(93,255,140,.5); }
+  .sg-cboss p { font-size: 12.5px; }
+  .sg-lbl { font-size: 12px; color: #c9b89c; margin: 2px 2px 4px; text-align: center; }
+  .sg-split { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 6px 0; }
+  .sg-split span { font-size: 11.5px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,.07); color: #a99a84; border: 1px solid transparent; }
+  .sg-split span.on { background: rgba(255,210,122,.16); color: #fff; border-color: rgba(255,210,122,.5); }
   .sg-go { width: 100%; margin-top: 10px; min-height: 48px; font-size: 17px; }
   .sg-go small { font-size: 11px; }
-  .sg-squad { display: flex; gap: 6px; justify-content: center; margin: 4px 0 8px; }
-  .sg-slot { position: relative; width: 58px; height: 58px; flex-shrink: 0; border-radius: 11px; border: 3px solid var(--rc, rgba(226,171,94,.4)); background: rgba(0,0,0,.4); overflow: hidden; }
-  .sg-slot .pimg::before { font-size: 30px; }
-  .sg-slot.empty { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.3); font-size: 26px; border-style: dashed; }
+  .sg-squad { --sl: min(54px, calc((100vw - 96px) / 6)); display: flex; gap: 5px; justify-content: center; margin: 2px 0 8px; }
+  .sg-slot { position: relative; width: var(--sl); height: var(--sl); flex-shrink: 0; border-radius: 10px; border: 3px solid var(--rc, rgba(226,171,94,.4)); background: rgba(0,0,0,.4); overflow: hidden; }
+  .sg-slot .n { position: absolute; left: 3px; top: 0; font-style: normal; font-size: 11px; font-weight: bold; color: #fff; text-shadow: var(--ol); }
+  .sg-slot .wk { position: absolute; left: 0; right: 0; bottom: 0; font-style: normal; font-size: 10px; font-weight: bold; text-align: center; color: #fff; background: rgba(190,50,20,.88); }
+  .sg-slot .pimg::before { font-size: 26px; }
+  .sg-slot.empty { display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.3); font-size: 22px; border-style: dashed; }
   .sg-slot .x { position: absolute; top: 1px; right: 3px; font-style: normal; font-size: 11px; color: #fff; text-shadow: var(--ol); }
   .sg-alliances { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
   .ally { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; padding: 2px 8px 2px 3px; border-radius: 11px; border: 1px solid rgba(255,255,255,.18); color: #c9b89c; }
@@ -425,6 +486,28 @@
   .sb-banner span { overflow: hidden; text-overflow: ellipsis; }
   .sb-banner b { color: #ffd27a; }
   .sb-heroes { display: flex; justify-content: center; gap: 4px; padding: 0 4px 6px; }
+  .sb-slot { width: min(64px, calc((100vw - 40px) / 6)); flex-shrink: 0; }
+  .sb-dmg { position: relative; z-index: 1; align-self: center; margin-top: -2px; padding: 2px 12px; border-radius: 10px; font-size: 13px; background: rgba(0,0,0,.55);
+    border: 1px solid rgba(255,214,150,.25); text-shadow: var(--ol); }
+  .sb-dmg b { color: #ffb23a; }
+  .sb-mcol { display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; width: min(84px, 22vw); flex-shrink: 0; }
+  .sb-mcol .sbu.foe { width: 100%; }
+  .sb-mcol .sbu-fig { height: min(64px, 17vw); }
+  .sb-mcol .sbu-name { font-size: 10px; }
+  .sb-mcol .sbu-hp { height: 10px; }
+  .sb-mcol .sbu-hp span { font-size: 8.5px; line-height: 9px; }
+  .sb-mcol .sbu-st { height: 14px; }
+  .sb-mcol .sbu-st .ic { width: 13px; height: 13px; }
+  .sbu.off { opacity: 0; transform: scale(.4); }
+  .sbu.enter { animation: sbEnter .55s ease-out; }
+  @keyframes sbEnter { from { transform: scale(.35) translateY(24px); opacity: 0; filter: brightness(2.5); } }
+  .sb-res { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; gap: 5px; padding: 0 4px 4px; }
+  .sb-res::before { content: 'Запас'; font-size: 11px; font-weight: bold; color: #c9b89c; text-shadow: var(--ol); margin-right: 2px; }
+  .sb-rq { position: relative; width: 36px; }
+  .sb-rq .sbu-hp, .sb-rq .sbu-name, .sb-rq .sbu-st { display: none; }
+  .sb-rq .sbu-pt { border-width: 2px; border-radius: 8px; opacity: .85; }
+  .sb-rq .sbu-pt .pimg::before { font-size: 18px; }
+  .sb-rq::after { content: attr(data-k); position: absolute; left: 2px; top: 0; font-size: 10px; font-weight: bold; color: #fff; text-shadow: var(--ol); }
   .sb-log { height: 62px; margin: 4px 10px calc(var(--safe-b) + 10px); padding: 6px 10px; border-radius: 10px; background: rgba(8,5,10,.82);
     border: 1px solid rgba(255,214,150,.2); font-size: 12px; line-height: 1.35; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
   .sb-log div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: slideIn .25s ease-out; }
@@ -445,8 +528,8 @@
   .sbu-hp span { position: absolute; inset: 0; font-size: 9.5px; line-height: 11px; font-weight: bold; text-align: center; text-shadow: var(--ol); }
   .sbu-st { display: flex; gap: 1px; height: 18px; align-items: center; justify-content: center; }
   .sbu-st .ic { width: 17px; height: 17px; font-size: 12px; filter: drop-shadow(0 1px 1px #000); }
-  .sbu.hero { width: min(68px, 18vw); }
-  .sbu-pt { width: 100%; height: min(68px, 18vw); position: relative; border-radius: 10px; overflow: hidden; border: 3px solid var(--cc);
+  .sbu.hero { width: 100%; }
+  .sbu-pt { width: 100%; aspect-ratio: 1; position: relative; border-radius: 10px; overflow: hidden; border: 3px solid var(--cc);
     box-shadow: 0 0 0 2px #1a0e08, 0 4px 8px rgba(0,0,0,.6); background: #24161c; }
   .sbu-pt .pimg::before { font-size: 32px; }
   .sbu.hero.acting { transform: translateY(-14px) scale(1.07); }
@@ -693,28 +776,61 @@
   <div class="sheet" id="sheet-siege">
     <div class="sheet-head"><i class="ic ic-siege"></i><h2>Осады</h2><button class="close-btn" data-close>✕</button></div>
     <div class="sheet-body">
+      <div class="sg-week" id="sg-week"></div>
       <div class="sg-res">
-        <div class="sg-chip" title="Факелы: тратятся только при победе, восстанавливаются сами"><i class="ic ic-torch"></i><b id="sg-torches">5/5</b><small id="sg-torch-timer"></small></div>
+        <div class="sg-chip" title="Попытки атаки: до 3, +1 каждый час"><i class="ic ic-torch"></i><b id="sg-att">3/3</b><small id="sg-att-timer"></small></div>
+        <button class="sg-chip" id="sg-bugle" onclick="useBugle()" title="Горн: +1 попытка"><i class="ic ic-bugle"></i><b id="sg-bugles">0</b><small>+1</small></button>
+        <button class="sg-chip" id="sg-gjallar" onclick="useGjallar()" title="Большой горн: все 3 попытки"><i class="ic ic-gjallar"></i><b id="sg-gjallars">0</b><small>до 3</small></button>
         <div class="sg-chip" title="Медали: повышают ранг героев"><i class="ic ic-medal"></i><b id="sg-medals">0</b></div>
-        <button class="btn btn-teal sg-refill" id="sg-refill" onclick="refillTorches()">Пополнить · 10 <i class="ic ic-gem"></i></button>
       </div>
-      <div class="hint">Осады — отдельная боевая ветка. В бою работают <b>ранг</b>, <b>статы</b> (HP, ATK, DEF, WIS, AGI) и <b>навыки осады</b> героев. Уровни и ДПС с этажей здесь не участвуют, а Тёмный Ритуал не сбрасывает ранги.</div>
-      <div class="card sg-stage" id="sg-stagecard">
-        <div class="sg-nav"><button class="round-mini" id="sg-prev" onclick="siegeNav(-1)">‹</button><h3 id="sg-title">Осада 1</h3><button class="round-mini" id="sg-next" onclick="siegeNav(1)">›</button></div>
-        <div class="sg-foes" id="sg-foes"></div>
-        <div class="sg-bossinfo" id="sg-bossinfo"></div>
-        <div class="sg-reward" id="sg-reward"></div>
-        <div class="sg-chance" id="sg-chance"></div>
-        <button class="btn btn-red sg-go" id="sg-go" onclick="startSiege()">⚔️ В бой</button>
+      <div class="seg sg-tabs" id="sg-tabs">
+        <button data-t="bosses" onclick="sgSetTab('bosses')">Боссы</button>
+        <button data-t="rewards" onclick="sgSetTab('rewards')">Награды</button>
+        <button data-t="rank" onclick="sgSetTab('rank')">Рейтинг</button>
+        <button data-t="clan" onclick="sgSetTab('clan')">Клан</button>
+        <button data-t="deck" onclick="sgSetTab('deck')">Колода</button>
       </div>
-      <div class="card">
-        <h3>Отряд</h3>
-        <div class="sg-squad" id="sg-squad"></div>
-        <div class="sg-alliances" id="sg-alliances"></div>
-        <div class="row"><button class="btn btn-blue" onclick="autoSquad()">Авто: сильнейшие</button><button class="btn btn-gray" onclick="clearSquad()">Очистить</button></div>
+
+      <div class="sg-pane" data-p="bosses">
+        <div class="card sg-track">
+          <button class="btn btn-red sg-go" id="sg-trackbtn" onclick="trackBoss()">🔍 Выследить босса</button>
+          <div class="small" id="sg-trackinfo"></div>
+        </div>
+        <div id="sg-bosses"></div>
+        <div class="hint">Как устроена осада: выследи босса и бей его колодой героев — бой длится 10 раундов, запасные выходят на места павших. У босса общий запас HP и 30 минут, потом он сбегает. Очки за убитого босса делятся: <b>5%</b> выследившему, <b>5%</b> добившему, <b>30%</b> MVP (больше всех урона) и <b>60%</b> поровну всем участникам. Один на своём боссе забираешь все 100%, с кланом 🚩 убьёшь быстрее, но очки поделятся. Мощная атака тратит 3 попытки и бьёт ×5. Выслеживание тратит след: их до 3, новый — каждые 20 минут. За выслеживание, добивание и MVP дают горны.</div>
       </div>
-      <h3 class="sec-title">Герои осады</h3>
-      <div id="sg-roster"></div>
+
+      <div class="sg-pane" data-p="rewards">
+        <div class="card"><div id="sg-pts"></div><div class="progress"><div id="sg-ptsbar"></div></div><div id="sg-next"></div></div>
+        <div class="hint">33 порога очков за неделю. Каждый порог даёт награду сразу. Элитные награды (ранги героев недели) — на порогах 4 млн и 230 млн.</div>
+        <div id="sg-tiers"></div>
+      </div>
+
+      <div class="sg-pane" data-p="rank"><div id="sg-rank"></div></div>
+
+      <div class="sg-pane" data-p="clan">
+        <div id="sg-clan"></div>
+        <div class="card sg-cboss">
+          <h3>😈 Босс клана</h3>
+          <p>Огромный демон на 60 минут: на него идёт весь клан. Призыв за 400 🧪 или за Рог Демона (дают клановые пороги). Рогов: <b id="sg-dhorns">0</b></p>
+          <div class="row"><button class="btn btn-purple" id="sg-cb-bt" onclick="summonClanBoss('bottles')">Призвать · 400 <i class="ic ic-bottle"></i></button><button class="btn btn-red" id="sg-cb-dh" onclick="summonClanBoss('horn')">Рог Демона <i class="ic ic-dhorn"></i></button></div>
+        </div>
+      </div>
+
+      <div class="sg-pane" data-p="deck">
+        <div class="card">
+          <h3>Колода</h3>
+          <div class="sg-lbl">В бой — 6 героев</div>
+          <div class="sg-squad" id="sg-front"></div>
+          <div class="sg-lbl">Запас — 4 героя, выходят по очереди на место павших</div>
+          <div class="sg-squad" id="sg-reserve"></div>
+          <div class="sg-alliances" id="sg-alliances"></div>
+          <div class="row"><button class="btn btn-blue" onclick="autoDeck()">Авто: сильнейшие</button><button class="btn btn-gray" onclick="clearDeck()">Очистить</button></div>
+        </div>
+        <div class="hint">Осады — отдельная боевая ветка. В бою работают <b>ранг</b>, <b>статы</b> (HP, ATK, DEF, WIS, AGI) и <b>навыки осады</b>. Уровни и ДПС с этажей не участвуют, Тёмный Ритуал ранги не сбрасывает. Герои недели бьют ×3 и ×2.</div>
+        <h3 class="sec-title">Герои осады</h3>
+        <div id="sg-roster"></div>
+      </div>
     </div>
   </div>
 
@@ -732,9 +848,11 @@
       <button class="round-mini sb-btn" id="sb-speed" onclick="cycleSpeed()" title="Скорость боя">x2</button>
       <button class="round-mini sb-btn" onclick="skipBattle()" title="Пропустить анимацию">⏭</button>
     </div>
+    <div class="sb-dmg" id="sb-dmg"></div>
     <div class="sb-foes" id="sb-foes"></div>
     <div class="sb-mid"><div class="sb-banner" id="sb-banner"></div></div>
     <div class="sb-heroes" id="sb-heroes"></div>
+    <div class="sb-res" id="sb-res"></div>
     <div class="sb-log" id="sb-log"></div>
     <div class="sb-fx" id="sb-fx"></div>
   </div>
@@ -3778,6 +3896,65 @@ const ART_ICON_EXTRA = (() => {
     dpsTeam, dpsTime, dpsCrit,
   };
 })();
+/* ---- art/icons_horns.js ---- */
+const ART_ICON_HORNS = (() => {
+  const O = '#1d1220';
+  const svg = body => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">${body}</svg>`;
+  return {
+    // Горн (Bugle): +1 попытка
+    bugle: svg(`
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a6"/><stop offset=".55" stop-color="#e8ae32"/><stop offset="1" stop-color="#a8650e"/></linearGradient>
+        <linearGradient id="bb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6c24a"/><stop offset="1" stop-color="#ffe9a6"/></linearGradient>
+      </defs>
+      <path d="M30 70 C24 44 58 34 76 46 C88 54 84 70 70 70" fill="none" stroke="${O}" stroke-width="16" stroke-linecap="round"/>
+      <path d="M30 70 C24 44 58 34 76 46 C88 54 84 70 70 70" fill="none" stroke="url(#bg)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M33 60 C34 48 52 42 66 46" fill="none" stroke="#fff6cf" stroke-width="2.5" stroke-linecap="round" opacity=".8"/>
+      <rect x="12" y="64" width="64" height="13" rx="6" fill="url(#bg)" stroke="${O}" stroke-width="5"/>
+      <rect x="18" y="66.5" width="50" height="3" rx="1.5" fill="#fff6cf" opacity=".75"/>
+      <rect x="6" y="61" width="11" height="19" rx="4" fill="#c98a1c" stroke="${O}" stroke-width="5"/>
+      <path d="M72 64 L106 40 Q120 70 106 100 L72 77 Z" fill="url(#bb)" stroke="${O}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M106 40 Q120 70 106 100 Q98 70 106 40 Z" fill="#7a4608" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M80 64 L100 50" stroke="#fff6cf" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+      <path d="M44 77 C44 92 40 98 34 104" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/>
+      <path d="M44 77 C44 92 40 98 34 104" fill="none" stroke="#d8262c" stroke-width="4" stroke-linecap="round"/>
+      <path d="M28 100 L40 100 L42 116 L26 116 Z" fill="#d8262c" stroke="${O}" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M31 104 L31 113 M35 104 L35 113" stroke="#8a0f14" stroke-width="2"/>`),
+    // Большой горн (Gjallarhorn): все 3 попытки
+    gjallar: svg(`
+      <defs>
+        <linearGradient id="gi" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#e9cf9c"/><stop offset=".6" stop-color="#fff4da"/><stop offset="1" stop-color="#f3dfb4"/></linearGradient>
+        <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a6"/><stop offset="1" stop-color="#c9871a"/></linearGradient>
+      </defs>
+      <path d="M10 104 C22 64 54 32 98 12 L120 44 C82 58 52 86 30 118 Z" fill="url(#gi)" stroke="${O}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M30 118 C52 86 82 58 120 44 L114 36 C78 50 48 78 24 110 Z" fill="#c9a46a" opacity=".55"/>
+      <path d="M26 96 C40 72 64 50 94 32" fill="none" stroke="#fffaf0" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+      <path d="M32 80 L48 96" stroke="${O}" stroke-width="14" stroke-linecap="round"/>
+      <path d="M32 80 L48 96" stroke="url(#gg)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M60 52 L76 70" stroke="${O}" stroke-width="14" stroke-linecap="round"/>
+      <path d="M60 52 L76 70" stroke="url(#gg)" stroke-width="7" stroke-linecap="round"/>
+      <path d="M96 16 Q114 18 122 40 Q112 46 104 44 Q96 30 96 16 Z" fill="url(#gg)" stroke="${O}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M100 22 Q112 24 116 36" fill="none" stroke="#fff6cf" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="14" cy="110" r="8" fill="url(#gg)" stroke="${O}" stroke-width="4.5"/>
+      <path d="M50 30 l4 -9 l4 9 l9 4 l-9 4 l-4 9 l-4 -9 l-9 -4 Z" fill="#fff6b0" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M86 92 l3 -6 l3 6 l6 3 l-6 3 l-3 6 l-3 -6 l-6 -3 Z" fill="#fff6b0" stroke="${O}" stroke-width="2" stroke-linejoin="round"/>`),
+    // Рог Демона: призыв босса клана
+    dhorn: svg(`
+      <defs>
+        <linearGradient id="dh" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2a0610"/><stop offset=".5" stop-color="#8a1426"/><stop offset="1" stop-color="#d23a3a"/></linearGradient>
+        <radialGradient id="dr" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd0ff"/><stop offset=".5" stop-color="#c04dff"/><stop offset="1" stop-color="#c04dff" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="60" cy="66" r="44" fill="url(#dr)" opacity=".45"/>
+      <path d="M30 112 C18 80 30 44 64 26 C84 16 104 14 118 8 C104 22 96 36 84 46 C64 62 54 86 56 112 Z" fill="url(#dh)" stroke="${O}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M36 98 C30 74 40 52 64 38" fill="none" stroke="#ff8a7a" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+      <path d="M38 88 C44 84 52 84 58 88 M42 70 C48 66 58 66 64 70 M52 54 C58 50 68 50 74 54" fill="none" stroke="${O}" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="47" cy="78" r="3.5" fill="#f2a0ff" stroke="${O}" stroke-width="2"/>
+      <circle cx="58" cy="61" r="3.5" fill="#f2a0ff" stroke="${O}" stroke-width="2"/>
+      <circle cx="70" cy="46" r="3" fill="#f2a0ff" stroke="${O}" stroke-width="2"/>
+      <path d="M26 110 Q44 104 60 110 L60 120 Q44 114 26 120 Z" fill="#3a2a30" stroke="${O}" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M30 112 Q44 108 56 112" fill="none" stroke="#8a7a80" stroke-width="2" stroke-linecap="round"/>`)
+  };
+})();
 /*__ART_END__*/
 </script>
 
@@ -3848,10 +4025,12 @@ const QUEST_DEFS = [
   { id: 'art10',  text: 'Улучшить артефакты 10 раз',  goal: 10,   val: () => Object.values(state.artifacts).reduce((s, v) => s + v, 0), reward: { gems: 10 } },
   { id: 'dsk20',  text: 'Открыть 20 навыков этажей',  goal: 20,   val: () => state.heroes.reduce((s, h) => s + DPS_SKILLS[h.id].filter(sk => h.level >= sk.lv).length, 0), reward: { gems: 10 } },
   { id: 'team1',  text: 'Собрать союз из трёх героев', goal: 1,   val: () => TEAMUPS.filter(teamupActive).length, reward: { gems: 10 } },
-  { id: 'sg1',    text: 'Пройти первую осаду',         goal: 1,   val: () => state.siege.best, reward: { gems: 5, medals: 20 } },
-  { id: 'sg5',    text: 'Пройти 5 осад',               goal: 5,   val: () => state.siege.best, reward: { gems: 10, medals: 50 } },
-  { id: 'sg10',   text: 'Пройти 10 осад',              goal: 10,  val: () => state.siege.best, reward: { gems: 20, medals: 120 } },
-  { id: 'sg20',   text: 'Пройти 20 осад',              goal: 20,  val: () => state.siege.best, reward: { gems: 40, medals: 300 } },
+  { id: 'sgk1',   text: 'Победить босса осады',        goal: 1,   val: () => state.siege.stats.kills, reward: { gems: 5, medals: 20 } },
+  { id: 'sgpw',   text: 'Провести мощную атаку ×5',    goal: 1,   val: () => state.siege.stats.power, reward: { gems: 5, medals: 20 } },
+  { id: 'sgtr',   text: 'Выследить 5 боссов осады',    goal: 5,   val: () => state.siege.stats.tracked, reward: { bottles: 20, medals: 30 } },
+  { id: 'sgk10',  text: 'Победить 10 боссов осады',    goal: 10,  val: () => state.siege.stats.kills, reward: { gems: 15, medals: 60 } },
+  { id: 'sgmvp',  text: 'Стать MVP боя с боссом 5 раз', goal: 5,  val: () => state.siege.stats.mvp, reward: { gems: 20, medals: 120 } },
+  { id: 'sgpts',  text: 'Набрать 50 000 очков осады',  goal: 50000, val: () => state.siege.stats.points, reward: { gems: 40, medals: 300 } },
   { id: 'rk5',    text: 'Поднять ранг героя до 5',     goal: 5,   val: () => Math.max(...Object.values(state.siege.ranks)), reward: { bottles: 20, medals: 20 } },
   { id: 'rk15',   text: 'Поднять ранг героя до 15',    goal: 15,  val: () => Math.max(...Object.values(state.siege.ranks)), reward: { gems: 15, medals: 80 } }
 ];
@@ -3895,7 +4074,7 @@ const ICON_EMOJI = {
   heroes: '⛑️', artifacts: '🎁', quests: '📜', daily: '🐉', mines: '⛏️', shop: '💰', ritual: '📖', map: '🧭',
   dps: '🗡️', click: '👊', gold: '🪙', soulGray: '👻', soulBlue: '💠', bottle: '🧪', gem: '💎',
   skillBlood: '🩸', skillArrows: '🏹', settings: '⚙️', lock: '🔒', stage: '⚔️',
-  siege: '🏰', medal: '🎖️', torch: '🔥', rank: '🎗️',
+  siege: '🏰', medal: '🎖️', torch: '🔥', rank: '🎗️', bugle: '📯', gjallar: '📯', dhorn: '😈',
   hp: '❤️', atk: '🪓', def: '🛡️', wis: '🔮', agi: '🪶',
   clsWarrior: '⚔️', clsMage: '🧙', clsRanger: '🏹', clsGuardian: '🛡️',
   skStrike: '💥', skAoe: '🌋', skHeal: '💚', skShield: '🫧', skBuff: '⏫', skDebuff: '⏬', skStun: '💫',
@@ -4124,7 +4303,9 @@ const SIEGE_SKILLS = {
       eff: [{ do: 'dmg', tgt: 'all', kind: 'phys', m: 1.2 }, { do: 'dot', tgt: 'all', kind: 'burn', base: 'atk', m: 0.25, t: 2 }],
       d: s => `Огонь по всем врагам: ${fmtPct(1.2)} ATK (≈${fmtN(1.2 * s.atk)}) и ожог ${fmtPct(0.25)} ATK за ход, 2 хода` },
     { n: 'Чешуя древних', icon: 'def', rank: 5, trig: 'passive', pas: { dr: 0.2 },
-      d: () => 'Получаемый урон −20%' }
+      d: () => 'Получаемый урон −20%' },
+    { n: 'Пожиратель', icon: 'skAoe', rank: 10, trig: 'start', p: 1, eff: [{ do: 'pct', tgt: 'boss', p: 0.7, small: true }],
+      d: () => 'Снимает 70% текущего HP малого босса (как фарм-герои оригинала)' }
   ],
   paladin: [
     { n: 'Свет исцеления', icon: 'skHeal', trig: 'every', ev: 3, eff: [{ do: 'heal', tgt: 'allies', m: 0.8 }],
@@ -4170,69 +4351,172 @@ const SIEGE_BOSS = {
 };
 
 const SIEGE_UNLOCK_FLOOR = 5;
-const SIEGE_MAX_ROUNDS = 20;
-const SIEGE_SQUAD_MAX = 5;
-const SIEGE_GROWTH = 1.15;   // враги сильнее на каждой следующей осаде
-const RANK_GROWTH = 1.07;    // статы героя за каждый ранг
-const TORCH_MAX = 5, TORCH_MS = 12 * 60 * 1000, TORCH_REFILL_GEMS = 10;
-const BOSS_BASE = { hp: 1300, atk: 78, def: 36, wis: 72, agi: 30 };
-const MINION_BASE = { hp: 280, atk: 54, def: 21, wis: 33, agi: 40 };
+
+// ============================================================
+//  ОСАДА — по образцу оригинала (фан-вики Dungeon Crusher «Sieges», гайды игроков; см. DESIGN.md)
+//  Выслеживаешь босса с общим пулом HP, у всех участников 30 минут, атака = автобой на 10 раундов
+//  колодой 6 + 4 запасных; очки за убитого босса: 5% нашедшему, 5% добившему, 30% MVP, 60% поровну всем.
+// ============================================================
+const SG_ROUNDS = 10, SG_FRONT = 6, SG_RESERVE = 4, SG_MAX_MINIONS = 4;
+const SG_ATT_MAX = 3, SG_ATT_MS = 60 * 60 * 1000;          // попытки: до 3, +1 в час
+const SG_POWER_COST = 3, SG_POWER_MULT = 5;                // мощная атака: ×5 ко всем статам за 3 попытки
+const SG_BOSS_LIFE = 30 * 60 * 1000, SG_CLANBOSS_LIFE = 60 * 60 * 1000;
+const SG_OWN_MAX = 2;                                      // одновременно выслеженных тобой боссов
+const SG_TRACK_MAX = 3, SG_TRACK_MS = 20 * 60 * 1000;     // следы: выследить босса можно до 3 раз подряд, +1 след за 20 минут
+const SG_STAT_SCALE = 1000;                                // HP, ATK, DEF, WIS в осаде (AGI без множителя)
+const SG_WEEK_MS = 7 * 24 * 3600 * 1000, SG_EPOCH = Date.UTC(2026, 0, 5);   // недели с понедельника 00:00 UTC
+const SG_BOSS_HOURS = [0, 5, 10, 15, 20];                  // часы Большого Босса (UTC)
+const SG_SHARES = { find: 0.05, last: 0.05, mvp: 0.30, all: 0.60 };
+const SG_HORN_VALUE = 2445;                                // MVP за босса от этой стоимости получает Большой горн
+const SG_CLANBOSS_BOTTLES = 400;
+const SG_TOP_MIN_RANKS = 30;                               // ниже этих ранговых очков ББ не выслеживаются
+const SG_RANK_A = 2e8, SG_RANK_K = 1.1;                    // кривая недельного рейтинга сервера
+const RANK_GROWTH = 1.07;
+const SG_BOSS_BASE = { atk: 220, def: 34, wis: 195, agi: 30 };
+const SG_MINION_BASE = { hp: 300, atk: 110, def: 20, wis: 66, agi: 40 };
+const SG_TOP_MULT = 1.8;                                   // ББ заметно сильнее обычных боссов
+
+// Лестница боссов: HP общего пула и стоимость в очках (вики); 9M и 11M — оценка по соседним ступеням
+const SIEGE_LADDER = [
+  { hp: 9e6, v: 1460 }, { hp: 11e6, v: 1790 }, { hp: 13e6, v: 2115 },
+  { hp: 15e6, v: 2445 }, { hp: 21e6, v: 3450 }, { hp: 30e6, v: 5025 }, { hp: 42e6, v: 7050 }, { hp: 54e6, v: 9375 },
+  { hp: 62e6, v: 11250 }, { hp: 84e6, v: 18375 }, { hp: 120e6, v: 24375 }, { hp: 190e6, v: 40000 }, { hp: 220e6, v: 62000 },
+  { hp: 5e8, v: 1650000 }, { hp: 2e9, v: 4375000 }, { hp: 5e9, v: 9375000 }, { hp: 1e10, v: 18750000 }
+];
+const SG_LAST_REGULAR = 12, SG_FIRST_TOP = 13, SG_CLAN_LEVEL = 16;
+// Ранговые очки (сумма рангов всех героев) → какие боссы попадаются при выслеживании
+const SG_LEVEL_BY_RANKS = [16, 22, 30, 40, 52, 66, 82, 100, 120, 145, 175, 210];
+const SG_SIZE_NAME = { small: 'Малый', medium: 'Средний', top: 'ББ', clan: 'Босс клана' };
+
+// Темы недель по локациям; герои недели получают ×3 и ×2 ко всем статам в осаде
+const SIEGE_WEEKS = [
+  { loc: 'forest',  hw: ['ena', 'feral'] },  { loc: 'desert', hw: ['rage', 'sunzi'] },
+  { loc: 'crypt',   hw: ['dk', 'brath'] },    { loc: 'swamp',  hw: ['tikola', 'lilith'] },
+  { loc: 'ice',     hw: ['frost', 'ena'] },   { loc: 'volcano', hw: ['sunzi', 'rage'] },
+  { loc: 'castle',  hw: ['paladin', 'dk'] },  { loc: 'abyss',  hw: ['lilith', 'brath'] }
+];
+const SG_WEEK_MULT = [3, 2];
+
+// 33 недельных порога личных очков (вики). b — Горн, g — Большой горн, m — медали (ранговые очки), bt — бутылки,
+// gm — изумруды, el — «элитка»: рангами герою недели (0 — первому, 1 — второму)
+const SIEGE_TIERS = [
+  [300, { b: 1, m: 5, gm: 10 }], [1500, { b: 1, m: 5, gm: 10 }], [5000, { b: 1, m: 10, gm: 10 }], [6000, { b: 1, m: 15, gm: 10 }],
+  [9000, { b: 1, m: 25, gm: 10 }], [13500, { g: 1, b: 1, m: 40, bt: 5, gm: 15 }], [20000, { b: 1, m: 40, gm: 15 }], [30000, { b: 1, m: 40, gm: 15 }],
+  [45000, { b: 1, m: 40, gm: 15 }], [70000, { b: 1, m: 40, gm: 15 }], [105000, { b: 1, m: 80, bt: 5, gm: 25 }], [155000, { g: 1, b: 1, m: 80, gm: 25 }],
+  [235000, { b: 1, m: 80, gm: 25 }], [350000, { b: 1, m: 80, gm: 25 }], [525000, { b: 1, m: 80, bt: 5, gm: 25 }], [790000, { b: 1, m: 120, gm: 35 }],
+  [1.2e6, { b: 2, m: 120, gm: 35 }], [1.75e6, { g: 1, b: 2, m: 120, gm: 35 }], [2.6e6, { b: 2, m: 120, bt: 5, gm: 35 }], [4e6, { b: 3, m: 120, bt: 5, gm: 35, el: 0 }],
+  [6e6, { b: 3, m: 200, bt: 5, gm: 50 }], [9e6, { b: 3, m: 200, bt: 5, gm: 50 }], [13.5e6, { b: 3, m: 200, bt: 10, gm: 50 }], [20.3e6, { g: 1, b: 3, m: 200, bt: 10, gm: 50 }],
+  [30.45e6, { b: 3, m: 200, bt: 10, gm: 50 }], [45.65e6, { b: 3, m: 400, bt: 25, gm: 75 }], [68.5e6, { b: 3, m: 400, bt: 35, gm: 75 }], [102.7e6, { b: 3, m: 400, bt: 45, gm: 75 }],
+  [155e6, { b: 3, m: 400, bt: 50, gm: 75 }], [230e6, { g: 1, b: 3, m: 400, bt: 60, gm: 75, el: 1 }], [345e6, { b: 3, m: 600, bt: 70, gm: 100 }], [520e6, { b: 3, m: 800, bt: 100, gm: 100 }],
+  [780e6, { b: 3, m: 800, bt: 150, gm: 100 }]
+];
+const SG_ELITE_RANKS = [10, 25];
+// Недельный рейтинг (9 диапазонов из вики; вместо Mythical Orb — медали)
+const SIEGE_BANDS = [
+  { to: 1, gm: 750, g: 5, m: 60, hero: 1 }, { to: 5, gm: 500, g: 5, m: 50 }, { to: 10, gm: 500, g: 5, m: 50 }, { to: 35, gm: 350, g: 5, m: 40 },
+  { to: 100, gm: 250, g: 3, m: 30 }, { to: 250, gm: 150, g: 2, m: 25 }, { to: 500, gm: 100, g: 2, m: 20 }, { to: 2000, gm: 50, b: 2, m: 15 },
+  { to: 5000, gm: 25, b: 1, m: 10 }
+];
+// Клановые пороги: 32 000 × 5^(n−1) (вики); dh — Рога Демона
+const CLAN_TIERS = [
+  [32000, { b: 1, m: 15, gm: 50 }], [160000, { b: 2, m: 25, gm: 75 }], [800000, { b: 2, m: 25, gm: 100, dh: 1 }], [4e6, { g: 1, m: 50, gm: 250, dh: 1 }],
+  [2e7, { g: 2, m: 50, gm: 350, dh: 1 }], [1e8, { g: 2, m: 100, gm: 500, dh: 2 }], [5e8, { g: 3, m: 100, gm: 500, dh: 2 }], [2.5e9, { g: 3, m: 100, gm: 500, dh: 3 }]
+];
+const SG_CLAN_NAME = 'Стальные Крушители';
+const SG_BOTS = [
+  { n: 'Гроза_Подземелий', pw: 1.8 }, { n: 'Кракен_88', pw: 1.5 }, { n: 'Валькирия', pw: 1.3 }, { n: 'Тёмный Ёж', pw: 1.2 },
+  { n: 'Арбалетчица', pw: 1.0 }, { n: 'Ninja_Crusher', pw: 0.9 }, { n: 'Дед Мороз', pw: 0.8 }, { n: 'Мистер Тапкин', pw: 0.7 }, { n: 'Шашлык', pw: 0.6 }
+];
+const SG_SERVER_NAMES = ['Император', 'xXDragonXx', 'Бабушка Света', 'NightOwl', 'Князь Тьмы', 'Gamer_Pro', 'Ледяной Рыцарь', 'Мурзик', 'Overlord', 'Светлана_К'];
 
 function rankCost(r) { return Math.ceil(10 * Math.pow(1.1, r - 1)); }
 function heroSiegeStats(id, rank) {
   const b = HERO_INFO[id].st, m = Math.pow(RANK_GROWTH, rank - 1), o = {};
-  for (const k of STAT_KEYS) o[k] = Math.round(b[k] * m);
+  for (const k of STAT_KEYS) o[k] = Math.round(b[k] * m * (k === 'agi' ? 1 : SG_STAT_SCALE));
   return o;
 }
-function statPower(s) { return Math.round(s.hp / 8 + s.atk * 2.2 + s.def * 1.6 + s.wis * 2 + s.agi * 1.4); }
+function statPower(s) { const S = SG_STAT_SCALE; return Math.round((s.hp / 8 + s.atk * 2.2 + s.def * 1.6 + s.wis * 2) / S + s.agi * 1.4); }
 function heroSiegeSkills(id, rank) { return SIEGE_SKILLS[id].filter(sk => !sk.rank || rank >= sk.rank); }
 function allianceBonus(cls, n) { const c = CLASS_DEFS[cls]; return n >= 3 ? c.p[1] : n >= 2 ? c.p[0] : 0; }
+function siegeRankPoints(ranks) { let s = 0; for (const d of HERO_DEFS) s += ranks[d.id] || 1; return s; }
+function sgLevelFor(R) { let i = 0; while (i < SG_LEVEL_BY_RANKS.length && R >= SG_LEVEL_BY_RANKS[i]) i++; return i; }
+// Сила босса уровня L = сила героя с типичным для этого уровня рангом (чтобы бой оставался опасным на любом этапе)
+function sgLevelMult(L) {
+  if (L >= SG_FIRST_TOP) return Math.pow(RANK_GROWTH, [30, 60, 120, 200][L - SG_FIRST_TOP] / 10 - 1) * SG_TOP_MULT;
+  return Math.pow(RANK_GROWTH, (L ? SG_LEVEL_BY_RANKS[L - 1] : 10) / 10 - 1);
+}
+function sgTopLevelFor(R) { return R < 60 ? 13 : R < 120 ? 14 : R < 200 ? 15 : 16; }
+function sgSize(L) { return L >= SG_FIRST_TOP ? 'top' : SIEGE_LADDER[L].hp < 14e6 ? 'small' : 'medium'; }
+function sgWeekIndex(t) { return Math.floor((t - SG_EPOCH) / SG_WEEK_MS); }
+function sgWeekTheme(w) { return SIEGE_WEEKS[((w % SIEGE_WEEKS.length) + SIEGE_WEEKS.length) % SIEGE_WEEKS.length]; }
+function sgWeekMults(w) { const o = {}; sgWeekTheme(w).hw.forEach((id, i) => { o[id] = SG_WEEK_MULT[i]; }); return o; }
+function sgBossHourNow(t) { const d = new Date(t); return SG_BOSS_HOURS.includes(d.getUTCHours()); }
+function sgPlaceFor(pts, f) { return pts > 0 ? Math.max(1, Math.round(Math.pow(f * SG_RANK_A / pts, 1 / SG_RANK_K))) : 0; }
+function sgScoreAt(place, f) { return Math.round(f * SG_RANK_A * Math.pow(place, -SG_RANK_K)); }
 
-// Участники боя для симуляции
-function squadUnits(ids, ranks) {
-  return ids.map(id => {
+// Колода: 6 в бою + 4 запасных. Альянс считается по шестерым в бою; мощная атака и герои недели умножают все статы
+function sgDeckUnits(front, reserve, ranks, opts) {
+  opts = opts || {};
+  const counts = {};
+  for (const id of front) counts[HERO_INFO[id].cls] = (counts[HERO_INFO[id].cls] || 0) + 1;
+  const mk = id => {
     const info = HERO_INFO[id], c = CLASS_DEFS[info.cls], rank = ranks[id] || 1;
     const st = heroSiegeStats(id, rank);
-    const b = allianceBonus(info.cls, ids.filter(x => HERO_INFO[x].cls === info.cls).length);
+    const b = allianceBonus(info.cls, counts[info.cls] || 0);
     if (b) for (const k of c.st) st[k] = Math.round(st[k] * (1 + b));
+    const m = (opts.power ? SG_POWER_MULT : 1) * ((opts.week && opts.week[id]) || 1);
+    if (m !== 1) for (const k of STAT_KEYS) st[k] = Math.round(st[k] * m);
     return { name: DEF[id].name, key: id, cls: info.cls, st, skills: heroSiegeSkills(id, rank), magic: info.cls === 'mage', taunt: info.cls === 'guardian' ? 3 : 1 };
-  });
+  };
+  return { front: front.map(mk), reserve: reserve.map(mk) };
 }
-function siegeStageDef(s) {
-  const L = LOCATIONS[(s - 1) % LOCATIONS.length], B = SIEGE_BOSS[L.id], g = Math.pow(SIEGE_GROWTH, s - 1);
-  const sc = (base, mul) => { const o = {}; for (const k of STAT_KEYS) o[k] = Math.round(base[k] * g * ((mul && mul[k]) || 1)); return o; };
-  const boss = { name: ENEMY_NAMES[L.boss], key: L.boss, boss: true, st: sc(BOSS_BASE, B.mul), skills: B.sk, magic: !!B.magic };
-  const mins = [];
-  for (let k = 0; k < (s <= 2 ? 1 : 2); k++) { const key = L.enemies[(s + k) % 3]; mins.push({ name: ENEMY_NAMES[key], key, st: sc(MINION_BASE), skills: [] }); }
-  return { s, loc: L, loop: Math.floor((s - 1) / LOCATIONS.length) + 1, foes: mins.length === 2 ? [mins[0], boss, mins[1]] : [boss, mins[0]] };
+// Участники со стороны босса: сам босс (HP = остаток общего пула) и до 4 миньонов, часть призывается по ходу боя
+function sgBattleFoes(b) {
+  const L = LOCATIONS.find(x => x.id === b.loc) || LOCATIONS[0], B = SIEGE_BOSS[L.id];
+  const g = sgLevelMult(b.L) * SG_STAT_SCALE;
+  const bst = { hp: Math.max(1, Math.round(b.hp)) };
+  for (const k of ['atk', 'def', 'wis']) bst[k] = Math.round(SG_BOSS_BASE[k] * g * ((B.mul && B.mul[k]) || 1));
+  bst.agi = Math.round(SG_BOSS_BASE.agi * ((B.mul && B.mul.agi) || 1));
+  const foes = [{ name: b.name, key: b.key, boss: true, small: b.size === 'small', st: bst, mhp: b.maxHp, skills: B.sk, magic: !!B.magic }];
+  const n0 = b.size === 'small' ? 1 : b.size === 'medium' ? 2 : 3;
+  for (let k = 0; k < SG_MAX_MINIONS; k++) {
+    const key = L.enemies[(b.id + k) % 3], st = {};
+    for (const s of STAT_KEYS) st[s] = Math.round(SG_MINION_BASE[s] * (s === 'agi' ? 1 : g));
+    foes.push({ name: ENEMY_NAMES[key], key, st, skills: [], field: k < n0 });
+  }
+  return { foes, summonAt: b.size === 'small' ? [5] : [4, 7] };
 }
-function unitsPower(list) { return list.reduce((t, u) => t + statPower(u.st), 0); }
 
 function mulberry32(a) {
   return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 }
 
-// Пошаговый автобой. Возвращает результат и шаги для анимации (lite = без записи шагов)
-function simulateBattle(heroDefs, foeDefs, seed, lite) {
-  const rng = mulberry32(seed);
+// Автобой осады. o: { front, reserve, foes, summonAt, seed, lite, rounds }.
+// Герои бьют босса (одиночные атаки целятся в него), павших между раундами заменяют запасные по порядку 1→4,
+// босс призывает миньонов. Считается урон по боссу; убийство заканчивает бой.
+function simulateBattle(o) {
+  const rng = mulberry32(o.seed >>> 0), lite = !!o.lite, maxRounds = o.rounds || SG_ROUNDS;
   const units = [];
-  const mk = (side, o) => ({ side, i: units.length, name: o.name, key: o.key, cls: o.cls || '', boss: !!o.boss, base: o.st,
-    maxHp: o.st.hp, hp: o.st.hp, sh: 0, alive: true, magic: !!o.magic, taunt: o.taunt || 1, skills: o.skills || [],
-    pas: { crit: 0, ls: 0, dr: 0 }, mods: [], dots: [], stun: 0, turns: 0, lowUsed: false, revived: false, hitRound: -1,
-    dealt: 0, healed: 0, taken: 0 });
-  heroDefs.forEach(o => units.push(mk(0, o)));
-  foeDefs.forEach(o => units.push(mk(1, o)));
+  const mk = (side, d, field) => ({ side, i: units.length, name: d.name, key: d.key, cls: d.cls || '', boss: !!d.boss, small: !!d.small,
+    base: d.st, maxHp: d.mhp || d.st.hp, hp: d.st.hp, sh: 0, alive: true, field, reserve: side === 0 && !field, magic: !!d.magic,
+    taunt: d.taunt || 1, skills: d.skills || [], pas: { crit: 0, ls: 0, dr: 0 }, mods: [], dots: [], stun: 0, turns: 0,
+    lowUsed: false, revived: false, hitRound: -1, replaced: false, dealt: 0, healed: 0, taken: 0 });
+  (o.front || []).forEach(d => units.push(mk(0, d, true)));
+  (o.reserve || []).forEach(d => units.push(mk(0, d, false)));
+  (o.foes || []).forEach(d => units.push(mk(1, d, d.field !== false)));
   for (const u of units) for (const sk of u.skills) if (sk.trig === 'passive' && sk.pas) for (const k in sk.pas) u.pas[k] += sk.pas[k];
+  const bossU = units.find(u => u.boss);
+  let dmgBoss = 0;
 
   const steps = [];
   let cur = null, round = 0;
   const flags = units.map(() => '');
   const step = actor => { cur = { a: actor ? actor.i : -1, ev: [] }; if (!lite) steps.push(cur); };
   const ev = e => { if (!lite) cur.ev.push(e); };
-  const alive = side => units.filter(u => u.side === side && u.alive);
+  const alive = side => units.filter(u => u.side === side && u.alive && u.field);
   const stat = (u, k) => { let v = u.base[k]; for (const m of u.mods) if (m.st === k) v *= m.mult; return Math.max(v, u.base[k] * 0.1); };
   const flagsOf = u => {
-    if (!u.alive) return '';
+    if (!u.alive || !u.field) return '';
     const f = [];
     if (u.stun > 0) f.push('stun');
     for (const k of ['poison', 'burn', 'bleed']) if (u.dots.some(d => d.kind === k)) f.push(k);
@@ -4244,14 +4528,16 @@ function simulateBattle(heroDefs, foeDefs, seed, lite) {
   const snap = () => { if (lite) return; for (const u of units) { const f = flagsOf(u); if (f !== flags[u.i]) { flags[u.i] = f; ev({ t: 'f', d: u.i, f }); } } };
   const pickW = list => { let tot = 0; for (const u of list) tot += u.taunt; let r = rng() * tot; for (const u of list) { r -= u.taunt; if (r <= 0) return u; } return list[list.length - 1]; };
   const pickN = (list, n) => { const pool = list.slice(), out = []; while (pool.length && out.length < n) out.push(pool.splice(Math.floor(rng() * pool.length), 1)[0]); return out; };
+  const focus = (u, foes) => (u.side === 0 && bossU && bossU.alive && bossU.field) ? bossU : (foes.length ? pickW(foes) : null);
   const targets = (u, tgt, ctx) => {
     const foes = alive(1 - u.side), allies = alive(u.side);
     switch (tgt) {
-      case 'one': return foes.length ? [pickW(foes)] : [];
+      case 'one': { const t = focus(u, foes); return t ? [t] : []; }
       case 'rand2': return pickN(foes, 2);
       case 'rand3': return pickN(foes, 3);
       case 'all': return foes;
       case 'weak': return foes.length ? [foes.reduce((a, b) => b.hp < a.hp ? b : a)] : [];
+      case 'boss': return bossU && bossU.alive && bossU.side !== u.side ? [bossU] : [];
       case 'self': return u.alive ? [u] : [];
       case 'allyLow': return allies.length ? [allies.reduce((a, b) => b.hp / b.maxHp < a.hp / a.maxHp ? b : a)] : [];
       case 'allies': return allies;
@@ -4271,13 +4557,16 @@ function simulateBattle(heroDefs, foeDefs, seed, lite) {
     ev({ t: 'heal', d: t.i, v, hp: Math.round(t.hp) });
   };
   let die, afterHit;
-  const applyDamage = (a, t, dmg, kind) => {
+  const applyDamage = (a, t, dmg, kind, pierce) => {
     let left = dmg;
-    if (t.sh > 0) { const ab = Math.min(t.sh, left); t.sh -= ab; left -= ab; }
+    if (t.sh > 0 && !pierce) { const ab = Math.min(t.sh, left); t.sh -= ab; left -= ab; }
+    const before = t.hp;
     t.hp = Math.max(0, t.hp - left);
+    const lost = before - t.hp;
     if (a) a.dealt += dmg;
     t.taken += dmg;
-    ev({ t: 'dmg', d: t.i, v: dmg, k: kind, hp: Math.round(t.hp), sh: Math.round(t.sh) });
+    if (t === bossU && a && a.side === 0) dmgBoss += lost;
+    ev({ t: 'dmg', s: a ? a.i : -1, d: t.i, v: dmg, l: Math.round(lost), k: kind, hp: Math.round(t.hp), sh: Math.round(t.sh) });
     if (t.hp <= 0) die(t); else afterHit(t, a);
   };
   const hit = (a, t, kind, m, ls) => {
@@ -4299,8 +4588,9 @@ function simulateBattle(heroDefs, foeDefs, seed, lite) {
     ev({ t: 'cast', s: u.i, n: sk.n, ic: sk.icon });
     let last = [];
     for (const e of sk.eff) {
-      const tg = targets(u, e.tgt, { last, attacker: ctx.attacker });
+      const tg = targets(u, e.tgt, { last });
       if (e.do === 'dmg') { for (const t of tg) hit(u, t, e.kind, e.m, e.ls); last = tg; }
+      else if (e.do === 'pct') { for (const t of tg) if (t.alive && (!e.small || t.small)) applyDamage(u, t, Math.max(1, Math.round(t.hp * e.p)), 'pct', true); }
       else if (e.do === 'heal') for (const t of tg) heal(u, t, e.m * stat(u, 'wis'));
       else if (e.do === 'shield') for (const t of tg) { const v = Math.round(e.m * stat(u, 'wis')); t.sh = Math.min(t.maxHp, t.sh + v); ev({ t: 'sh', d: t.i, v, sh: Math.round(t.sh) }); }
       else if (e.do === 'buff' || e.do === 'debuff') { for (const t of tg) for (const st of e.st) addMod(t, st, e.do === 'buff' ? 1 + e.p : 1 - e.p, e.t, sk.n); }
@@ -4338,41 +4628,63 @@ function simulateBattle(heroDefs, foeDefs, seed, lite) {
     if (!sk) sk = u.skills.find(s => s.trig === 'chance' && rng() < s.p);
     if (sk) cast(u, sk, {});
     else {
-      const foes = alive(1 - u.side);
-      if (foes.length) { const t = pickW(foes); ev({ t: 'atk', s: u.i, d: t.i }); hit(u, t, u.magic ? 'magic' : 'phys', 1, 0); }
+      const t = focus(u, alive(1 - u.side));
+      if (t) { ev({ t: 'atk', s: u.i, d: t.i }); hit(u, t, u.magic ? 'magic' : 'phys', 1, 0); }
     }
     tickMods(u);
     snap();
   };
-  const byAgi = () => units.filter(u => u.alive).map(u => [u, stat(u, 'agi') * (0.95 + rng() * 0.1)]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
-  const ended = () => !alive(1).length ? 'win' : !alive(0).length ? 'lose' : null;
+  const startSkills = list => { for (const u of list) for (const sk of u.skills) if (sk.trig === 'start' && rng() < trigChance(sk)) cast(u, sk, {}); };
+  const byAgi = () => units.filter(u => u.alive && u.field).map(u => [u, stat(u, 'agi') * (0.95 + rng() * 0.1)]).sort((a, b) => b[1] - a[1]).map(x => x[0]);
+  const reservesLeft = () => units.some(u => u.side === 0 && u.reserve && !u.field && u.alive);
+  const ended = () => (bossU && !bossU.alive) ? 'kill' : (!alive(0).length && !reservesLeft()) ? 'wipe' : null;
 
   step(null);
-  for (const u of byAgi()) for (const sk of u.skills) if (sk.trig === 'start' && rng() < trigChance(sk)) cast(u, sk, {});
+  startSkills(byAgi());
   snap();
   if (!lite && !cur.ev.length) steps.pop();
   let result = null;
-  for (round = 1; round <= SIEGE_MAX_ROUNDS && !result; round++) {
+  for (round = 1; round <= maxRounds && !result; round++) {
     if (!lite) steps.push({ round });
+    if (round > 1) {
+      step(null);
+      // Запасные выходят по порядку на места павших героев
+      for (const u of units) {
+        if (u.side !== 0 || !u.field || u.alive || u.replaced) continue;
+        const r = units.find(x => x.side === 0 && x.reserve && !x.field && x.alive);
+        if (!r) break;
+        u.replaced = true; r.field = true;
+        ev({ t: 'enter', d: r.i, r: u.i });
+        startSkills([r]);
+      }
+      // Босс призывает миньонов
+      if ((o.summonAt || []).includes(round) && bossU && bossU.alive) {
+        const m = units.find(x => x.side === 1 && !x.boss && !x.field && x.alive);
+        if (m && alive(1).length - 1 < SG_MAX_MINIONS) { m.field = true; ev({ t: 'summon', d: m.i }); }
+      }
+      snap();
+      if (!lite && !cur.ev.length) steps.pop();
+    }
     for (const u of byAgi()) {
-      if (!u.alive) continue;
+      if (!u.alive || !u.field) continue;
       takeTurn(u);
       result = ended();
       if (result) break;
     }
   }
   return {
-    win: result === 'win', reason: result || 'time', rounds: Math.min(round - 1, SIEGE_MAX_ROUNDS), steps,
-    units: units.map(u => ({ i: u.i, side: u.side, name: u.name, key: u.key, cls: u.cls, boss: u.boss, maxHp: u.maxHp,
-      hp: Math.round(u.hp), alive: u.alive, dealt: Math.round(u.dealt), healed: Math.round(u.healed), taken: Math.round(u.taken) }))
+    kill: result === 'kill', reason: result || 'time', rounds: Math.min(round - 1, maxRounds), dmgBoss: Math.round(dmgBoss), steps,
+    units: units.map(u => ({ i: u.i, side: u.side, name: u.name, key: u.key, cls: u.cls, boss: u.boss, maxHp: u.maxHp, hp0: u.base.hp,
+      hp: Math.round(u.hp), alive: u.alive, field: u.field, reserve: u.reserve, dealt: Math.round(u.dealt), healed: Math.round(u.healed), taken: Math.round(u.taken) }))
   };
 }
-function siegeWinChance(ids, ranks, s, n) {
-  n = n || 40;
-  const heroes = squadUnits(ids, ranks), foes = siegeStageDef(s).foes;
-  let w = 0;
-  for (let k = 0; k < n; k++) if (simulateBattle(heroes, foes, 1009 + k * 7919, true).win) w++;
-  return w / n;
+// Средний урон по боссу за атаку (для подсказки в карточке босса)
+function sgEstimate(front, reserve, ranks, b, opts, n) {
+  const units = sgDeckUnits(front, reserve, ranks, opts), bf = sgBattleFoes(Object.assign({}, b, { hp: b.maxHp * 10 }));
+  let s = 0;
+  n = n || 6;
+  for (let k = 0; k < n; k++) s += simulateBattle({ front: units.front, reserve: units.reserve, foes: bf.foes, summonAt: bf.summonAt, seed: 7001 + k * 7919, lite: true }).dmgBoss;
+  return s / n;
 }
 /*SIEGE_SIM_END*/
 
@@ -4386,9 +4698,9 @@ function artGroup(group) {
     if (group === 'enemy') return typeof ART_ENEMY !== 'undefined' ? ART_ENEMY : null;
     if (group === 'hero') return typeof ART_HERO !== 'undefined' ? ART_HERO : null;
     if (group === 'icon') {
-      const a = typeof ART_ICON !== 'undefined' ? ART_ICON : null;
-      const b = typeof ART_ICON_EXTRA !== 'undefined' ? ART_ICON_EXTRA : null;
-      return a && b ? Object.assign({}, a, b) : (a || b);
+      const parts = [typeof ART_ICON !== 'undefined' ? ART_ICON : null, typeof ART_ICON_EXTRA !== 'undefined' ? ART_ICON_EXTRA : null,
+        typeof ART_ICON_HORNS !== 'undefined' ? ART_ICON_HORNS : null].filter(Boolean);
+      return parts.length ? Object.assign({}, ...parts) : null;
     }
   } catch (e) { /* нет арта */ }
   return null;
@@ -4439,8 +4751,10 @@ function newState() {
     seenLocs: [],
     stats: { clicks: 0, bosses: 0, rituals: 0, dailyWins: 0, maxStage: 1, playSec: 0 },
     // Осады: отдельная ветка, ритуал её не трогает
-    siege: { ranks: Object.fromEntries(HERO_DEFS.map(d => [d.id, 1])), best: 0, sel: 1, squad: [],
-             torches: TORCH_MAX, torchTs: Date.now(), medals: 0, wins: 0, battles: 0, speed: 2 },
+    siege: { ranks: Object.fromEntries(HERO_DEFS.map(d => [d.id, 1])), medals: 0, speed: 2,
+             att: SG_ATT_MAX, attTs: Date.now(), tr: SG_TRACK_MAX, trTs: Date.now(), bugles: 0, gjallar: 0, dhorns: 0,
+             front: [], reserve: [], known: [], week: sgNewWeek(sgWeekIndex(Date.now())), bosses: [], worldTs: Date.now(), seq: 1,
+             stats: { attacks: 0, power: 0, kills: 0, mvp: 0, points: 0, tracked: 0, heroMedals: 0 }, weekResult: null },
     lastSave: Date.now()
   };
 }
@@ -4461,12 +4775,36 @@ function applySave(d) {
   if (Array.isArray(d.seenLocs)) s.seenLocs = d.seenLocs.filter(x => typeof x === 'string');
   if (d.stats) Object.assign(s.stats, d.stats);
   if (d.siege && typeof d.siege === 'object') {
-    const S = s.siege, D = d.siege;
+    const S = s.siege, D = d.siege, num = (v, lo, hi) => Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : null;
     if (D.ranks) for (const id in S.ranks) if (Number.isFinite(D.ranks[id]) && D.ranks[id] >= 1) S.ranks[id] = Math.floor(D.ranks[id]);
-    ['best', 'sel', 'torches', 'torchTs', 'medals', 'wins', 'battles', 'speed'].forEach(k => { if (Number.isFinite(D[k])) S[k] = D[k]; });
-    if (Array.isArray(D.squad)) S.squad = D.squad.filter((id, i, a) => DEF[id] && a.indexOf(id) === i).slice(0, SIEGE_SQUAD_MAX);
-    S.sel = Math.max(1, Math.min(S.sel, S.best + 1));
+    ['medals', 'bugles', 'gjallar', 'dhorns'].forEach(k => { if (num(D[k], 0, 1e12) !== null) S[k] = Math.floor(D[k]); });
+    ['speed', 'attTs', 'trTs', 'worldTs', 'seq'].forEach(k => { if (Number.isFinite(D[k])) S[k] = D[k]; });
+    if (num(D.att, 0, SG_ATT_MAX) !== null) S.att = Math.floor(num(D.att, 0, SG_ATT_MAX));
+    if (num(D.tr, 0, SG_TRACK_MAX) !== null) S.tr = Math.floor(num(D.tr, 0, SG_TRACK_MAX));
     if (![1, 2, 4].includes(S.speed)) S.speed = 2;
+    const ids = a => Array.isArray(a) ? a.filter((id, i, x) => DEF[id] && x.indexOf(id) === i) : [];
+    if (Array.isArray(D.front) || Array.isArray(D.reserve)) {
+      S.front = ids(D.front).slice(0, SG_FRONT);
+      S.reserve = ids(D.reserve).filter(id => !S.front.includes(id)).slice(0, SG_RESERVE);
+    } else if (Array.isArray(D.squad)) {           // сейв осад v1: отряд становится колодой
+      const q = ids(D.squad); S.front = q.slice(0, SG_FRONT); S.reserve = q.slice(SG_FRONT, SG_FRONT + SG_RESERVE);
+      if (Number.isFinite(D.best) && D.best > 0) S.bugles += Math.min(6, Math.ceil(D.best / 3));   // компенсация за пройденные осады v1
+    }
+    S.known = ids(D.known);
+    const W = D.week;
+    if (W && Number.isFinite(W.id) && Array.isArray(W.bots) && W.bots.length === SG_BOTS.length)
+      S.week = { id: W.id, pts: num(W.pts, 0, 1e15) || 0, tier: Math.floor(num(W.tier, 0, SIEGE_TIERS.length) || 0), ctier: Math.floor(num(W.ctier, 0, CLAN_TIERS.length) || 0),
+                 bots: W.bots.map(v => num(v, 0, 1e15) || 0) };
+    if (Array.isArray(D.bosses)) S.bosses = D.bosses.filter(b => b && typeof b === 'object' && SIEGE_LADDER[b.L] && SG_SIZE_NAME[b.size] &&
+      Number.isFinite(b.hp) && Number.isFinite(b.maxHp) && b.maxHp > 0 && Number.isFinite(b.t1) && Number.isFinite(b.id) &&
+      Array.isArray(b.bd) && b.bd.length === SG_BOTS.length && LOCATIONS.some(x => x.id === b.loc)).slice(0, 20);
+    S.seq = Math.max(S.seq, 1 + S.bosses.reduce((m, b) => Math.max(m, b.id), 0));
+    if (D.stats && typeof D.stats === 'object') for (const k in S.stats) if (Number.isFinite(D.stats[k])) S.stats[k] = D.stats[k];
+    if (D.weekResult && typeof D.weekResult === 'object' && Number.isFinite(D.weekResult.pts)) S.weekResult = D.weekResult;
+    const now = Date.now();
+    if (S.attTs > now) S.attTs = now;
+    if (S.trTs > now) S.trTs = now;
+    if (S.worldTs > now) S.worldTs = now;
   }
   if (s.wave > 10 || s.wave < 1) s.wave = 1;
   state = s;
@@ -5232,39 +5570,276 @@ function refreshMap() {
 }
 
 // ============================================================
-//  ОСАДЫ: факелы, ранги, отряд
+//  ОСАДЫ: попытки и горны, боссы, очки, рейтинг, клан, колода
 // ============================================================
 function heroRank(id) { return state.siege.ranks[id] || 1; }
 function siegeUnlocked() { return state.stats.maxStage >= SIEGE_UNLOCK_FLOOR; }
 function siegeHeroIds() { return HERO_DEFS.filter(d => isUnlocked(H(d.id))).map(d => d.id); }
-function siegeReward(s, first) { return first ? { medals: 30 + 15 * s, gems: s % 5 === 0 ? 10 : 2, bottles: 5 + 2 * s } : { medals: 10 + 5 * s }; }
 function plural(n, a, b, c) { n = Math.abs(n) % 100; const d = n % 10; if (n > 10 && n < 20) return c; if (d > 1 && d < 5) return b; if (d === 1) return a; return c; }
 function shortName(id) { return { feral: 'Клык', paladin: 'Гаррет' }[id] || DEF[id].name.split(' ')[0]; }
+function sgFmtTime(ms) {
+  const sec = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+  const p = x => String(x).padStart(2, '0');
+  return h ? `${h}:${p(m)}:${p(s)}` : `${m}:${p(s)}`;
+}
+function sgActive(b) { return !b.dead && !b.esc; }
+function sgWeekStart(w) { return SG_EPOCH + w * SG_WEEK_MS; }
+function sgWeekFrac(t) { return Math.min(1, Math.max(0.03, (t - sgWeekStart(state.siege.week.id)) / SG_WEEK_MS)); }
+function sgNewWeek(id) { return { id, pts: 0, tier: 0, ctier: 0, bots: SG_BOTS.map(() => 0) }; }
+function sgClanPoints() { const W = state.siege.week; return W.pts + W.bots.reduce((a, b) => a + b, 0); }
+function sgNextBossHour(t) {
+  for (let k = 0; k < 25; k++) { const x = new Date(t + k * 3600e3); if (SG_BOSS_HOURS.includes(x.getUTCHours())) { x.setUTCMinutes(0, 0, 0); if (x.getTime() + 3600e3 > t) return x.getTime(); } }
+  return t;
+}
 
-function regenTorches() {
-  const S = state.siege, now = Date.now();
-  if (S.torches >= TORCH_MAX) { S.torchTs = now; return; }
-  if (S.torchTs > now) S.torchTs = now;
-  const n = Math.floor((now - S.torchTs) / TORCH_MS);
-  if (n > 0) {
-    S.torches = Math.min(TORCH_MAX, S.torches + n);
-    S.torchTs = S.torches >= TORCH_MAX ? now : S.torchTs + n * TORCH_MS;
+// ----- Награды -----
+function sgRewardParts(r, html) {
+  const ic = k => html ? ' ' + I(k) : '';
+  const w = state.siege && state.siege.week ? sgWeekTheme(state.siege.week.id) : SIEGE_WEEKS[0];
+  const out = [];
+  if (r.g) out.push(`${r.g}${ic('gjallar')}${html ? '' : ' больш. горн'}`);
+  if (r.b) out.push(`${r.b}${ic('bugle')}${html ? '' : ' горн'}`);
+  if (r.m) out.push(`${r.m}${ic('medal')}${html ? '' : ' медалей'}`);
+  if (r.bt) out.push(`${r.bt}${ic('bottle')}${html ? '' : ' бутылок'}`);
+  if (r.gm) out.push(`${r.gm}${ic('gem')}${html ? '' : ' изумрудов'}`);
+  if (r.dh) out.push(`${r.dh}${ic('dhorn')}${html ? '' : ' рог демона'}`);
+  if (r.el != null) out.push(`элитка: +${SG_ELITE_RANKS[r.el]} рангов ${DEF[w.hw[r.el]].name}`);
+  if (r.hero) out.push('медаль «Герой осады»');
+  return out.join(html ? ' · ' : ', ');
+}
+function sgGrant(r) {
+  const S = state.siege;
+  S.bugles += r.b || 0; S.gjallar += r.g || 0; S.medals += r.m || 0; S.dhorns += r.dh || 0;
+  state.bottles += r.bt || 0; state.gems += r.gm || 0;
+  if (r.el != null) { const id = sgWeekTheme(S.week.id).hw[r.el]; S.ranks[id] = heroRank(id) + SG_ELITE_RANKS[r.el]; }
+  if (r.hero) S.stats.heroMedals = (S.stats.heroMedals || 0) + 1;
+}
+function sgCheckTiers() {
+  const W = state.siege.week;
+  while (W.tier < SIEGE_TIERS.length && W.pts >= SIEGE_TIERS[W.tier][0]) {
+    const [t, r] = SIEGE_TIERS[W.tier]; W.tier++; sgGrant(r);
+    toast(`🏆 Порог осады ${fmtN(t)} очков: ${sgRewardParts(r)}`, r.el != null);
+  }
+  const cp = sgClanPoints();
+  while (W.pts > 0 && W.ctier < CLAN_TIERS.length && cp >= CLAN_TIERS[W.ctier][0]) {
+    const [t, r] = CLAN_TIERS[W.ctier]; W.ctier++; sgGrant(r);
+    toast(`🛡️ Клановый порог ${fmtN(t)}: ${sgRewardParts(r)}`);
   }
 }
-function torchTimerText() {
-  const S = state.siege;
-  if (S.torches >= TORCH_MAX) return 'полный запас';
-  const sec = Math.max(0, Math.ceil((TORCH_MS - (Date.now() - S.torchTs)) / 1000));
-  return `+1 через ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+function sgWeekCheck(now) {
+  const S = state.siege, cur = sgWeekIndex(now);
+  if (!S.week) { S.week = sgNewWeek(cur); return; }
+  if (S.week.id === cur) return;
+  const pts = S.week.pts, place = sgPlaceFor(pts, 1);
+  const band = pts > 0 ? SIEGE_BANDS.find(x => place <= x.to) : null;
+  if (band) sgGrant(band);
+  if (pts > 0) S.weekResult = { id: S.week.id, pts, place, band };
+  S.week = sgNewWeek(cur);
+  S.bosses = [];
 }
-function refillTorches() {
+
+// ----- Попытки и горны -----
+function sgRegenOne(S, k, ks, max, per, now) {
+  if (S[k] >= max) { S[ks] = now; return; }
+  if (S[ks] > now) S[ks] = now;
+  const n = Math.floor((now - S[ks]) / per);
+  if (n > 0) { S[k] = Math.min(max, S[k] + n); S[ks] = S[k] >= max ? now : S[ks] + n * per; }
+}
+function sgRegen(now) {
   const S = state.siege;
-  if (S.torches >= TORCH_MAX) return toast('Факелов и так полный запас');
-  if (state.gems < TORCH_REFILL_GEMS) return toast(`Нужно ${TORCH_REFILL_GEMS} 💎`);
-  state.gems -= TORCH_REFILL_GEMS;
-  S.torches = TORCH_MAX; S.torchTs = Date.now();
-  toast(`🔥 Факелы пополнены: ${TORCH_MAX}/${TORCH_MAX}`);
+  sgRegenOne(S, 'att', 'attTs', SG_ATT_MAX, SG_ATT_MS, now);
+  sgRegenOne(S, 'tr', 'trTs', SG_TRACK_MAX, SG_TRACK_MS, now);
+}
+function sgSpend(n) { const S = state.siege; if (S.att >= SG_ATT_MAX) S.attTs = Date.now(); S.att -= n; }
+function sgAttTimer() { const S = state.siege; return S.att >= SG_ATT_MAX ? 'макс.' : '+1 · ' + sgFmtTime(SG_ATT_MS - (Date.now() - S.attTs)); }
+function sgTrackTimer() { const S = state.siege; return S.tr >= SG_TRACK_MAX ? '' : ' · +1 через ' + sgFmtTime(SG_TRACK_MS - (Date.now() - S.trTs)); }
+function sgFmtLong(ms) { const m = Math.max(0, Math.floor(ms / 60000)), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60); return d ? `${d} д ${h} ч` : h ? `${h} ч ${m % 60} мин` : `${m % 60} мин`; }
+function useBugle() {
+  const S = state.siege;
+  if (S.att >= SG_ATT_MAX) return toast('Попыток и так 3 из 3');
+  if (S.bugles <= 0) return toast('Нет горнов: их дают за выслеживание, добивание, MVP и пороги очков');
+  S.bugles--; S.att++;
+  toast('📯 Горн: +1 попытка');
   refreshAll();
+}
+function useGjallar() {
+  const S = state.siege;
+  if (S.att >= SG_ATT_MAX) return toast('Попыток и так 3 из 3');
+  if (S.gjallar <= 0) return toast('Нет больших горнов: их дают за MVP по средним боссам и пороги очков');
+  S.gjallar--; S.att = SG_ATT_MAX; S.attTs = Date.now();
+  toast('📯 Большой горн: все 3 попытки');
+  refreshAll();
+}
+
+// ----- Боссы: выслеживание, соклановцы, делёж очков -----
+const SG_BOT_P = { small: 0.04, medium: 0.05, top: 0.07, clan: 0.15 };     // шанс атаки бота за минуту
+const SG_BOT_F = { small: 0.16, medium: 0.09, top: 0.005, clan: 0.016 };  // доля пула за атаку (× сила бота)
+const SG_BOT_BG = 0.008;   // фоновые очки соклановца в минуту (доля стоимости босса твоего уровня × сила): они бьют и других боссов
+function sgMakeBoss(L, finder, t, clan) {
+  const S = state.siege, W = sgWeekTheme(S.week.id), loc = LOCATIONS.find(x => x.id === (clan ? 'castle' : W.loc));
+  const size = clan ? 'clan' : sgSize(L);
+  let key, name;
+  if (size === 'small') { key = loc.enemies[S.seq % 3]; name = ENEMY_NAMES[key] + ' — вожак'; }
+  else if (size === 'medium') { key = loc.boss; name = ENEMY_NAMES[key]; }
+  else if (size === 'top') { key = loc.boss; name = ENEMY_NAMES[key] + ' · ББ'; }
+  else { key = 'boss_castle'; name = 'Демон из Рога'; }
+  const lad = SIEGE_LADDER[L];
+  const b = { id: S.seq++, L, size, loc: loc.id, key, name, maxHp: lad.hp, hp: lad.hp, v: lad.v, finder, t0: t,
+    t1: t + (clan ? SG_CLANBOSS_LIFE : SG_BOSS_LIFE), me: 0, bd: SG_BOTS.map(() => 0), oc: 0, omax: 0,
+    last: null, dead: false, esc: false, res: null, shared: finder !== 'me' || clan };
+  S.bosses.unshift(b);
+  return b;
+}
+function trackBoss() {
+  const S = state.siege, now = Date.now();
+  sgTick(now);
+  const own = S.bosses.filter(b => sgActive(b) && b.finder === 'me' && b.size !== 'clan').length;
+  if (own >= SG_OWN_MAX) return toast(`Уже выслежено ${SG_OWN_MAX} босса: добей их или дождись, пока сбегут`);
+  if (S.tr <= 0) return toast('Следы закончились: новый след через ' + sgFmtTime(SG_TRACK_MS - (now - S.trTs)));
+  if (S.tr >= SG_TRACK_MAX) S.trTs = now;
+  S.tr--;
+  const R = siegeRankPoints(S.ranks);
+  let L = sgLevelFor(R);
+  const r = Math.random();
+  if (r < 0.2) L = Math.max(0, L - 1); else if (r > 0.8) L = Math.min(SG_LAST_REGULAR, L + 1);
+  let top = false;
+  if (sgBossHourNow(now) && R >= SG_TOP_MIN_RANKS && Math.random() < 0.35) { L = sgTopLevelFor(R); top = true; }
+  const b = sgMakeBoss(L, 'me', now);
+  S.stats.tracked++;
+  toast(top ? `🔍 Выслежен Большой Босс: ${b.name}!` : `🔍 Выслежен босс: ${b.name} (${SG_SIZE_NAME[b.size]}, ${fmtN(b.maxHp)} HP)`, top);
+  refreshAll();
+}
+function shareBoss(id) {
+  const b = state.siege.bosses.find(x => x.id === id);
+  if (!b || !sgActive(b) || b.shared) return;
+  b.shared = true;
+  toast(`🚩 ${b.name}: соклановцы позваны на помощь. Убьют быстрее, но очки поделятся`);
+  refreshAll();
+}
+function summonClanBoss(how) {
+  const S = state.siege, now = Date.now();
+  sgTick(now);
+  if (S.bosses.some(b => b.size === 'clan' && sgActive(b))) return toast('Босс клана уже призван');
+  if (how === 'horn') { if (S.dhorns <= 0) return toast('Нет Рогов Демона: их дают клановые пороги'); S.dhorns--; }
+  else { if (state.bottles < SG_CLANBOSS_BOTTLES) return toast(`Нужно ${SG_CLANBOSS_BOTTLES} 🧪`); state.bottles -= SG_CLANBOSS_BOTTLES; }
+  const b = sgMakeBoss(sgTopLevelFor(siegeRankPoints(S.ranks)), 'me', now, true);
+  toast(`😈 Призван ${b.name}: весь клан идёт в бой, на него ${SG_CLANBOSS_LIFE / 60000} минут`, true);
+  sgTab = 'bosses';
+  refreshAll();
+}
+function sgHit(b, who, dmg) {
+  if (!sgActive(b) || !(dmg >= 1)) return 0;
+  const v = Math.min(b.hp, Math.round(dmg));
+  b.hp -= v;
+  if (who === 'me') b.me += v; else if (who === 'o') b.omax = Math.max(b.omax, v); else b.bd[who] += v;
+  if (b.hp <= 0) sgResolve(b, who);
+  return v;
+}
+// Делёж стоимости убитого босса: 5% выследившему (если бил), 5% добившему, 30% MVP, 60% поровну всем, кто нанёс урон
+function sgResolve(b, last) {
+  const S = state.siege, W = S.week;
+  b.dead = true; b.hp = 0; b.last = last;
+  const parts = [];
+  if (b.me > 0) parts.push(['me', b.me]);
+  b.bd.forEach((v, i) => { if (v > 0) parts.push([i, v]); });
+  const N = parts.length + b.oc;
+  let mvp = null, mv = 0;
+  for (const [w, v] of parts) if (v > mv) { mv = v; mvp = w; }
+  if (b.omax > mv) mvp = 'o';
+  const V = b.v, my = { all: 0, find: 0, last: 0, mvp: 0 }, items = { b: 0, g: 0 };
+  const give = (w, k, pts) => { if (w === 'me') my[k] += pts; else if (typeof w === 'number') W.bots[w] += pts; };
+  const share = V * SG_SHARES.all / Math.max(1, N);
+  for (const [w] of parts) give(w, 'all', share);
+  const finderHit = b.finder === 'me' ? b.me > 0 : typeof b.finder === 'number' ? b.bd[b.finder] > 0 : false;
+  if (finderHit) give(b.finder, 'find', V * SG_SHARES.find);
+  give(last, 'last', V * SG_SHARES.last);
+  give(mvp, 'mvp', V * SG_SHARES.mvp);
+  if (b.me > 0) {
+    if (b.finder === 'me') items.b++;
+    if (last === 'me') items.b++;
+    if (mvp === 'me') { if (V >= SG_HORN_VALUE) items.g++; else items.b++; }
+    const pts = Math.round(my.all + my.find + my.last + my.mvp);
+    b.res = { pts, my: { all: Math.round(my.all), find: Math.round(my.find), last: Math.round(my.last), mvp: Math.round(my.mvp) }, items, N, mvp: mvp === 'me' };
+    S.bugles += items.b; S.gjallar += items.g;
+    W.pts += pts; S.stats.points += pts; S.stats.kills++;
+    if (mvp === 'me') S.stats.mvp++;
+    toast(`🏰 ${b.name} повержен: +${fmtN(pts)} очков осады` + (items.b + items.g ? ` и ${items.b + items.g} ${plural(items.b + items.g, 'горн', 'горна', 'горнов')}` : ''));
+  }
+  sgCheckTiers();
+}
+function sgEscape(b) { b.esc = true; if (b.me > 0) toast(`⏳ ${b.name} сбежал: вклад сгорел`); }
+
+// Мир осады: соклановцы и другие игроки сервера ходят по минутам (и догоняют время, пока игра была закрыта)
+function sgTick(now) {
+  now = now || Date.now();
+  const S = state.siege;
+  sgWeekCheck(now);
+  sgRegen(now);
+  let t = S.worldTs || now;
+  if (now - t > 12 * 3600e3) { const t2 = now - 12 * 3600e3; sgBotsBg((t2 - Math.max(t, sgWeekStart(S.week.id))) / 60e3); t = t2; }
+  while (t + 60e3 <= now) { t += 60e3; sgWorldStep(t); }
+  S.worldTs = t;
+  sgCheckTiers();
+  // в списке остаются живые боссы и последние 4 боя с твоим участием
+  const keep = new Set(S.bosses.filter(b => !sgActive(b) && b.me > 0).sort((a, b) => b.t0 - a.t0).slice(0, 4));
+  if (S.bosses.some(b => !sgActive(b) && !keep.has(b))) S.bosses = S.bosses.filter(b => sgActive(b) || keep.has(b));
+}
+function sgBotsBg(mins) {
+  if (!(mins > 0)) return;
+  const S = state.siege, v = SIEGE_LADDER[Math.min(SG_LAST_REGULAR, sgLevelFor(siegeRankPoints(S.ranks)))].v * SG_BOT_BG * mins;
+  SG_BOTS.forEach((b, i) => { S.week.bots[i] += v * b.pw; });
+}
+function sgWorldStep(t) {
+  const S = state.siege, R = siegeRankPoints(S.ranks);
+  if (t < sgWeekStart(S.week.id)) return;
+  sgBotsBg(1);
+  if (S.bosses.filter(b => sgActive(b) && typeof b.finder === 'number').length < 2 && Math.random() < 0.045) {
+    const L = Math.max(0, Math.min(SG_LAST_REGULAR, sgLevelFor(R) + Math.floor(Math.random() * 3) - 1));
+    sgMakeBoss(L, Math.floor(Math.random() * SG_BOTS.length), t);
+  }
+  const d = new Date(t);
+  if (SG_BOSS_HOURS.includes(d.getUTCHours()) && d.getUTCMinutes() === 0 && R >= SG_TOP_MIN_RANKS) sgMakeBoss(sgTopLevelFor(R), 'srv', t);
+  for (const b of S.bosses) {
+    if (!sgActive(b)) continue;
+    if (t >= b.t1) { sgEscape(b); continue; }
+    if (!b.shared || t < b.t0 + 60e3) continue;
+    for (let i = 0; i < SG_BOTS.length && sgActive(b); i++) {
+      if (Math.random() < SG_BOT_P[b.size]) sgHit(b, i, b.maxHp * SG_BOT_F[b.size] * SG_BOTS[i].pw * (0.6 + Math.random() * 0.8));
+    }
+    if (b.size === 'top') for (let k = 0; k < 3 && sgActive(b); k++) if (Math.random() < 0.5) {
+      if (Math.random() < 0.6 || !b.oc) b.oc++;
+      sgHit(b, 'o', b.maxHp * (0.012 + Math.random() * 0.024));
+    }
+  }
+}
+
+// ----- Колода: 6 в бой + 4 запасных -----
+function sgDeckPlace(id) { const S = state.siege; return S.front.includes(id) ? 'front' : S.reserve.includes(id) ? 'reserve' : null; }
+function deckToggle(id, where) {
+  const S = state.siege;
+  if (!isUnlocked(H(id))) return;
+  if (sgDeckPlace(id) === where) { S[where] = S[where].filter(x => x !== id); refreshAll(); return; }
+  const max = where === 'front' ? SG_FRONT : SG_RESERVE;
+  if (S[where].length >= max) return toast(where === 'front' ? 'В бою уже 6 героев' : 'В запасе уже 4 героя');
+  S.front = S.front.filter(x => x !== id); S.reserve = S.reserve.filter(x => x !== id);
+  S[where].push(id);
+  refreshAll();
+}
+function autoDeck() {
+  const pw = id => statPower(heroSiegeStats(id, heroRank(id))) * ((sgWeekMults(state.siege.week.id)[id]) || 1);
+  const ids = siegeHeroIds().sort((a, b) => pw(b) - pw(a));
+  state.siege.front = ids.slice(0, SG_FRONT);
+  state.siege.reserve = ids.slice(SG_FRONT, SG_FRONT + SG_RESERVE);
+  refreshAll();
+}
+function clearDeck() { state.siege.front = []; state.siege.reserve = []; refreshAll(); }
+// Новые открытые герои сами встают в пустые слоты (сначала в бой, потом в запас)
+function sgFillDeck() {
+  const S = state.siege, ids = siegeHeroIds(), wk = sgWeekMults(S.week.id);
+  const pw = id => statPower(heroSiegeStats(id, heroRank(id))) * (wk[id] || 1);
+  const fresh = ids.filter(id => !S.known.includes(id) && !sgDeckPlace(id)).sort((a, b) => pw(b) - pw(a));
+  for (const id of fresh) { if (S.front.length < SG_FRONT) S.front.push(id); else if (S.reserve.length < SG_RESERVE) S.reserve.push(id); }
+  S.known = ids;
 }
 function rankUp(id) {
   const S = state.siege, r = heroRank(id), cost = rankCost(r);
@@ -5272,43 +5847,19 @@ function rankUp(id) {
   if (S.medals < cost) return toast(`Нужно ${formatNum(cost)} 🎖️ медалей`);
   S.medals -= cost;
   S.ranks[id] = r + 1;
-  const sk2 = SIEGE_SKILLS[id].find(sk => sk.rank === r + 1);
-  if (sk2) toast(`🎗️ ${DEF[id].name}: ранг ${r + 1}, открыт навык осады «${sk2.n}»!`, true);
+  const sk = SIEGE_SKILLS[id].find(x => x.rank === r + 1);
+  if (sk) toast(`🎗️ ${DEF[id].name}: ранг ${r + 1}, открыт навык осады «${sk.n}»!`, true);
   else toast(`🎗️ ${DEF[id].name}: ранг ${r + 1}`);
   refreshAll();
 }
-function toggleSquad(id) {
-  const S = state.siege, i = S.squad.indexOf(id);
-  if (i >= 0) S.squad.splice(i, 1);
-  else {
-    if (!isUnlocked(H(id))) return;
-    if (S.squad.length >= SIEGE_SQUAD_MAX) return toast(`В отряде максимум ${SIEGE_SQUAD_MAX} героев`);
-    S.squad.push(id);
-  }
-  refreshAll();
-}
-function autoSquad() {
-  const pw = id => statPower(heroSiegeStats(id, heroRank(id)));
-  state.siege.squad = siegeHeroIds().sort((a, b) => pw(b) - pw(a)).slice(0, SIEGE_SQUAD_MAX);
-  refreshAll();
-}
-function clearSquad() { state.siege.squad = []; refreshAll(); }
-function siegeNav(d) { const S = state.siege; S.sel = Math.max(1, Math.min(S.best + 1, S.sel + d)); refreshAll(); }
-
-let sgChanceKey = '', sgChance = 0;
-function currentWinChance() {
-  const S = state.siege;
-  const key = S.sel + '|' + S.squad.map(id => id + ':' + heroRank(id)).join(',');
-  if (key !== sgChanceKey) { sgChanceKey = key; sgChance = S.squad.length ? siegeWinChance(S.squad, S.ranks, S.sel, 40) : 0; }
-  return sgChance;
-}
 
 // ----- Окно осад -----
+let sgTab = 'bosses';
 function clsChip(cls) { const c = CLASS_DEFS[cls]; return `<span class="cls-chip" style="--cc:${c.color}">${I(c.icon)}${c.one}</span>`; }
 function statLine(st) { return STAT_KEYS.map(k => `<span class="st" title="${STAT_INFO[k].n}">${I(k)}${fmtN(st[k])}</span>`).join(''); }
 function enemyImgHTML(key) { const u = artURI('enemy', key); return u ? `<img src="${u}" alt="" draggable="false">` : `<div class="emo">${enemyEmoji(key)}</div>`; }
 function allianceText(ids) {
-  if (!ids.length) return '<span class="muted small">Добавь до 5 героев кнопкой «В отряд». Тап по портрету в слоте убирает героя.</span>';
+  if (!ids.length) return '<span class="muted small">Нажимай «В бой» и «В запас» в списке героев. Тап по портрету в слоте убирает героя.</span>';
   let html = '';
   for (const cls in CLASS_DEFS) {
     const n = ids.filter(id => HERO_INFO[id].cls === cls).length;
@@ -5316,10 +5867,177 @@ function allianceText(ids) {
     const c = CLASS_DEFS[cls], b = allianceBonus(cls, n);
     html += `<span class="ally${b ? ' on' : ''}" style="--cc:${c.color}">${I(c.icon)}${c.name}: ${n}${b ? ` · +${fmtPct(b)} ${c.st.map(k => STAT_INFO[k].s).join(' и ')}` : ''}</span>`;
   }
-  return html + '<div class="muted small" style="width:100%">Альянс: 2 героя одного класса дают бонус к статам, 3 — двойной.</div>';
+  return html + '<div class="muted small" style="width:100%">Альянс считается по шестерым в бою: 2 героя одного класса дают бонус, 3 — двойной.</div>';
 }
+function sgSetTab(t) { sgTab = t; refreshAll(); }
 
-let sgRosterKey = '', sgFoesKey = '', sgSquadKey = '';
+const sgBossEls = {};
+let sgBossKey = '', sgTierBuilt = false, sgDeckKey = '', sgRosterKey = '';
+let sgEstCache = {}, sgEstSig = '';
+function sgEstimateFor(b) {
+  const S = state.siege;
+  const sig = [S.week.id, S.front.join('.'), S.reserve.join('.'), [...S.front, ...S.reserve].map(heroRank).join('.')].join('|');
+  if (sig !== sgEstSig) { sgEstSig = sig; sgEstCache = {}; }          // колода или ранги изменились — оценки устарели
+  const key = b.L + '|' + b.loc + '|' + b.size;
+  if (!(key in sgEstCache)) sgEstCache[key] = S.front.length ? sgEstimate(S.front, S.reserve, S.ranks, b, { week: sgWeekMults(S.week.id) }, 5) : 0;
+  return sgEstCache[key];
+}
+function renderBossList() {
+  const S = state.siege, box = $('sg-bosses');
+  box.innerHTML = '';
+  for (const k in sgBossEls) delete sgBossEls[k];
+  const list = S.bosses.slice().sort((a, b) => (sgActive(b) - sgActive(a)) || (b.t0 - a.t0));
+  if (!list.length) box.innerHTML = '<div class="hint">Боссов пока нет. Нажми «Выследить босса» или дождись, пока соклановцы кого-нибудь найдут.</div>';
+  for (const b of list) {
+    const el = document.createElement('div');
+    el.className = `sgb size-${b.size}` + (sgActive(b) ? '' : ' done');
+    el.innerHTML = `
+      <div class="sgb-fig">${enemyImgHTML(b.key)}</div>
+      <div class="sgb-main">
+        <div class="sgb-top"><b>${b.name}</b><span class="sgb-tag">${SG_SIZE_NAME[b.size]}</span><span class="sgb-timer" data-r="tm"></span></div>
+        <div class="sgb-hp"><div class="fill" data-r="fill"></div><span data-r="hp"></span></div>
+        <div class="sgb-info" data-r="info"></div>
+        ${sgActive(b) ? `<div class="sgb-act">
+          <button class="btn btn-red btn-sm" data-r="atk" onclick="siegeAttack(${b.id}, false)">⚔️ Атака<br><small>1 попытка</small></button>
+          <button class="btn btn-purple btn-sm" data-r="pow" onclick="siegeAttack(${b.id}, true)">💥 Мощная ×5<br><small>3 попытки</small></button>
+          ${b.finder === 'me' && b.size !== 'clan' ? `<button class="btn btn-gray btn-sm" data-r="share" onclick="shareBoss(${b.id})"></button>` : ''}
+        </div>` : '<div class="sgb-res" data-r="res"></div>'}
+      </div>`;
+    box.appendChild(el);
+    const q = r => el.querySelector(`[data-r="${r}"]`);
+    sgBossEls[b.id] = { el, tm: q('tm'), fill: q('fill'), hp: q('hp'), info: q('info'), atk: q('atk'), pow: q('pow'), share: q('share'), res: q('res') };
+  }
+}
+function refreshBossList() {
+  const S = state.siege, now = Date.now();
+  const key = S.bosses.map(b => b.id + (sgActive(b) ? 'a' : 'd')).join(',');
+  if (key !== sgBossKey) { sgBossKey = key; renderBossList(); }
+  for (const b of S.bosses) {
+    const el = sgBossEls[b.id];
+    if (!el) continue;
+    const w = (b.hp / b.maxHp * 100).toFixed(1) + '%';
+    if (el.fill._w !== w) { el.fill._w = w; el.fill.style.width = w; }
+    setText(el.hp, `${fmtN(b.hp)} / ${fmtN(b.maxHp)}`);
+    const parts = (b.me > 0 ? 1 : 0) + b.bd.filter(v => v > 0).length + b.oc;
+    const finder = b.finder === 'me' ? 'ты' : b.finder === 'srv' ? 'игрок сервера' : SG_BOTS[b.finder].n;
+    let info = `Стоимость <b>${fmtN(b.v)}</b> · участников <b>${parts}</b> · выследил: ${finder}`;
+    if (b.me) info += ` · твой урон <b>${fmtN(b.me)}</b>`;
+    if (sgActive(b) && S.front.length) { const e = sgEstimateFor(b); info += `<br>Твоя атака ≈ <b>${fmtN(e)}</b> (${(e / b.maxHp * 100).toFixed(e / b.maxHp < 0.01 ? 2 : 0)}% HP), мощная ×5 — в несколько раз больше`; }
+    setHTML(el.info, info);
+    if (sgActive(b)) {
+      setText(el.tm, '⏳ ' + sgFmtTime(b.t1 - now));
+      el.atk.disabled = S.att < 1 || !!SB;
+      el.pow.disabled = S.att < SG_POWER_COST || !!SB;
+      if (el.share) { el.share.disabled = b.shared; setHTML(el.share, b.shared ? '🚩 Клан<br><small>позван</small>' : '🚩 Позвать<br><small>клан</small>'); }
+    } else {
+      setText(el.tm, b.dead ? '✔ повержен' : 'сбежал');
+      setHTML(el.res, b.res ? `Твои очки: <b>+${fmtN(b.res.pts)}</b>${b.res.mvp ? ' · <b>MVP</b>' : ''}${b.res.items.b ? ` · ${b.res.items.b} ${I('bugle')}` : ''}${b.res.items.g ? ` · ${b.res.items.g} ${I('gjallar')}` : ''}`
+        : b.esc ? (b.me ? 'Не успели убить: вклад сгорел' : 'Не успели убить') : 'Ты не участвовал: очков нет');
+    }
+  }
+}
+function renderTiers() {
+  sgTierBuilt = true;
+  $('sg-tiers').innerHTML = SIEGE_TIERS.map(([t, r], i) => `<div class="sgt" data-i="${i}"><b>${fmtN(t)}</b><span>${sgRewardParts(r, true)}</span><em class="ok">✓</em></div>`).join('');
+}
+function refreshSiege() {
+  if (openSheetId !== 'siege') return;
+  const S = state.siege, now = Date.now(), W = S.week, theme = sgWeekTheme(W.id), loc = LOCATIONS.find(x => x.id === theme.loc);
+  const wk = $('sg-week');
+  if (wk._loc !== loc.id) { wk._loc = loc.id; wk.style.backgroundImage = 'linear-gradient(90deg, rgba(10,6,10,.92), rgba(10,6,10,.45)), ' + bgValue(loc.id); }
+  const bh = sgBossHourNow(now), nb = sgNextBossHour(now);
+  setHTML(wk, `<div class="sgw-t">Неделя осады: <b>${loc.name}</b></div>
+    <div class="sgw-s">До новой недели ${sgFmtLong(sgWeekStart(W.id + 1) - now)} · ${bh ? '<b class="hot">Час Большого Босса!</b>' : `ББ через ${sgFmtTime(nb - now)}`}</div>
+    <div class="sgw-h">Герои недели: ${theme.hw.map((id, i) => `<span class="hw"><span class="hwp"><span class="pimg pt-${id}"></span></span>${shortName(id)} <b>×${SG_WEEK_MULT[i]}</b></span>`).join('')}</div>`);
+  setText($('sg-att'), `${S.att}/${SG_ATT_MAX}`);
+  setText($('sg-att-timer'), sgAttTimer());
+  setText($('sg-bugles'), String(S.bugles));
+  setText($('sg-gjallars'), String(S.gjallar));
+  setText($('sg-medals'), formatNum(S.medals));
+  $('sg-bugle').classList.toggle('dim', !S.bugles || S.att >= SG_ATT_MAX);
+  $('sg-gjallar').classList.toggle('dim', !S.gjallar || S.att >= SG_ATT_MAX);
+  document.querySelectorAll('#sg-tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === sgTab));
+  document.querySelectorAll('#sheet-siege .sg-pane').forEach(p => p.classList.toggle('on', p.dataset.p === sgTab));
+
+  if (sgTab === 'bosses') {
+    const R = siegeRankPoints(S.ranks), L = sgLevelFor(R), tb = $('sg-trackbtn');
+    const own = S.bosses.filter(b => sgActive(b) && b.finder === 'me' && b.size !== 'clan').length;
+    tb.disabled = S.tr <= 0 || own >= SG_OWN_MAX;
+    setHTML(tb, `🔍 Выследить босса<br><small>${own >= SG_OWN_MAX ? `уже ${SG_OWN_MAX} твоих босса в списке` : `следов ${S.tr}/${SG_TRACK_MAX}${sgTrackTimer()}`}</small>`);
+    setHTML($('sg-trackinfo'), `Ранговые очки (сумма рангов): <b>${R}</b> · обычно попадаются боссы до <b>${fmtN(SIEGE_LADDER[Math.min(SG_LAST_REGULAR, L + 1)].hp)}</b> HP` +
+      (R >= SG_TOP_MIN_RANKS ? ' · в час ББ можно выследить Большого Босса' : ` · ББ откроются с ${SG_TOP_MIN_RANKS} ранговых очков`));
+    refreshBossList();
+  } else if (sgTab === 'rewards') {
+    if (!sgTierBuilt) renderTiers();
+    const nx = SIEGE_TIERS[W.tier], prev = W.tier ? SIEGE_TIERS[W.tier - 1][0] : 0;
+    setHTML($('sg-pts'), `Очки осады за неделю: <b>${fmtN(W.pts)}</b> · порогов ${W.tier}/${SIEGE_TIERS.length}`);
+    const w = nx ? Math.min(100, (W.pts - prev) / (nx[0] - prev) * 100).toFixed(1) + '%' : '100%';
+    $('sg-ptsbar').style.width = w;
+    setHTML($('sg-next'), nx ? `Следующий порог ${fmtN(nx[0])}: ${sgRewardParts(nx[1], true)}` : 'Все пороги недели пройдены!');
+    document.querySelectorAll('#sg-tiers .sgt').forEach(el => el.classList.toggle('got', +el.dataset.i < W.tier));
+  } else if (sgTab === 'rank') {
+    const f = sgWeekFrac(now), place = sgPlaceFor(W.pts, f);
+    const band = place ? SIEGE_BANDS.find(x => place <= x.to) : null;
+    const rows = [];
+    for (let p = 1; p <= 10; p++) rows.push({ p, n: SG_SERVER_NAMES[p - 1], v: sgScoreAt(p, f) });
+    if (place && place <= 10) { rows.splice(place - 1, 0, { p: place, n: 'Ты', v: W.pts, me: 1 }); rows.length = 10; rows.forEach((r, i) => { r.p = i + 1; }); }
+    setHTML($('sg-rank'), `<div class="card"><h3>Недельный рейтинг сервера</h3>
+      <p>${place ? `Твоё место: <b>${place > 5000 ? 'за 5 000' : fmtN(place)}</b> · очков ${fmtN(W.pts)}` : 'Набери очки осады, чтобы попасть в рейтинг'}<br>
+      ${band ? `Награда в конце недели: ${sgRewardParts(band, true)}` : place ? 'Награды получают первые 5 000 мест' : ''}</p>
+      <div class="sgr-list">${rows.map(r => `<div class="sgr${r.me ? ' me' : ''}"><span>${r.p}</span><b>${r.n}</b><em class="v">${fmtN(r.v)}</em></div>`).join('')}
+      ${place > 10 ? `<div class="sgr me"><span>${place > 5000 ? '5000+' : fmtN(place)}</span><b>Ты</b><em class="v">${fmtN(W.pts)}</em></div>` : ''}</div></div>
+      <div class="card"><h3>Награды за место</h3><div class="sgr-list">${SIEGE_BANDS.map((x, i) => `<div class="sgr${band === x ? ' me' : ''}"><span>${i ? (SIEGE_BANDS[i - 1].to + 1) + '–' + x.to : '1'}</span><b class="small">${sgRewardParts(x, true)}</b></div>`).join('')}</div></div>`);
+  } else if (sgTab === 'clan') {
+    const cp = sgClanPoints(), members = [{ n: 'Ты', v: W.pts, me: 1 }, ...SG_BOTS.map((b, i) => ({ n: b.n, v: Math.round(W.bots[i]) }))].sort((a, b) => b.v - a.v);
+    const nx = CLAN_TIERS[W.ctier];
+    setHTML($('sg-clan'), `<div class="card"><h3>Клан «${SG_CLAN_NAME}»</h3>
+      <p>Очки клана за неделю: <b>${fmtN(cp)}</b> · клановых порогов ${W.ctier}/${CLAN_TIERS.length}<br>${nx ? `Следующий ${fmtN(nx[0])}: ${sgRewardParts(nx[1], true)}` : 'Все клановые пороги пройдены'}</p>
+      <div class="sgr-list">${members.map((m, i) => `<div class="sgr${m.me ? ' me' : ''}"><span>${i + 1}</span><b>${m.n}</b><em class="v">${fmtN(m.v)}</em></div>`).join('')}</div>
+      <p class="small muted">Соклановцы сами выслеживают боссов и приходят на твоих, если нажать 🚩. Очки клана — сумма очков всех участников.</p></div>`);
+    setText($('sg-dhorns'), String(S.dhorns));
+    const active = S.bosses.some(b => b.size === 'clan' && sgActive(b));
+    $('sg-cb-bt').disabled = active || state.bottles < SG_CLANBOSS_BOTTLES;
+    $('sg-cb-dh').disabled = active || S.dhorns <= 0;
+  } else if (sgTab === 'deck') {
+    refreshDeck();
+  }
+}
+function refreshDeck() {
+  const S = state.siege, week = sgWeekMults(S.week.id);
+  const key = S.front.join(',') + '|' + S.reserve.join(',') + '|' + S.week.id;
+  if (key !== sgDeckKey) {
+    sgDeckKey = key;
+    const slot = (id, k, res) => id
+      ? `<div class="sg-slot tap" style="--rc:${CLASS_DEFS[HERO_INFO[id].cls].color}" onclick="deckToggle('${id}', '${res ? 'reserve' : 'front'}')" title="Убрать"><div class="pimg pt-${id}"></div>${res ? `<i class="n">${k + 1}</i>` : ''}${week[id] ? `<i class="wk">×${week[id]}</i>` : ''}<i class="x">✕</i></div>`
+      : `<div class="sg-slot empty">${res ? k + 1 : '+'}</div>`;
+    let f = '', r = '';
+    for (let k = 0; k < SG_FRONT; k++) f += slot(S.front[k], k, false);
+    for (let k = 0; k < SG_RESERVE; k++) r += slot(S.reserve[k], k, true);
+    setHTML($('sg-front'), f);
+    setHTML($('sg-reserve'), r);
+  }
+  setHTML($('sg-alliances'), allianceText(S.front));
+  const rkey = HERO_DEFS.map(d => isUnlocked(H(d.id)) ? 1 : 0).join('');
+  if (rkey !== sgRosterKey) { sgRosterKey = rkey; renderSiegeRoster(); }
+  for (const id in sgEls) {
+    const el = sgEls[id], unlocked = isUnlocked(H(id)), r = heroRank(id), st = heroSiegeStats(id, r);
+    el.pt.classList.toggle('locked', !unlocked);
+    el.card.classList.toggle('lockedcard', !unlocked);
+    if (!unlocked) { setHTML(el.sub, `🔒 Откроется на <b>${DEF[id].unlock}</b> этаже`); setHTML(el.st, ''); continue; }
+    setHTML(el.st, statLine(st));
+    const sk2 = SIEGE_SKILLS[id].find(sk => sk.rank);
+    setHTML(el.sub, `Ранг <b>${r}</b> · Сила <b>${fmtN(statPower(st))}</b>${week[id] ? ` · <b class="hot">герой недели ×${week[id]}</b>` : ''}${sk2 && r < sk2.rank ? ` · 2-й навык с ${sk2.rank} ранга` : ''}`);
+    const place = sgDeckPlace(id);
+    el.card.classList.toggle('insquad', !!place);
+    el.fr.classList.toggle('btn-gray', place === 'front');
+    setHTML(el.fr, place === 'front' ? 'Из боя' : 'В бой');
+    el.rs.classList.toggle('btn-gray', place === 'reserve');
+    setHTML(el.rs, place === 'reserve' ? 'Из запаса' : 'В запас');
+    const cost = rankCost(r);
+    el.rk.disabled = S.medals < cost;
+    setHTML(el.rk, `Ранг +1<br><small>${I('medal')} ${fmtN(cost)}</small>`);
+  }
+}
 const sgEls = {};
 function renderSiegeRoster() {
   const box = $('sg-roster');
@@ -5337,152 +6055,99 @@ function renderSiegeRoster() {
         <div class="sg-sub" data-r="sub"></div>
       </div>
       <div class="sg-act">
-        <button class="btn btn-sm" data-r="sq" onclick="toggleSquad('${id}')"></button>
+        <button class="btn btn-sm" data-r="fr" onclick="deckToggle('${id}', 'front')"></button>
+        <button class="btn btn-teal btn-sm" data-r="rs" onclick="deckToggle('${id}', 'reserve')"></button>
         <button class="btn btn-purple btn-sm" data-r="rk" onclick="rankUp('${id}')"></button>
       </div>`;
     box.appendChild(card);
     const q = r => card.querySelector(`[data-r="${r}"]`);
-    sgEls[id] = { card, st: q('st'), sub: q('sub'), sq: q('sq'), rk: q('rk'), pt: card.querySelector('.portrait') };
-    if (!isUnlocked(H(id))) break;   // показываем одного следующего закрытого героя
+    sgEls[id] = { card, st: q('st'), sub: q('sub'), fr: q('fr'), rs: q('rs'), rk: q('rk'), pt: card.querySelector('.portrait') };
+    if (!isUnlocked(H(id))) break;
   }
 }
 
-function refreshSiege() {
-  if (openSheetId !== 'siege') return;
-  const S = state.siege;
-  setText($('sg-torches'), `${S.torches}/${TORCH_MAX}`);
-  setText($('sg-torch-timer'), torchTimerText());
-  setText($('sg-medals'), formatNum(S.medals));
-  $('sg-refill').disabled = S.torches >= TORCH_MAX || state.gems < TORCH_REFILL_GEMS;
-
-  const def = siegeStageDef(S.sel), first = S.sel > S.best;
-  setHTML($('sg-title'), `Осада ${S.sel}${def.loop > 1 ? ` <small>· круг ${def.loop}</small>` : ''}`);
-  if (sgFoesKey !== String(S.sel)) {
-    sgFoesKey = String(S.sel);
-    $('sg-stagecard').style.backgroundImage = 'linear-gradient(rgba(10,6,10,.3), rgba(10,6,10,.88) 62%), ' + bgValue(def.loc.id);
-    setHTML($('sg-foes'), def.foes.map(f => `<div class="sg-foe${f.boss ? ' boss' : ''}">${enemyImgHTML(f.key)}<span>${f.name}</span></div>`).join(''));
-    const boss = def.foes.find(f => f.boss);
-    setHTML($('sg-bossinfo'), `${def.loc.name} · босс <b>${boss.name}</b><br>` +
-      boss.skills.map(sk => `${I(sk.icon)} <b>${sk.n}</b> <span class="muted">(${trigText(sk).toLowerCase()})</span>: ${sk.d()}`).join('<br>'));
-  }
-  setHTML($('sg-reward'), `${first ? 'Награда за первую победу' : 'Повторная победа'}: ${rewardText(siegeReward(S.sel, first))}`);
-  const ch = currentWinChance(), cc = ch >= 0.8 ? '#5dff8c' : ch >= 0.45 ? '#ffd23a' : '#ff6b5a';
-  setHTML($('sg-chance'), `Сила отряда <b>${fmtN(unitsPower(squadUnits(S.squad, S.ranks)))}</b> · сила врагов <b>${fmtN(unitsPower(def.foes))}</b><br>` +
-    `Шанс победы: <b style="color:${cc}">${S.squad.length ? Math.round(ch * 100) + '%' : '—'}</b>`);
-  $('sg-go').disabled = !S.squad.length || S.torches <= 0 || !!SB;
-  setHTML($('sg-go'), S.torches > 0 ? `⚔️ В бой <small>(победа: −1 ${I('torch')})</small>` : `Нет факелов ${I('torch')}`);
-  $('sg-prev').disabled = S.sel <= 1;
-  $('sg-next').disabled = S.sel >= S.best + 1;
-
-  const sqKey = S.squad.join(',');
-  if (sqKey !== sgSquadKey) {
-    sgSquadKey = sqKey;
-    let html = '';
-    for (let k = 0; k < SIEGE_SQUAD_MAX; k++) {
-      const id = S.squad[k];
-      html += id ? `<div class="sg-slot tap" style="--rc:${CLASS_DEFS[HERO_INFO[id].cls].color}" onclick="toggleSquad('${id}')" title="Убрать из отряда"><div class="pimg pt-${id}"></div><i class="x">✕</i></div>`
-                 : '<div class="sg-slot empty">+</div>';
-    }
-    setHTML($('sg-squad'), html);
-  }
-  setHTML($('sg-alliances'), allianceText(S.squad));
-
-  const rkey = HERO_DEFS.map(d => isUnlocked(H(d.id)) ? 1 : 0).join('');
-  if (rkey !== sgRosterKey) { sgRosterKey = rkey; renderSiegeRoster(); }
-  for (const id in sgEls) {
-    const el = sgEls[id], unlocked = isUnlocked(H(id)), r = heroRank(id), st = heroSiegeStats(id, r);
-    el.pt.classList.toggle('locked', !unlocked);
-    el.card.classList.toggle('lockedcard', !unlocked);
-    if (!unlocked) { setHTML(el.sub, `🔒 Откроется на <b>${DEF[id].unlock}</b> этаже`); setHTML(el.st, ''); continue; }
-    setHTML(el.st, statLine(st));
-    const sk2 = SIEGE_SKILLS[id].find(sk => sk.rank);
-    setHTML(el.sub, `Ранг <b>${r}</b> · Сила <b>${fmtN(statPower(st))}</b>${sk2 && r < sk2.rank ? ` · 2-й навык с ${sk2.rank} ранга` : ''}`);
-    const inSq = S.squad.includes(id);
-    el.card.classList.toggle('insquad', inSq);
-    el.sq.classList.toggle('btn-gray', inSq);
-    setHTML(el.sq, inSq ? 'Убрать' : 'В отряд');
-    const cost = rankCost(r);
-    el.rk.disabled = S.medals < cost;
-    setHTML(el.rk, `Ранг +1<br><small>${I('medal')} ${fmtN(cost)}</small>`);
-  }
-}
-
-// ----- Бой в осаде: симуляция сразу, анимация — повтор шагов -----
+// ----- Атака: бой симулируется сразу, урон и очки записываются, анимация — повтор шагов -----
 let SB = null;
 const FLAG_IC = { stun: 'skStun', poison: 'skPoison', burn: 'skBurn', bleed: 'skLifesteal', up: 'skBuff', down: 'skDebuff', sh: 'skShield' };
-function startSiege() {
-  const S = state.siege;
+function siegeAttack(id, power) {
+  const S = state.siege, now = Date.now();
   if (SB) return;
-  regenTorches();
-  if (!S.squad.length) return toast('Добавь героев в отряд');
-  if (S.torches <= 0) return toast('Нет факелов: подожди или пополни за изумруды');
-  const def = siegeStageDef(S.sel);
-  const seed = (Date.now() ^ Math.imul(S.battles + 1, 2654435761)) >>> 0;
-  const res = simulateBattle(squadUnits(S.squad, S.ranks), def.foes, seed);
-  S.battles++;
-  let reward = null, first = false;
-  if (res.win) {
-    first = S.sel > S.best;
-    reward = siegeReward(S.sel, first);
-    if (S.torches >= TORCH_MAX) S.torchTs = Date.now();
-    S.torches--;
-    S.medals += reward.medals || 0;
-    state.gems += reward.gems || 0;
-    state.bottles += reward.bottles || 0;
-    S.wins++;
-    if (first) S.best = S.sel;
-  }
-  save();   // награда выдана сразу: перезагрузка во время анимации ничего не теряет
-  playBattle(res, def, reward, first);
+  sgTick(now);
+  const b = S.bosses.find(x => x.id === id);
+  if (!b || !sgActive(b)) { refreshAll(); return toast('Этот босс уже повержен или сбежал'); }
+  const cost = power ? SG_POWER_COST : 1;
+  if (S.att < cost) return toast(power ? 'Для мощной атаки нужны все 3 попытки' : 'Нет попыток: подожди или протруби в горн');
+  if (!S.front.length) { sgTab = 'deck'; refreshAll(); return toast('Собери колоду: 6 героев в бой и 4 в запас'); }
+  sgSpend(cost);
+  const units = sgDeckUnits(S.front, S.reserve, S.ranks, { power, week: sgWeekMults(S.week.id) });
+  const bf = sgBattleFoes(b);
+  const res = simulateBattle({ front: units.front, reserve: units.reserve, foes: bf.foes, summonAt: bf.summonAt, seed: (now ^ Math.imul(S.stats.attacks + 1, 2654435761)) >>> 0 });
+  const hpBefore = b.hp;
+  S.stats.attacks++;
+  if (power) S.stats.power++;
+  const dealt = sgHit(b, 'me', res.dmgBoss);
+  save();   // урон и очки записаны сразу: перезагрузка во время анимации ничего не теряет
+  playBattle(res, b, bf, { dealt, hpBefore, power });
 }
-function playBattle(res, def, reward, first) {
-  SB = { res, def, reward, first, i: 0, timer: 0, bannerT: 0, done: false, units: [] };
-  $('sb-bg').style.backgroundImage = bgValue(def.loc.id);
-  setText($('sb-title'), `Осада ${def.s}: ${def.foes.find(f => f.boss).name}`);
+function playBattle(res, b, bf, info) {
+  SB = { res, b, info, i: 0, timer: 0, bannerT: 0, done: false, units: [], dmg: 0 };
+  $('sb-bg').style.backgroundImage = bgValue(b.loc);
+  setText($('sb-title'), `${b.name}${info.power ? ' · мощная ×5' : ''}`);
   setText($('sb-round'), 'Начало боя');
   setText($('sb-speed'), 'x' + state.siege.speed);
+  setHTML($('sb-dmg'), `Урон по боссу: <b>0</b>`);
   const foes = res.units.filter(u => u.side === 1), heroes = res.units.filter(u => u.side === 0);
-  $('sb-foes').innerHTML = foes.map(u => `<div class="sbu foe${u.boss ? ' boss' : ''}" id="sbu-${u.i}"><div class="sbu-st"></div><div class="sbu-fig">${enemyImgHTML(u.key)}</div>` +
-    `<div class="sbu-name">${u.name}</div><div class="sbu-hp"><div class="sbu-fill"></div><div class="sbu-sh"></div><span></span></div></div>`).join('');
-  $('sb-heroes').innerHTML = heroes.map(u => `<div class="sbu hero" id="sbu-${u.i}" style="--cc:${CLASS_DEFS[u.cls].color}"><div class="sbu-st"></div>` +
+  const foeHTML = (u, k) => `<div class="sbu foe${u.boss ? ' boss' : ''}${!u.boss && bf.foes[k].field === false ? ' off' : ''}" id="sbu-${u.i}"><div class="sbu-st"></div><div class="sbu-fig">${enemyImgHTML(u.key)}</div>` +
+    `<div class="sbu-name">${u.name}</div><div class="sbu-hp"><div class="sbu-fill"></div><div class="sbu-sh"></div><span></span></div></div>`;
+  const boss = foes[0], mins = foes.slice(1);
+  $('sb-foes').innerHTML = `<div class="sb-mcol">${[0, 2].map(k => mins[k] ? foeHTML(mins[k], k + 1) : '').join('')}</div>` + foeHTML(boss, 0) +
+    `<div class="sb-mcol">${[1, 3].map(k => mins[k] ? foeHTML(mins[k], k + 1) : '').join('')}</div>`;
+  const heroHTML = u => `<div class="sbu hero" id="sbu-${u.i}" style="--cc:${CLASS_DEFS[u.cls].color}"><div class="sbu-st"></div>` +
     `<div class="sbu-pt"><div class="pimg pt-${u.key}"></div></div><div class="sbu-hp"><div class="sbu-fill"></div><div class="sbu-sh"></div><span></span></div>` +
-    `<div class="sbu-name">${shortName(u.key)}</div></div>`).join('');
+    `<div class="sbu-name">${shortName(u.key)}</div></div>`;
+  $('sb-heroes').innerHTML = heroes.filter(u => !u.reserve).map(u => `<div class="sb-slot">${heroHTML(u)}</div>`).join('');
+  $('sb-res').innerHTML = heroes.filter(u => u.reserve).map((u, k) => `<div class="sb-rq" data-k="${k + 1}">${heroHTML(u)}</div>`).join('');
+  $('sb-res').style.display = heroes.some(u => u.reserve) ? '' : 'none';
   for (const u of res.units) {
     const el = $('sbu-' + u.i);
-    SB.units[u.i] = { i: u.i, side: u.side, name: u.name, el, fill: el.querySelector('.sbu-fill'), sh: el.querySelector('.sbu-sh'),
-      txt: el.querySelector('.sbu-hp span'), st: el.querySelector('.sbu-st'), maxHp: u.maxHp, hp: u.maxHp, shv: 0 };
+    SB.units[u.i] = { i: u.i, side: u.side, boss: u.boss, name: u.name, el, fill: el.querySelector('.sbu-fill'), sh: el.querySelector('.sbu-sh'),
+      txt: el.querySelector('.sbu-hp span'), st: el.querySelector('.sbu-st'), maxHp: u.maxHp, hp: u.boss ? info.hpBefore : u.hp0, shv: 0 };
     sbHp(SB.units[u.i]);
   }
   $('sb-log').innerHTML = '';
   $('sb-fx').innerHTML = '';
   $('sb-banner').className = 'sb-banner';
   $('sb').classList.add('on');
-  sbLog(`Отряд идёт на штурм: ${def.loc.name}`);
+  sbLog(`Атака на ${b.name}: ${SG_ROUNDS} раундов, запасные выходят на места павших`);
   SB.timer = setTimeout(sbNext, 650);
 }
 function sbHp(u) {
-  u.fill.style.width = Math.max(0, u.hp / u.maxHp * 100).toFixed(1) + '%';
+  u.fill.style.width = Math.max(0, u.hp / u.maxHp * 100).toFixed(2) + '%';
   u.sh.style.width = Math.min(100, u.shv / u.maxHp * 100).toFixed(1) + '%';
   u.txt.textContent = fmtN(Math.max(0, u.hp));
 }
 function sbNext() {
   if (!SB || SB.done) return;
   const steps = SB.res.steps;
-  while (SB.i < steps.length && steps[SB.i].round) { setText($('sb-round'), `Ход ${steps[SB.i].round}/${SIEGE_MAX_ROUNDS}`); SB.i++; }
+  while (SB.i < steps.length && steps[SB.i].round) { setText($('sb-round'), `Раунд ${steps[SB.i].round}/${SG_ROUNDS}`); SB.i++; }
   if (SB.i >= steps.length) { SB.timer = setTimeout(finishBattle, 700 / state.siege.speed); return; }
   const st = steps[SB.i++], spd = state.siege.speed, tok = SB;
   const actor = st.a >= 0 ? SB.units[st.a] : null;
   if (actor) { actor.el.classList.remove('acting'); void actor.el.offsetWidth; actor.el.classList.add('acting'); setTimeout(() => actor.el.classList.remove('acting'), 220 / spd + 80); }
   setTimeout(() => { if (SB === tok && !tok.done) for (const e of st.ev) sbEvent(e); }, 150 / spd);
-  const cast = st.ev.some(e => e.t === 'cast');
-  SB.timer = setTimeout(sbNext, (cast ? 1000 : 620) / spd);
+  const slow = st.ev.some(e => e.t === 'cast' || e.t === 'enter' || e.t === 'summon');
+  SB.timer = setTimeout(sbNext, (slow ? 1000 : 600) / spd);
 }
 function sbEvent(e) {
   const U = SB.units;
   switch (e.t) {
     case 'cast': sbBanner(U[e.s], e.n, e.ic); sbLog(`${U[e.s].name}: ${e.n}`); break;
-    case 'dmg': { const u = U[e.d]; u.hp = e.hp; u.shv = e.sh; sbHp(u); sbHurt(u);
-      sbNum(u, '-' + fmtN(e.v), e.k === 'crit' ? 'crit' : (e.k === 'poison' || e.k === 'burn' || e.k === 'bleed') ? 'dot' : ''); break; }
+    case 'dmg': {
+      const u = U[e.d]; u.hp = e.hp; u.shv = e.sh; sbHp(u); sbHurt(u);
+      if (u.boss && e.s >= 0 && U[e.s].side === 0) { SB.dmg += e.l; setHTML($('sb-dmg'), `Урон по боссу: <b>${fmtN(SB.dmg)}</b>`); }
+      sbNum(u, '-' + fmtN(e.v), e.k === 'crit' ? 'crit' : e.k === 'pct' ? 'crit' : (e.k === 'poison' || e.k === 'burn' || e.k === 'bleed') ? 'dot' : '');
+      break;
+    }
     case 'heal': { const u = U[e.d]; u.hp = e.hp; sbHp(u); sbNum(u, '+' + fmtN(e.v), 'heal'); break; }
     case 'sh': { const u = U[e.d]; u.shv = e.sh; sbHp(u); sbNum(u, '🛡+' + fmtN(e.v), 'shv'); break; }
     case 'miss': sbNum(U[e.d], 'Промах', 'miss'); break;
@@ -5490,6 +6155,15 @@ function sbEvent(e) {
     case 'stunned': sbNum(U[e.d], 'Пропуск хода', 'miss'); break;
     case 'die': { const u = U[e.d]; u.hp = 0; u.shv = 0; sbHp(u); u.el.classList.add('dead'); sbLog(`${u.name} ${u.side ? 'повержен' : 'выбывает из боя'}`); break; }
     case 'rev': { const u = U[e.d]; u.hp = e.hp; sbHp(u); u.el.classList.remove('dead'); sbNum(u, 'Воскрес!', 'heal'); break; }
+    case 'enter': {
+      const u = U[e.d], gone = U[e.r], slot = gone.el.parentElement;
+      const rq = u.el.parentElement;
+      slot.appendChild(u.el); gone.el.remove(); if (rq && rq.classList.contains('sb-rq')) rq.remove();
+      u.el.classList.remove('acting'); void u.el.offsetWidth; u.el.classList.add('enter');
+      sbLog(`Из запаса выходит ${u.name}`);
+      break;
+    }
+    case 'summon': { const u = U[e.d]; u.el.classList.remove('off'); u.el.classList.add('enter'); sbLog(`Босс призывает: ${u.name}`); break; }
     case 'f': U[e.d].st.innerHTML = e.f ? e.f.split(' ').map(k => I(FLAG_IC[k])).join('') : ''; break;
   }
 }
@@ -5527,34 +6201,46 @@ function finishBattle() {
   if (!SB || SB.done) return;
   SB.done = true;
   clearTimeout(SB.timer);
-  const res = SB.res;
-  setText($('sb-round'), `Ход ${res.rounds}/${SIEGE_MAX_ROUNDS}`);
+  const res = SB.res, b = SB.b, info = SB.info;
+  setText($('sb-round'), `Раунд ${res.rounds}/${SG_ROUNDS}`);
+  setHTML($('sb-dmg'), `Урон по боссу: <b>${fmtN(info.dealt)}</b>`);
   for (const fu of res.units) {
     const u = SB.units[fu.i];
-    u.hp = fu.hp; if (!fu.alive) u.shv = 0;
+    u.hp = fu.boss ? Math.max(0, info.hpBefore - info.dealt) : fu.hp; if (!fu.alive) u.shv = 0;
     u.el.classList.toggle('dead', !fu.alive);
     sbHp(u);
   }
-  const heroes = res.units.filter(u => u.side === 0);
+  const heroes = res.units.filter(u => u.side === 0 && (u.field || !u.reserve));
   const maxV = Math.max(1, ...heroes.map(u => Math.max(u.dealt, u.healed)));
-  const rows = heroes.map(u => `<div class="dmg-row"><div class="dmg-pt"><div class="pimg pt-${u.key}"></div></div><div class="dmg-bars"><div class="dmg-name">${u.name}${u.alive ? '' : ' †'}</div>` +
+  const rows = heroes.map(u => `<div class="dmg-row"><div class="dmg-pt"><div class="pimg pt-${u.key}"></div></div><div class="dmg-bars"><div class="dmg-name">${u.name}${u.reserve ? ' (запас)' : ''}${u.alive ? '' : ' †'}</div>` +
     `<div class="dmg-bar"><i style="width:${(u.dealt / maxV * 100).toFixed(1)}%"></i></div>` +
     (u.healed ? `<div class="dmg-bar heal"><i style="width:${(u.healed / maxV * 100).toFixed(1)}%"></i></div>` : '') +
     `</div><div class="dmg-v">${fmtN(u.dealt)}${u.healed ? `<br><span class="hv">+${fmtN(u.healed)}</span>` : ''}</div></div>`).join('');
-  const why = res.win ? `Осада ${SB.def.s} взята за ${res.rounds} ${plural(res.rounds, 'ход', 'хода', 'ходов')}!`
-    : res.reason === 'time' ? `Время вышло: враги продержались ${SIEGE_MAX_ROUNDS} ходов.` : 'Весь отряд выбыл из боя.';
-  const rw = SB.reward ? `<div class="rw">Награда: ${rewardText(SB.reward)}</div>`
-    : '<div class="muted small" style="margin-top:6px">Факел не потрачен. Подними ранги героев за медали, собери альянс или смени отряд.</div>';
-  if (res.win && SB.first) toast(`🏰 Осада ${SB.def.s} взята!`);
-  openModal(res.win ? '🏆 Победа!' : '💀 Поражение', `${why}${rw}<div class="dmg-table">${rows}</div><div class="muted small">Урон (оранжевый) и лечение (зелёный) героев за бой</div>`,
+  let head = `Урон по боссу: <b>${fmtN(info.dealt)}</b> (${(info.dealt / b.maxHp * 100).toFixed(info.dealt / b.maxHp < 0.01 ? 2 : 1)}% HP)` +
+    (res.reason === 'wipe' ? '<br><span class="muted small">Весь отряд и запас выбыли до конца раундов</span>' : '');
+  let body = '';
+  if (b.dead && b.res) {
+    const r = b.res;
+    body = `<div class="rw">Босс повержен! Твои очки: +${fmtN(r.pts)}</div><div class="sg-split">` +
+      [['Поровну всем (60%)', r.my.all], ['Выследил (5%)', r.my.find], ['Добил (5%)', r.my.last], ['MVP (30%)', r.my.mvp]].map(([n, v]) => `<span class="${v ? 'on' : ''}">${n}: <b>${v ? '+' + fmtN(v) : '—'}</b></span>`).join('') +
+      `</div><div class="small muted">Участников: ${r.N}${r.items.b || r.items.g ? ` · получено: ${r.items.b ? r.items.b + ' ' + I('bugle') : ''} ${r.items.g ? r.items.g + ' ' + I('gjallar') : ''}` : ''}</div>`;
+  } else if (b.dead) body = '<div class="rw">Босс повержен!</div>';
+  else body = `<div class="small" style="margin-top:6px">Осталось <b>${fmtN(b.hp)}</b> из ${fmtN(b.maxHp)} · сбежит через <b>${sgFmtTime(b.t1 - Date.now())}</b><br>` +
+    `<span class="muted">Очки дают только за убитого босса. ${b.finder === 'me' && !b.shared ? 'Позови клан 🚩 или добей сам.' : 'Соклановцы тоже бьют его.'}</span></div>`;
+  openModal(b.dead ? '🏆 Победа!' : '⚔️ Атака завершена', `${head}${body}<div class="dmg-table">${rows}</div><div class="muted small">Урон (оранжевый) и лечение (зелёный) героев за бой</div>`,
     [{ label: 'Продолжить', fn: closeBattle }], true);
 }
 function closeBattle() {
-  const S = state.siege;
-  if (SB && SB.first) S.sel = Math.min(S.best + 1, S.sel + 1);
   SB = null;
   $('sb').classList.remove('on');
   refreshAll();
+}
+function showWeekResult() {
+  const S = state.siege, r = S.weekResult;
+  if (!r) return;
+  S.weekResult = null;
+  openModal('🏁 Итоги недели осады', `Очки: <b>${fmtN(r.pts)}</b> · место: <b>${r.place > 5000 ? 'за 5 000' : fmtN(r.place)}</b><br>` +
+    (r.band ? `Награда за место: ${sgRewardParts(r.band, true)}` : 'Награды за место получают первые 5 000 игроков'));
 }
 
 // ----- Карточка героя: две вкладки (этажи / осады) -----
@@ -5601,14 +6287,14 @@ function buildHeroDetail() {
     </div>
     <div class="hd-pane" data-p="siege">
       <div class="hd-rank"><div>${I('rank')} Ранг <b id="hd-rank"></b> · Сила <b id="hd-power"></b></div>
-        <div class="row"><button class="btn" id="hd-squad" onclick="toggleSquad('${id}')"></button><button class="btn btn-purple" id="hd-rankup" onclick="rankUp('${id}')"></button></div></div>
+        <div class="row"><button class="btn" id="hd-front" onclick="deckToggle('${id}', 'front')"></button><button class="btn btn-teal" id="hd-reserve" onclick="deckToggle('${id}', 'reserve')"></button><button class="btn btn-purple" id="hd-rankup" onclick="rankUp('${id}')"></button></div></div>
       <div class="hd-stats">${STAT_KEYS.map(k => `<div class="hst" title="${STAT_INFO[k].d}">${I(k)}<div><small>${STAT_INFO[k].n} · ${STAT_INFO[k].s}</small><b data-s="${k}"></b><em data-n="${k}"></em></div></div>`).join('')}</div>
       <h4 class="sec">Навыки осады</h4>
       <div id="hd-ssk">${SIEGE_SKILLS[id].map((sk, j) => `<div class="sskl" data-j="${j}">${I(sk.icon)}<div class="skl-t"><b>${sk.n}</b>` +
         `<div class="trig">Тип: <span>${trigText(sk)}</span> · Вероятность: <span>${Math.round(trigChance(sk) * 100)}%</span></div><small data-d></small></div><span class="skl-lv"></span></div>`).join('')}</div>
       <h4 class="sec">Альянс</h4>
-      <div class="ally-box">${I(c.icon)} Герой входит в альянс: <b>${c.name}</b><br><span class="small">2 героя этого класса в отряде: +${fmtPct(c.p[0])} ${c.st.map(k => STAT_INFO[k].s).join(' и ')}, 3 героя: +${fmtPct(c.p[1])}. ${c.trait}.</span></div>
-      <div class="hint">Боевая ветка для осад. Ранг поднимается за медали ${I('medal')} из осад и усиливает все статы на 7%. Ранги и навыки осады не влияют на ДПС на этажах, а ритуал их не сбрасывает.</div>
+      <div class="ally-box">${I(c.icon)} Герой входит в альянс: <b>${c.name}</b><br><span class="small">2 героя этого класса среди шести в бою: +${fmtPct(c.p[0])} ${c.st.map(k => STAT_INFO[k].s).join(' и ')}, 3 героя: +${fmtPct(c.p[1])}. ${c.trait}.</span></div>
+      <div class="hint">Боевая ветка для осад. Ранг поднимается за медали ${I('medal')} (их дают пороги очков осады и места в недельном рейтинге) и усиливает все статы на 7%. Сумма рангов колоды решает, каких боссов ты выслеживаешь. Ранги и навыки осады не влияют на ДПС на этажах, а ритуал их не сбрасывает.</div>
     </div>`;
   heroTab(HD.tab);
 }
@@ -5638,10 +6324,12 @@ function refreshHeroDetail() {
     const b = $('hd-rankup');
     b.disabled = !unlocked || state.siege.medals < cost;
     setHTML(b, `Ранг +1 · ${I('medal')} ${fmtN(cost)}<br><small>есть ${fmtN(state.siege.medals)}</small>`);
-    const sq = $('hd-squad'), inSq = state.siege.squad.includes(id);
-    sq.style.display = unlocked && siegeUnlocked() ? '' : 'none';
-    sq.classList.toggle('btn-gray', inSq);
-    setHTML(sq, inSq ? 'Убрать из отряда' : 'В отряд осады');
+    const place = sgDeckPlace(id), fr = $('hd-front'), rs = $('hd-reserve'), show = unlocked && siegeUnlocked() ? '' : 'none';
+    fr.style.display = show; rs.style.display = show;
+    fr.classList.toggle('btn-gray', place === 'front');
+    setHTML(fr, place === 'front' ? 'Из боя' : 'В бой');
+    rs.classList.toggle('btn-gray', place === 'reserve');
+    setHTML(rs, place === 'reserve' ? 'Из запаса' : 'В запас');
     for (const k of STAT_KEYS) {
       setText(body.querySelector(`[data-s="${k}"]`), fmtN(st[k]));
       setText(body.querySelector(`[data-n="${k}"]`), `+${fmtN(nx[k] - st[k])}`);
@@ -5702,7 +6390,8 @@ function refreshBadges() {
   setBadge('daily', dailyAvailable() && fighters().length > 0);
   setBadge('ritual', canUseDarkRitual() && ritualGain() > 0);
   const su = siegeUnlocked();
-  setBadge('siege', su && state.siege.torches >= TORCH_MAX);
+  const S = state.siege;
+  setBadge('siege', su && (S.att >= SG_ATT_MAX || !!S.weekResult || S.bosses.some(b => sgActive(b) && (b.size === 'top' || b.size === 'clan') && !b.me)));
   const sb = $('btn-siege');
   if (sb.classList.contains('locked') === su) sb.classList.toggle('locked', !su);
 }
@@ -5760,8 +6449,9 @@ function openSheet(id) {
   $('sheet-backdrop').classList.add('on');
   openSheetId = id;
   if (id === 'siege') {
-    regenTorches();
-    if (!state.siege.squad.length) { autoSquad(); return; }
+    sgTick();
+    sgFillDeck();
+    showWeekResult();
   }
   refreshAll();
 }
@@ -5869,7 +6559,7 @@ function secondTick() {
     if (s.active > 0) s.active--;
     if (s.cd > 0) s.cd--;
   }
-  regenTorches();
+  if (siegeUnlocked()) sgTick(); else state.siege.worldTs = Date.now();
   if (++secTick % 10 === 0) mineTick();
   if (secTick % 5 === 0) save();
   refreshAll();
