@@ -8,7 +8,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 page = root / 'index.html'
 html = page.read_text(encoding='utf-8')
 parts = []
-for name in ['bg.js', 'enemies.js', 'heroes.js', 'icons.js', 'icons_extra.js']:
+for name in ['bg.js', 'enemies.js', 'heroes.js', 'icons.js', 'icons_extra.js', 'icons_horns.js']:
     f = root / 'art' / name
     if f.exists():
         parts.append(f'/* ---- art/{name} ---- */\n' + f.read_text(encoding='utf-8').strip())
