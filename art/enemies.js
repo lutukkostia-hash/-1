@@ -177,6 +177,7 @@ const ART_ENEMY = (() => {
     let s = '';
     const k = p.skin, ks = p.skinSh;
     const ear = 'M90 84C70 80 48 68 24 56C32 82 54 108 88 112Z', earIn = 'M84 90C68 86 54 78 40 70C48 88 62 100 84 104Z';
+    s += p.back || '';
     if (p.spear) {
       s += tubes([['M202 230L202 50', 8]], p.wood, dk(p.wood, .35));
       s += part('M202 14C212 26 214 40 208 52L196 52C190 40 192 26 202 14Z', '#c9d3dc', '#7d8a99', { w: 3.5, off: [-3, -3] });
@@ -894,6 +895,24 @@ const ART_ENEMY = (() => {
   out.abyss_eye = eyeBeast({ flesh: '#7a3ac8', sh: '#3a1a70', fin: '#5a2a9a', tent: '#5a2aa0', sclera: '#f4e8ff', vein: '#b04ae0', iris: '#30e8ff', aura: '#8a3aff',
     spots: spark(160, 58, 5, '#e8c8ff') + spark(180, 90, 3.5, '#fff') + spark(84, 146, 4, '#e8c8ff'),
     stars: spark(30, 40, 6, '#e0b0ff') + spark(228, 46, 7, '#ffffff') + spark(222, 196, 5, '#b0e0ff') + spark(40, 200, 4, '#ffffff') });
+
+  // Гоблин-казначей: редкий враг с мешком золота (появляется по таймеру, сбегает через 12 сек)
+  const coin = (x, y, r = 9) => C(x, y, r, lin([[0, '#fff1a0'], [.5, '#ffc93a'], [1, '#e88a1c']]), 3) + `<circle cx="${x}" cy="${y}" r="${r1(r * .52)}" fill="none" stroke="#b86a10" stroke-width="2"/>` + `<circle cx="${r1(x - r * .35)}" cy="${r1(y - r * .4)}" r="${r1(r * .22)}" fill="#fff" opacity=".9"/>`;
+  out.treasure_goblin = goblin({ skin: '#8fd04a', skinSh: '#4a8a2c', eye: '#ffe14a', ear: '#c06a8a', cloth: '#8a2a6a', boot: '#5a3a22',
+    back: glow(128, 140, 124, '#ffd23a', .5, 110) +
+      part('M150 60C150 40 176 30 196 40C226 52 244 92 240 132C238 168 214 192 182 190C154 188 138 160 140 122C140 96 146 78 150 60Z', '#c08a4a', '#7a5026',
+        { off: [-7, -7], in: L('M168 70Q190 96 184 150M204 62Q226 100 214 160', '#7a5026', 3) + P('M176 112L196 112L196 136L176 136Z', '#e8c070', 0) + L('M176 112L196 112L196 136L176 136Z', '#7a5026', 2.5) + L('M180 118L192 130M192 118L180 130', '#7a5026', 2.5) }) +
+      part('M152 62C144 50 150 34 162 30C172 26 186 30 190 40C182 50 166 58 152 62Z', '#d09a5a', '#7a5026', { off: [-3, -3], w: 3.5 }) +
+      L('M150 62Q170 60 192 42', O, 8) + L('M150 62Q170 60 192 42', '#e03a3a', 4) +
+      coin(170, 26, 9) + coin(190, 22, 8) + coin(180, 14, 8),
+    tunic: goblinTunic, tunicIn: L('M110 150L114 170M128 146L128 168M146 150L142 170', '#5e1a48', 3) + L('M104 198L104 210M120 198L120 210M136 198L136 210M152 198L152 210', '#5e1a48', 2.5),
+    belt: part('M88 180L168 180L168 192L88 192Z', '#8a5a2e', '#5c3a1e', { off: [-2, -2], w: 3.5 }) + P('M122 178L134 178L134 194L122 194Z', '#ffd23a', 3),
+    armR: ['M158 148L176 140L172 118', 15],
+    hood: part('M84 70C84 44 104 30 128 30C152 30 170 44 170 70C150 58 104 58 84 70Z', '#8a2a6a', '#5e1a48', { off: [-4, -4] }) +
+      part('M120 34C126 14 150 6 166 16C156 20 148 28 142 38Z', '#8a2a6a', '#5e1a48', { off: [-3, -3] }) + coin(168, 16, 7),
+    weapon: part(E(172, 114, 12, 11), '#8fd04a', '#4a8a2c', { off: [-3, -3] }) +
+      coin(70, 228, 9) + coin(88, 236, 8) + coin(190, 230, 9) + coin(206, 238, 7) + coin(56, 238, 7) +
+      spark(34, 150, 8, '#fff6b0') + spark(226, 30, 9, '#fff') + spark(48, 40, 6, '#ffe066') + spark(232, 206, 6, '#fff6b0') });
 
   out.specter = ghost({ body: '#6ab8ff', sh: '#2a5aa8', glow: '#5ac8ff', eye: '#c8ffff' });
 

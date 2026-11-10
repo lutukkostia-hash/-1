@@ -559,6 +559,35 @@
   .rw { margin: 8px 0; font-weight: bold; color: #ffe2a8; }
   .rw .ic { width: 20px; height: 20px; }
 
+  /* ===== Комбо, ярость и гоблин-казначей ===== */
+  #combo { height: 42px; margin-bottom: 2px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none;
+    opacity: 0; transform: scale(.8); transition: opacity .25s, transform .25s; }
+  #combo.on { opacity: 1; transform: none; }
+  #combo b { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 900; font-style: italic; letter-spacing: .5px; line-height: 1;
+    color: #ffe066; text-shadow: var(--ol), 0 0 10px rgba(255,150,40,.8); }
+  #combo.hot b { color: #ffb23a; font-size: 25px; }
+  #combo.max b { color: #ff7a4a; font-size: 28px; }
+  #combo small { font-size: 11px; font-weight: bold; color: #fff; text-shadow: var(--ol); }
+  #combo .cbar { width: 84px; height: 4px; margin-top: 2px; border-radius: 2px; overflow: hidden; background: rgba(0,0,0,.6); }
+  #combo .cbar i { display: block; height: 100%; background: linear-gradient(90deg, #ffe066, #ff7a2a); transform-origin: 0 50%; }
+  .float-num.combo { color: #ffe066; font-size: 24px; font-style: italic; }
+  .float-num.crush { color: #ff8a3a; font-size: 32px; animation-duration: 1.15s; }
+  #enemy-wrap.treasure #enemy-img { filter: drop-shadow(0 0 14px rgba(255,210,60,.95)); animation-duration: .7s; }
+  .boss-tag.gold { background: #b8780c; border-color: #ffe9a0; }
+  .skill-round.rage { border-color: #ff9a4a; background: radial-gradient(circle at 35% 30%, #6a3418, #1a0f0c); }
+  .skill-round.rage .cd { background: conic-gradient(transparent var(--p, 0%), rgba(0,0,0,.72) 0); }
+  .skill-round.rage .cdtxt { font-size: 13px; }
+  .skill-round.rage.ready { border-color: #ffe066; animation: rageGlow .45s infinite alternate; }
+  @keyframes rageGlow { to { transform: scale(1.08); box-shadow: 0 0 0 2px #5a1a06, 0 0 20px 6px rgba(255,150,40,.95); } }
+  #game.shake { animation: shake .35s; }
+  @keyframes shake { 15% { transform: translate(-6px, 3px); } 30% { transform: translate(6px, -4px); } 45% { transform: translate(-5px, -2px); } 60% { transform: translate(4px, 3px); } 80% { transform: translate(-2px, 1px); } }
+  .shock { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 5px solid #ffd23a;
+    box-shadow: 0 0 18px #ff8a2a, inset 0 0 12px #ff8a2a; animation: shock .5s ease-out forwards; }
+  @keyframes shock { to { transform: scale(7); opacity: 0; } }
+  .news { text-align: left; }
+  .news p { margin: 0 0 9px; }
+  .news b { color: #ffd27a; }
+
   /* ===== Небольшие экраны ===== */
   @media (max-height: 700px) {
     :root { --top: calc(var(--safe-t) + 70px); }
@@ -582,6 +611,7 @@
 
   <!-- Бой: тап по любой свободной части сцены = удар -->
   <div id="battle">
+    <div id="combo"><b id="combo-n"></b><small id="combo-b"></small><div class="cbar"><i id="combo-bar"></i></div></div>
     <div id="enemy-wrap">
       <div class="ground-shadow"></div>
       <div id="enemy-hit"><img id="enemy-img" alt="" draggable="false"><div id="enemy-emoji"></div></div>
@@ -642,6 +672,10 @@
     <div class="skill">
       <button class="skill-round" id="skill-arrows" onclick="activateSkill('arrows')"><i class="ic ic-skillArrows"></i><span class="cd"></span><span class="cdtxt"></span></button>
       <span class="lbl">Стрелы</span>
+    </div>
+    <div class="skill">
+      <button class="skill-round rage" id="skill-crush" onclick="crushBlow()"><i class="ic ic-skillCrush"></i><span class="cd"></span><span class="cdtxt"></span></button>
+      <span class="lbl">Удар</span>
     </div>
   </div>
 
@@ -768,6 +802,7 @@
           <button class="btn btn-blue" onclick="exportSave()">Экспорт</button>
           <button class="btn btn-purple" onclick="importSave()">Импорт</button>
           <button class="btn btn-red" onclick="hardReset()">Сбросить всё</button>
+          <button class="btn btn-gray" onclick="showWhatsNew()">Что нового</button>
         </div>
       </div>
     </div>
@@ -1708,6 +1743,7 @@ const ART_ENEMY = (() => {
     let s = '';
     const k = p.skin, ks = p.skinSh;
     const ear = 'M90 84C70 80 48 68 24 56C32 82 54 108 88 112Z', earIn = 'M84 90C68 86 54 78 40 70C48 88 62 100 84 104Z';
+    s += p.back || '';
     if (p.spear) {
       s += tubes([['M202 230L202 50', 8]], p.wood, dk(p.wood, .35));
       s += part('M202 14C212 26 214 40 208 52L196 52C190 40 192 26 202 14Z', '#c9d3dc', '#7d8a99', { w: 3.5, off: [-3, -3] });
@@ -2425,6 +2461,24 @@ const ART_ENEMY = (() => {
   out.abyss_eye = eyeBeast({ flesh: '#7a3ac8', sh: '#3a1a70', fin: '#5a2a9a', tent: '#5a2aa0', sclera: '#f4e8ff', vein: '#b04ae0', iris: '#30e8ff', aura: '#8a3aff',
     spots: spark(160, 58, 5, '#e8c8ff') + spark(180, 90, 3.5, '#fff') + spark(84, 146, 4, '#e8c8ff'),
     stars: spark(30, 40, 6, '#e0b0ff') + spark(228, 46, 7, '#ffffff') + spark(222, 196, 5, '#b0e0ff') + spark(40, 200, 4, '#ffffff') });
+
+  // Гоблин-казначей: редкий враг с мешком золота (появляется по таймеру, сбегает через 12 сек)
+  const coin = (x, y, r = 9) => C(x, y, r, lin([[0, '#fff1a0'], [.5, '#ffc93a'], [1, '#e88a1c']]), 3) + `<circle cx="${x}" cy="${y}" r="${r1(r * .52)}" fill="none" stroke="#b86a10" stroke-width="2"/>` + `<circle cx="${r1(x - r * .35)}" cy="${r1(y - r * .4)}" r="${r1(r * .22)}" fill="#fff" opacity=".9"/>`;
+  out.treasure_goblin = goblin({ skin: '#8fd04a', skinSh: '#4a8a2c', eye: '#ffe14a', ear: '#c06a8a', cloth: '#8a2a6a', boot: '#5a3a22',
+    back: glow(128, 140, 124, '#ffd23a', .5, 110) +
+      part('M150 60C150 40 176 30 196 40C226 52 244 92 240 132C238 168 214 192 182 190C154 188 138 160 140 122C140 96 146 78 150 60Z', '#c08a4a', '#7a5026',
+        { off: [-7, -7], in: L('M168 70Q190 96 184 150M204 62Q226 100 214 160', '#7a5026', 3) + P('M176 112L196 112L196 136L176 136Z', '#e8c070', 0) + L('M176 112L196 112L196 136L176 136Z', '#7a5026', 2.5) + L('M180 118L192 130M192 118L180 130', '#7a5026', 2.5) }) +
+      part('M152 62C144 50 150 34 162 30C172 26 186 30 190 40C182 50 166 58 152 62Z', '#d09a5a', '#7a5026', { off: [-3, -3], w: 3.5 }) +
+      L('M150 62Q170 60 192 42', O, 8) + L('M150 62Q170 60 192 42', '#e03a3a', 4) +
+      coin(170, 26, 9) + coin(190, 22, 8) + coin(180, 14, 8),
+    tunic: goblinTunic, tunicIn: L('M110 150L114 170M128 146L128 168M146 150L142 170', '#5e1a48', 3) + L('M104 198L104 210M120 198L120 210M136 198L136 210M152 198L152 210', '#5e1a48', 2.5),
+    belt: part('M88 180L168 180L168 192L88 192Z', '#8a5a2e', '#5c3a1e', { off: [-2, -2], w: 3.5 }) + P('M122 178L134 178L134 194L122 194Z', '#ffd23a', 3),
+    armR: ['M158 148L176 140L172 118', 15],
+    hood: part('M84 70C84 44 104 30 128 30C152 30 170 44 170 70C150 58 104 58 84 70Z', '#8a2a6a', '#5e1a48', { off: [-4, -4] }) +
+      part('M120 34C126 14 150 6 166 16C156 20 148 28 142 38Z', '#8a2a6a', '#5e1a48', { off: [-3, -3] }) + coin(168, 16, 7),
+    weapon: part(E(172, 114, 12, 11), '#8fd04a', '#4a8a2c', { off: [-3, -3] }) +
+      coin(70, 228, 9) + coin(88, 236, 8) + coin(190, 230, 9) + coin(206, 238, 7) + coin(56, 238, 7) +
+      spark(34, 150, 8, '#fff6b0') + spark(226, 30, 9, '#fff') + spark(48, 40, 6, '#ffe066') + spark(232, 206, 6, '#fff6b0') });
 
   out.specter = ghost({ body: '#6ab8ff', sh: '#2a5aa8', glow: '#5ac8ff', eye: '#c8ffff' });
 
@@ -3403,10 +3457,35 @@ const ART_ICON = (() => {
     `<g transform="rotate(45 64 64) translate(64 64) scale(.92) translate(-64 -64)">${sword('b')}</g>`
   );
 
+  // Сокрушительный удар: боевой молот на фоне вспышки
+  const skillCrush = (() => {
+    const pt = (rad, deg) => {
+      const a = ((deg - 90) * Math.PI) / 180;
+      return [64 + rad * Math.cos(a), 66 + rad * Math.sin(a)];
+    };
+    const pts = [];
+    for (let i = 0; i < 20; i++) pts.push(pt(i % 2 ? 34 : (i % 4 ? 48 : 56), i * 18 + 9));
+    const burst = poly(pts);
+    const head = rr(28, 18, 72, 44, 10);
+    return SV(
+      STEEL + GOLD + rg('cg', [[0, '#fff6b0', 0.95], [0.6, '#ff9a2a', 0.5], [1, '#ff5a1a', 0]]),
+      fp(C(64, 66, 62), 'url(#cg)') +
+      P('a', burst, '#ffe45a', '#f0841c', fp(C(64, 66, 22), '#fffbe0', 0, ' opacity=".9"'), '-4 -4', 5) +
+      `<g transform="rotate(38 64 64)">` +
+      bar('M64 60V118', 10, '#9a6234', HL('M61.5 66V114', 2.5, 0.6, '#e6b282')) +
+      `<path d="M58 98H70M58 106H70" stroke="${O}" stroke-width="3"/>` +
+      P('b', head, 'url(#sl)', STEELSH,
+        `<path d="M44 18V62M84 18V62" stroke="#7d8aa2" stroke-width="5"/>` + HL('M38 28H90', 5, 0.9), '-6 -6') +
+      fp(rr(56, 30, 16, 20, 4), 'url(#gd)', 4) +
+      `</g>` +
+      spark(104, 30, 11, '#fff') + spark(20, 92, 8, '#fff')
+    );
+  })();
+
   return {
     heroes, artifacts, quests, daily, mines, shop, ritual, map,
     dps, click, gold, soulGray, soulBlue, bottle, gem,
-    skillBlood, skillArrows, settings, lock, stage,
+    skillBlood, skillArrows, skillCrush, settings, lock, stage,
   };
 })();
 /* ---- art/icons_extra.js ---- */
@@ -3966,6 +4045,14 @@ const SAVE_KEY = 'dc_mini_save_v2';
 const OFFLINE_CAP_SEC = 8 * 3600;
 const OFFLINE_EFF = 0.5;
 
+// Обновление «Сокрушительный удар»: комбо тапов, ярость и гоблин-казначей
+const GAME_VER = '1.3';
+const COMBO_WINDOW = 1600;   // мс без тапа, после которых комбо сгорает
+const COMBO_MAX = 100;       // +1% урона тапа за удар подряд, до +100%
+const RAGE_MAX = 100, RAGE_TAP = 2;        // ярость за тап (крит даёт вдвое больше): 50 тапов до полной шкалы
+const CRUSH_MULT = 40, CRUSH_STUN = 2;     // сокрушительный удар: ×40 урона тапа и +2 сек к таймеру врага
+const TREASURE = { minStage: 3, hp: 4, gold: 15, time: 12, every: [100, 160] };   // гоблин-казначей: HP ×4, золото ×15, выходит раз в 100–160 сек
+
 const RARITIES = [
   { name: "Common",    cap: 100,  mult: 1,   color: '#a7b0b8' },
   { name: "Uncommon",  cap: 200,  mult: 2.5, color: '#43d17a' },
@@ -4032,7 +4119,12 @@ const QUEST_DEFS = [
   { id: 'sgmvp',  text: 'Стать MVP боя с боссом 5 раз', goal: 5,  val: () => state.siege.stats.mvp, reward: { gems: 20, medals: 120 } },
   { id: 'sgpts',  text: 'Набрать 50 000 очков осады',  goal: 50000, val: () => state.siege.stats.points, reward: { gems: 40, medals: 300 } },
   { id: 'rk5',    text: 'Поднять ранг героя до 5',     goal: 5,   val: () => Math.max(...Object.values(state.siege.ranks)), reward: { bottles: 20, medals: 20 } },
-  { id: 'rk15',   text: 'Поднять ранг героя до 15',    goal: 15,  val: () => Math.max(...Object.values(state.siege.ranks)), reward: { gems: 15, medals: 80 } }
+  { id: 'rk15',   text: 'Поднять ранг героя до 15',    goal: 15,  val: () => Math.max(...Object.values(state.siege.ranks)), reward: { gems: 15, medals: 80 } },
+  { id: 'cmb50',  text: 'Набрать комбо ×50',           goal: 50,  val: () => state.stats.bestCombo, reward: { bottles: 15 } },
+  { id: 'cmb100', text: 'Набрать комбо ×100',          goal: 100, val: () => state.stats.bestCombo, reward: { gems: 10 } },
+  { id: 'crush25',text: 'Нанести 25 сокрушительных ударов', goal: 25, val: () => state.stats.crush, reward: { gems: 10 } },
+  { id: 'tg10',   text: 'Поймать 10 гоблинов-казначеев', goal: 10, val: () => state.stats.treasures, reward: { gems: 10 } },
+  { id: 'tg50',   text: 'Поймать 50 гоблинов-казначеев', goal: 50, val: () => state.stats.treasures, reward: { bottles: 50, gems: 30 } }
 ];
 
 const SKILL_DEFS = {
@@ -4060,20 +4152,20 @@ const ENEMY_NAMES = {
   volcano_imp: 'Огненный бес', volcano_golem: 'Лавовый голем', volcano_slime: 'Магмовый слизень',
   castle_skeleton: 'Рыцарь-скелет', castle_bat: 'Горгулья', castle_eye: 'Кровавое око',
   abyss_eye: 'Око бездны', abyss_imp: 'Бес бездны', abyss_spider: 'Паук бездны',
-  specter: 'Спектр душ',
+  specter: 'Спектр душ', treasure_goblin: 'Гоблин-казначей',
   boss_forest: 'Моховой великан', boss_desert: 'Фараон', boss_crypt: 'Лич', boss_swamp: 'Болотный змей',
   boss_ice: 'Ледяной дракон', boss_volcano: 'Огненный дракон', boss_castle: 'Демон-лорд', boss_abyss: 'Повелитель бездны'
 };
 const ENEMY_EMOJI = {
   goblin: '👺', slime: '🦠', wolf: '🐺', skeleton: '💀', scorpion: '🦂', mummy: '🧟', bat: '🦇', spider: '🕷️',
-  golem: '🗿', imp: '👿', eye: '👁️', specter: '👻',
+  golem: '🗿', imp: '👿', eye: '👁️', specter: '👻', treasure_goblin: '💰',
   boss_forest: '🌳', boss_desert: '🧟', boss_crypt: '☠️', boss_swamp: '🐍', boss_ice: '🐉', boss_volcano: '🐲', boss_castle: '😈', boss_abyss: '👹'
 };
 
 const ICON_EMOJI = {
   heroes: '⛑️', artifacts: '🎁', quests: '📜', daily: '🐉', mines: '⛏️', shop: '💰', ritual: '📖', map: '🧭',
   dps: '🗡️', click: '👊', gold: '🪙', soulGray: '👻', soulBlue: '💠', bottle: '🧪', gem: '💎',
-  skillBlood: '🩸', skillArrows: '🏹', settings: '⚙️', lock: '🔒', stage: '⚔️',
+  skillBlood: '🩸', skillArrows: '🏹', skillCrush: '💥', settings: '⚙️', lock: '🔒', stage: '⚔️',
   siege: '🏰', medal: '🎖️', torch: '🔥', rank: '🎗️', bugle: '📯', gjallar: '📯', dhorn: '😈',
   hp: '❤️', atk: '🪓', def: '🛡️', wis: '🔮', agi: '🪶',
   clsWarrior: '⚔️', clsMage: '🧙', clsRanger: '🏹', clsGuardian: '🛡️',
@@ -4743,13 +4835,13 @@ function installArtCSS() {
 function newState() {
   return {
     v: 2, gold: 15, graySouls: 0, blueSouls: 0, bottles: 50, gems: 0,
-    stage: 1, wave: 1, maxStageRun: 1, buyMult: 'MAX', farming: false, dailyBossDay: null,
+    stage: 1, wave: 1, maxStageRun: 1, buyMult: 'MAX', farming: false, dailyBossDay: null, rage: 0, seenVer: GAME_VER,
     skills: { blood: { active: 0, cd: 0 }, arrows: { active: 0, cd: 0 } },
     heroes: HERO_DEFS.map(d => ({ id: d.id, level: 0, rarity: 0, stars: 0, inMine: false, dead: false, onAltar: false })),
     artifacts: Object.fromEntries(ARTIFACT_DEFS.map(a => [a.id, 0])),
     quests: {},
     seenLocs: [],
-    stats: { clicks: 0, bosses: 0, rituals: 0, dailyWins: 0, maxStage: 1, playSec: 0 },
+    stats: { clicks: 0, bosses: 0, rituals: 0, dailyWins: 0, maxStage: 1, playSec: 0, bestCombo: 0, crush: 0, treasures: 0 },
     // Осады: отдельная ветка, ритуал её не трогает
     siege: { ranks: Object.fromEntries(HERO_DEFS.map(d => [d.id, 1])), medals: 0, speed: 2,
              att: SG_ATT_MAX, attTs: Date.now(), tr: SG_TRACK_MAX, trTs: Date.now(), bugles: 0, gjallar: 0, dhorns: 0,
@@ -4764,6 +4856,8 @@ function applySave(d) {
   const s = newState();
   ['gold', 'graySouls', 'blueSouls', 'bottles', 'gems', 'stage', 'wave', 'maxStageRun', 'buyMult', 'farming', 'dailyBossDay', 'lastSave']
     .forEach(k => { if (d[k] !== undefined && d[k] !== null) s[k] = d[k]; });
+  s.rage = Number.isFinite(d.rage) ? Math.min(RAGE_MAX, Math.max(0, d.rage)) : 0;
+  s.seenVer = typeof d.seenVer === 'string' ? d.seenVer : '';   // сейв без версии — показать «Что нового»
   if (d.dailyBossDay === null) s.dailyBossDay = null;
   if (d.skills) for (const k in s.skills) if (d.skills[k]) Object.assign(s.skills[k], d.skills[k]);
   if (Array.isArray(d.heroes)) d.heroes.forEach(dh => {
@@ -4983,6 +5077,11 @@ function enterLocation(loc) {
 // ============================================================
 let monster = { hp: 10, maxHp: 10, isBoss: false, isSpecter: false, timer: 0, maxTimer: 0, key: 'forest_goblin' };
 let curEnemyKey = null, lastSpawnAnim = -1e9, lastDeathFx = -1e9, lastHitAnim = -1e9;
+// Комбо и таймер гоблина-казначея живут только в текущем сеансе (в сохранение не идут)
+const combo = { n: 0, ts: 0 };
+function treasureDelay() { return TREASURE.every[0] + Math.random() * (TREASURE.every[1] - TREASURE.every[0]); }
+let treasureIn = treasureDelay(), treasureReady = false;
+function comboMult() { return 1 + Math.min(combo.n, COMBO_MAX) / 100; }
 
 function showEnemy(key) {
   if (key === curEnemyKey) return;
@@ -4995,20 +5094,27 @@ function showEnemy(key) {
 
 function spawnMonster() {
   const isBoss = state.wave === 10;
-  const isSpecter = !isBoss && state.stage >= 5 && Math.random() < specterChance();
-  const hp = stageHp(state.stage) * (isBoss ? 6 : 1);
+  const isTreasure = !isBoss && treasureReady && state.stage >= TREASURE.minStage;
+  if (isTreasure) { treasureReady = false; treasureIn = treasureDelay(); }
+  const isSpecter = !isBoss && !isTreasure && state.stage >= 5 && Math.random() < specterChance();
+  const hp = stageHp(state.stage) * (isBoss ? 6 : isTreasure ? TREASURE.hp : 1);
   const loc = locationFor(state.stage);
-  const key = isBoss ? loc.boss : isSpecter ? 'specter' : loc.enemies[(state.stage * 7 + state.wave) % 3];
-  const t = isBoss ? bossTime() : 0;
-  monster = { hp, maxHp: hp, isBoss, isSpecter, timer: t, maxTimer: t, key };
+  const key = isBoss ? loc.boss : isTreasure ? 'treasure_goblin' : isSpecter ? 'specter' : loc.enemies[(state.stage * 7 + state.wave) % 3];
+  const t = isBoss ? bossTime() : isTreasure ? TREASURE.time : 0;
+  monster = { hp, maxHp: hp, isBoss, isSpecter, isTreasure, timer: t, maxTimer: t, key };
 
   enterLocation(loc);
   showEnemy(key);
   setText($('ui-monster-name'), ENEMY_NAMES[key] || 'Монстр');
-  $('boss-tag').style.display = isBoss ? '' : 'none';
+  const tag = $('boss-tag');
+  tag.style.display = isBoss || isTreasure ? '' : 'none';
+  setText(tag, isTreasure ? 'КЛАД' : 'БОСС');
+  tag.classList.toggle('gold', isTreasure);
   const wrap = $('enemy-wrap');
   wrap.classList.toggle('boss', isBoss);
   wrap.classList.toggle('specter', isSpecter);
+  wrap.classList.toggle('treasure', isTreasure);
+  if (isTreasure) toast(`💰 Гоблин-казначей! Убей его за ${TREASURE.time} секунд, пока не сбежал`, state.stats.treasures === 0);
   const now = performance.now();
   if (now - lastSpawnAnim > 260) {
     lastSpawnAnim = now;
@@ -5025,9 +5131,16 @@ function damageMonster(dmg) {
 }
 
 function killMonster() {
-  const goldDrop = Math.ceil(monster.maxHp * 0.25 * goldMult());
+  const goldDrop = monster.isTreasure ? treasureGold() : Math.ceil(monster.maxHp * 0.25 * goldMult());
   state.gold += goldDrop;
-  deathFx(goldDrop);
+  deathFx(goldDrop, monster.isTreasure ? 9 : 3);
+
+  if (monster.isTreasure) {
+    const bt = Math.random() < 0.6 ? (Math.random() < 0.3 ? 2 : 1) : 0, gm = Math.random() < 0.15 ? 1 : 0;
+    state.stats.treasures++;
+    state.bottles += bt; state.gems += gm;
+    toast(`💰 Гоблин-казначей пойман: +${formatNum(goldDrop)} 🪙` + (bt ? `, +${bt} 🧪` : '') + (gm ? ', +1 💎' : ''));
+  }
 
   if (monster.isSpecter || (monster.isBoss && state.stage >= 5)) {
     state.graySouls += Math.max(1, Math.floor((state.stage / 3) * soulMult()));
@@ -5049,6 +5162,16 @@ function killMonster() {
   } else if (!(state.farming && state.wave >= 9)) {
     state.wave++;
   }
+  spawnMonster();
+  updateHeaderUI();
+}
+
+function treasureGold() { return Math.ceil(stageHp(state.stage) * 0.25 * goldMult() * TREASURE.gold); }
+// Не успел убить: гоблин сбегает, но роняет долю золота по нанесённому урону (иначе он был бы штрафом для слабого отряда)
+function treasureEscaped() {
+  const g = Math.floor(treasureGold() * (1 - Math.max(0, monster.hp) / monster.maxHp));
+  if (g > 0) { state.gold += g; floatText('+' + formatNum(g), 'loot'); }
+  toast(`💨 Гоблин-казначей сбежал` + (g > 0 ? `, но выронил ${formatNum(g)} 🪙` : ' с золотом') + '. Тапай и бей «Ударом», чтобы успеть!');
   spawnMonster();
   updateHeaderUI();
 }
@@ -5075,17 +5198,82 @@ function onMonsterTap(e) {
   if (e.button !== undefined && e.button > 0) return;
   e.preventDefault();
   state.stats.clicks++;
-  let dmg = getClickDamage();
+  const now = performance.now();
+  combo.n = now - combo.ts <= COMBO_WINDOW ? combo.n + 1 : 1;
+  combo.ts = now;
+  if (combo.n > state.stats.bestCombo) state.stats.bestCombo = combo.n;
+  let dmg = getClickDamage() * comboMult();
   const crit = Math.random() < tapCritChance();
   if (crit) dmg *= 4;
   floatText(crit ? 'КРИТ! ' + formatNum(dmg) : formatNum(dmg), crit ? 'crit' : '');
-  const now = performance.now();
+  if (combo.n === 25 || combo.n === 50 || combo.n === COMBO_MAX) floatText(`КОМБО ×${combo.n}!`, 'combo');
+  updateComboUI(true);
+  addRage(crit ? RAGE_TAP * 2 : RAGE_TAP);
   if (now - lastHitAnim > 90) {
     lastHitAnim = now;
     const h = $('enemy-hit');
     h.classList.remove('hit'); void h.offsetWidth; h.classList.add('hit');
   }
   damageMonster(dmg);
+}
+
+// ----- Комбо: удары подряд усиливают тап -----
+function updateComboUI(hit) {
+  const el = $('combo'), on = combo.n >= 3;
+  if (el.classList.contains('on') !== on) el.classList.toggle('on', on);
+  if (!on) return;
+  setText($('combo-n'), 'КОМБО ×' + combo.n);
+  setText($('combo-b'), `+${Math.round((comboMult() - 1) * 100)}% к тапу` + (combo.n >= COMBO_MAX ? ' · макс.' : ''));
+  const tier = combo.n >= COMBO_MAX ? 'max' : combo.n >= 50 ? 'hot' : '';
+  if (el._tier !== tier) { el._tier = tier; el.classList.toggle('hot', tier === 'hot'); el.classList.toggle('max', tier === 'max'); }
+  const bar = $('combo-bar');
+  if (hit && bar.animate) {
+    if (bar._a) bar._a.cancel();
+    bar._a = bar.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }], { duration: COMBO_WINDOW, fill: 'forwards' });
+  }
+}
+function comboTick() {
+  if (combo.n > 0 && performance.now() - combo.ts > COMBO_WINDOW) { combo.n = 0; updateComboUI(); }
+}
+
+// ----- Ярость и сокрушительный удар -----
+function addRage(v) {
+  if (state.rage >= RAGE_MAX) return;
+  state.rage = Math.min(RAGE_MAX, state.rage + v);
+  if (state.rage >= RAGE_MAX) toast('💥 Ярость накоплена: жми «Удар»!');
+  refreshCrush();
+}
+function refreshCrush() {
+  const btn = $('skill-crush'), p = Math.floor(state.rage / RAGE_MAX * 100), ready = p >= 100;
+  if (btn._p !== p) { btn._p = p; btn.querySelector('.cd').style.setProperty('--p', p + '%'); }
+  if (btn.classList.contains('ready') !== ready) btn.classList.toggle('ready', ready);
+  setText(btn.querySelector('.cdtxt'), ready ? '' : p + '%');
+  const title = `Сокрушительный удар: ×${CRUSH_MULT} урона тапа и +${CRUSH_STUN} сек к таймеру босса. Ярость копится от тапов`;
+  if (btn.title !== title) btn.title = title;
+}
+function crushBlow() {
+  if (state.rage < RAGE_MAX) { toast(`💥 Ярость ${Math.floor(state.rage)}%: она копится от тапов по врагу`, true); return; }
+  state.rage = 0;
+  state.stats.crush++;
+  const dmg = getClickDamage() * CRUSH_MULT;
+  if (monster.maxTimer > 0) monster.timer = Math.min(monster.maxTimer, monster.timer + CRUSH_STUN);
+  floatText('СОКРУШЕНИЕ! ' + formatNum(dmg), 'crush');
+  crushFx();
+  toast(`💥 Сокрушительный удар: ${formatNum(dmg)} урона`);
+  refreshCrush();
+  damageMonster(dmg);
+}
+function crushFx() {
+  const g = $('game'), r = relRect($('enemy-wrap'));
+  g.classList.remove('shake'); void g.offsetWidth; g.classList.add('shake');
+  const ring = document.createElement('div');
+  ring.className = 'shock';
+  ring.style.left = (r.x + r.w / 2) + 'px';
+  ring.style.top = (r.y + r.h * 0.6) + 'px';
+  $('fx').appendChild(ring);
+  setTimeout(() => ring.remove(), 520);
+  const h = $('enemy-hit');
+  h.classList.remove('hit'); void h.offsetWidth; h.classList.add('hit');
 }
 
 // ----- Визуальные эффекты -----
@@ -5105,9 +5293,9 @@ function floatText(text, cls) {
   fx.appendChild(el);
   setTimeout(() => el.remove(), 880);
 }
-function deathFx(goldDrop) {
+function deathFx(goldDrop, coins = 3) {
   const now = performance.now();
-  if (now - lastDeathFx < 230) return;
+  if (coins <= 3 && now - lastDeathFx < 230) return;
   lastDeathFx = now;
   const fx = $('fx');
   if (fx.childElementCount > 40) return;
@@ -5129,7 +5317,8 @@ function deathFx(goldDrop) {
   floatText('+' + formatNum(goldDrop), 'loot');
 
   const t = relRect($('gold-target'));
-  for (let i = 0; i < 3; i++) {
+  const gap = coins > 3 ? 40 : 90;
+  for (let i = 0; i < coins; i++) {
     const coin = document.createElement('i');
     coin.className = 'ic ic-gold coin-fly';
     const sx = r.x + r.w / 2 + (Math.random() * 60 - 30), sy = r.y + r.h * 0.6 + (Math.random() * 30 - 15);
@@ -5143,9 +5332,9 @@ function deathFx(goldDrop) {
         { transform: 'translate(0,0) scale(.6)', opacity: 1 },
         { transform: `translate(${ux}px,-50px) scale(1.1)`, opacity: 1, offset: .3 },
         { transform: `translate(${dx}px,${dy}px) scale(.55)`, opacity: .4 }
-      ], { duration: 620 + i * 90, easing: 'ease-in', fill: 'forwards' });
+      ], { duration: 620 + i * gap, easing: 'ease-in', fill: 'forwards' });
     }
-    setTimeout(() => coin.remove(), 700 + i * 90);
+    setTimeout(() => coin.remove(), 700 + i * gap);
   }
   setTimeout(() => { const gp = $('gold-plate'); gp.classList.remove('pulse'); void gp.offsetWidth; gp.classList.add('pulse'); }, 640);
 }
@@ -5498,6 +5687,7 @@ function refreshSkills() {
   }
   const ready = canUseDarkRitual() && ritualGain() > 0;
   $('btn-ritual-big').classList.toggle('ready', ready);
+  refreshCrush();
 }
 
 // ============================================================
@@ -6350,9 +6540,9 @@ function updateMonsterUI() {
   const pct = Math.max(0, (monster.hp / monster.maxHp) * 100);
   $('ui-hp-fill').style.width = pct + '%';
   setText($('ui-hp-text'), formatNum(Math.max(0, Math.ceil(monster.hp))));
-  const tr = $('timer-row');
-  tr.classList.toggle('on', monster.isBoss);
-  if (monster.isBoss) {
+  const tr = $('timer-row'), timed = monster.maxTimer > 0;   // таймер есть у босса и у гоблина-казначея
+  tr.classList.toggle('on', timed);
+  if (timed) {
     $('ui-timer-fill').style.width = Math.max(0, monster.timer / monster.maxTimer * 100) + '%';
     setText($('ui-boss-timer'), Math.max(0, monster.timer).toFixed(1) + ' с');
   }
@@ -6422,7 +6612,8 @@ function refreshPanels() {
 
   const s = state.stats;
   setHTML($('stats-box'), `Рекорд этажа: <b>${s.maxStage}</b><br>Ритуалов: <b>${s.rituals}</b><br>Боссов этажей: <b>${s.bosses}</b><br>
-    Побед над Ежедневным Боссом: <b>${s.dailyWins}</b><br>Ударов: <b>${formatNum(s.clicks)}</b><br>Открыто локаций: <b>${state.seenLocs.length} / ${LOCATIONS.length}</b><br>Время в игре: <b>${formatTime(s.playSec)}</b>`);
+    Побед над Ежедневным Боссом: <b>${s.dailyWins}</b><br>Ударов: <b>${formatNum(s.clicks)}</b><br>
+    Лучшее комбо: <b>×${s.bestCombo}</b><br>Сокрушительных ударов: <b>${formatNum(s.crush)}</b><br>Поймано гоблинов-казначеев: <b>${formatNum(s.treasures)}</b><br>Открыто локаций: <b>${state.seenLocs.length} / ${LOCATIONS.length}</b><br>Время в игре: <b>${formatTime(s.playSec)}</b>`);
 }
 
 function refreshAll() {
@@ -6506,6 +6697,16 @@ function toast(msg, big) {
   setTimeout(() => el.remove(), 3100);
 }
 
+// ----- Что нового -----
+function showWhatsNew() {
+  state.seenVer = GAME_VER;
+  openModal('✨ Обновление «Сокрушительный удар»', `<div class="news">
+    <p><b>🔥 Комбо.</b> Тапай без пауз: каждый удар подряд даёт +1% к урону тапа, до +${COMBO_MAX}%. Пауза дольше ${String(COMBO_WINDOW / 1000).replace('.', ',')} сек, и комбо сгорает.</p>
+    <p><b>💥 Сокрушительный удар.</b> Тапы копят ярость. Когда кнопка «Удар» справа загорится, жми: ×${CRUSH_MULT} урона тапа и +${CRUSH_STUN} сек к таймеру босса.</p>
+    <p><b>💰 Гоблин-казначей.</b> Раз в пару минут выбегает с мешком золота. Убей его за ${TREASURE.time} секунд: золота как с ${TREASURE.gold} монстров, иногда 🧪 и 💎.</p>
+    <p>Ещё: 5 новых заданий и новая статистика на Карте.</p></div>`, [{ label: 'В бой!' }]);
+}
+
 // ----- Экспорт / импорт / сброс -----
 function exportSave() {
   save();
@@ -6546,11 +6747,12 @@ let secTick = 0;
 function gameTick() {
   const dps = getTotalDps(monster.isBoss);
   if (dps > 0) damageMonster(dps / 10);
-  if (monster.isBoss) {
+  if (monster.maxTimer > 0) {
     monster.timer -= 0.1;
-    if (monster.timer <= 0) bossFailed();
+    if (monster.timer <= 0) { if (monster.isBoss) bossFailed(); else treasureEscaped(); }
     else updateMonsterUI();
   }
+  comboTick();
 }
 function secondTick() {
   state.stats.playSec++;
@@ -6560,6 +6762,7 @@ function secondTick() {
     if (s.cd > 0) s.cd--;
   }
   if (siegeUnlocked()) sgTick(); else state.siege.worldTs = Date.now();
+  if (!treasureReady && state.stage >= TREASURE.minStage && --treasureIn <= 0) treasureReady = true;
   if (++secTick % 10 === 0) mineTick();
   if (secTick % 5 === 0) save();
   refreshAll();
@@ -6571,6 +6774,7 @@ function init() {
   for (let i = 0; i < 10; i++) { const p = document.createElement('span'); p.className = 'pip'; pips.appendChild(p); pipEls.push(p); }
 
   const loaded = load();
+  const news = loaded && state.seenVer !== GAME_VER;
   renderArtifacts();
   renderQuests();
   renderMap();
@@ -6585,10 +6789,12 @@ function init() {
       state.gold += inc.gold; state.bottles += inc.bottles; state.gems += inc.gems;
       if (inc.gold > 0 || inc.bottles > 0 || inc.gems > 0) {
         openModal('🌙 С возвращением!', `Тебя не было ${formatTime(away)}. Отряд добыл:<br><b>+${formatNum(inc.gold)} 🪙</b>`
-          + (inc.bottles ? `<br><b>+${inc.bottles} 🧪</b>` : '') + (inc.gems ? `<br><b>+${inc.gems} 💎</b>` : ''));
+          + (inc.bottles ? `<br><b>+${inc.bottles} 🧪</b>` : '') + (inc.gems ? `<br><b>+${inc.gems} 💎</b>` : ''),
+          [{ label: 'OK', fn: news ? showWhatsNew : null }]);
       }
     }
   }
+  if (news && !modalOpen()) showWhatsNew();
   if (state.wave >= 10) state.wave = 9;
   setBuyMult(state.buyMult);
   spawnMonster();
