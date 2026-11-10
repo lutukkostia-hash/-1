@@ -403,9 +403,34 @@ const ART_ICON = (() => {
     `<g transform="rotate(45 64 64) translate(64 64) scale(.92) translate(-64 -64)">${sword('b')}</g>`
   );
 
+  // Сокрушительный удар: боевой молот на фоне вспышки
+  const skillCrush = (() => {
+    const pt = (rad, deg) => {
+      const a = ((deg - 90) * Math.PI) / 180;
+      return [64 + rad * Math.cos(a), 66 + rad * Math.sin(a)];
+    };
+    const pts = [];
+    for (let i = 0; i < 20; i++) pts.push(pt(i % 2 ? 34 : (i % 4 ? 48 : 56), i * 18 + 9));
+    const burst = poly(pts);
+    const head = rr(28, 18, 72, 44, 10);
+    return SV(
+      STEEL + GOLD + rg('cg', [[0, '#fff6b0', 0.95], [0.6, '#ff9a2a', 0.5], [1, '#ff5a1a', 0]]),
+      fp(C(64, 66, 62), 'url(#cg)') +
+      P('a', burst, '#ffe45a', '#f0841c', fp(C(64, 66, 22), '#fffbe0', 0, ' opacity=".9"'), '-4 -4', 5) +
+      `<g transform="rotate(38 64 64)">` +
+      bar('M64 60V118', 10, '#9a6234', HL('M61.5 66V114', 2.5, 0.6, '#e6b282')) +
+      `<path d="M58 98H70M58 106H70" stroke="${O}" stroke-width="3"/>` +
+      P('b', head, 'url(#sl)', STEELSH,
+        `<path d="M44 18V62M84 18V62" stroke="#7d8aa2" stroke-width="5"/>` + HL('M38 28H90', 5, 0.9), '-6 -6') +
+      fp(rr(56, 30, 16, 20, 4), 'url(#gd)', 4) +
+      `</g>` +
+      spark(104, 30, 11, '#fff') + spark(20, 92, 8, '#fff')
+    );
+  })();
+
   return {
     heroes, artifacts, quests, daily, mines, shop, ritual, map,
     dps, click, gold, soulGray, soulBlue, bottle, gem,
-    skillBlood, skillArrows, settings, lock, stage,
+    skillBlood, skillArrows, skillCrush, settings, lock, stage,
   };
 })();
